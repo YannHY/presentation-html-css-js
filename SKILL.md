@@ -23,7 +23,7 @@ Ne jamais laisser une préférence générique de la skill remplacer une instruc
 - **Création ou refonte** : lire [references/editorial-contract.md](references/editorial-contract.md) et [references/design-language.md](references/design-language.md) avant de coder.
 - **Retouche ciblée** : lire [references/targeted-edits.md](references/targeted-edits.md). Lire aussi `design-language.md` seulement si la demande redessine ou ajoute un composant.
 - **Modification mêlant contenu et mise en scène** : appliquer les trois références.
-- **Profil Florimont** : lorsque l'utilisateur demande cette identité ou qu'une présentation existante emploie déjà son fond cadrillé, sa palette bleu-vert et sa barre inférieure, lire [references/florimont-visual-system.md](references/florimont-visual-system.md). Pour une nouvelle présentation, copier `assets/florimont-presentation-template/` puis remplacer le contenu d'exemple. Ne jamais appliquer ce profil par défaut à un autre projet.
+- **Modèle 1** : lorsque l'utilisateur demande ce modèle ou qu'une présentation existante emploie déjà son fond cadrillé, sa palette bleu-vert et sa barre inférieure, lire [references/presentation-model-1.md](references/presentation-model-1.md). Pour une nouvelle présentation, copier `assets/presentation-template-1/` puis remplacer le contenu d'exemple. Ne jamais appliquer ce modèle par défaut à un autre projet.
 
 ## Workflow de création ou de refonte
 
@@ -110,6 +110,6 @@ Lors d'une retouche, préserver le contrat d'interface existant sauf demande exp
 - [references/editorial-contract.md](references/editorial-contract.md) : matrice de contenu, notes, verrouillage et concision.
 - [references/design-language.md](references/design-language.md) : direction visuelle, cadres, représentations et mouvement.
 - [references/targeted-edits.md](references/targeted-edits.md) : retouches sans effets collatéraux.
-- [references/florimont-visual-system.md](references/florimont-visual-system.md) : profil optionnel Florimont, tokens, cadrillage, métadonnées et barre de commandes.
-- `assets/florimont-presentation-template/` : socle HTML, CSS et JavaScript réutilisable du profil Florimont.
+- [references/presentation-model-1.md](references/presentation-model-1.md) : modèle visuel optionnel, tokens, cadrillage, métadonnées et barre de commandes.
+- `assets/presentation-template-1/` : socle HTML, CSS et JavaScript réutilisable du modèle 1.
 - `scripts/validate_presentation.py` : contrôle statique, avec nombre de slides attendu en option.

@@ -1,6 +1,6 @@
-# Profil visuel Florimont
+# Modèle visuel 1
 
-Utiliser ce profil seulement lorsqu'il est demandé explicitement ou déjà présent dans la présentation. Pour une nouvelle présentation, copier `assets/florimont-presentation-template/` et conserver ses trois fichiers séparés.
+Utiliser ce modèle seulement lorsqu'il est demandé explicitement ou déjà présent dans la présentation. Pour une nouvelle présentation, copier `assets/presentation-template-1/` et conserver ses trois fichiers séparés.
 
 ## Palette et tokens
 

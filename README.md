@@ -13,7 +13,7 @@ Elle couvre aussi bien la création complète d’un diaporama que les retouches
 - retouches précises sans modifier les éléments non demandés ;
 - validation statique de la structure et des interactions ;
 - vérification visuelle à plusieurs résolutions ;
-- profil graphique Florimont optionnel avec modèle réutilisable.
+- modèle graphique optionnel et réutilisable.
 
 ## Installation
 
@@ -39,7 +39,7 @@ Sur la slide 4, fais apparaître les trois cartes successivement au clic.
 ```
 
 ```text
-Crée une nouvelle présentation avec le profil visuel Florimont.
+Crée une nouvelle présentation avec le modèle visuel 1.
 ```
 
 ## Structure
@@ -50,11 +50,11 @@ Crée une nouvelle présentation avec le profil visuel Florimont.
 ├── agents/
 │   └── openai.yaml
 ├── assets/
-│   └── florimont-presentation-template/
+│   └── presentation-template-1/
 ├── references/
 │   ├── design-language.md
 │   ├── editorial-contract.md
-│   ├── florimont-visual-system.md
+│   ├── presentation-model-1.md
 │   └── targeted-edits.md
 └── scripts/
     └── validate_presentation.py
@@ -70,9 +70,9 @@ python3 scripts/validate_presentation.py chemin/vers/index.html --expected-slide
 
 La vérification visuelle dans un navigateur reste obligatoire, notamment pour les animations, les étapes d’apparition et le plein écran.
 
-## Profil Florimont
+## Modèle 1
 
-Le profil optionnel documente notamment :
+Le modèle optionnel documente notamment :
 
 - la palette bleu–vert ;
 - le fond blanc cadrillé ;
@@ -81,7 +81,7 @@ Le profil optionnel documente notamment :
 - les raccourcis, les notes et le plein écran ;
 - les précautions nécessaires pour Safari.
 
-Un modèle HTML, CSS et JavaScript prêt à adapter est fourni dans `assets/florimont-presentation-template/`.
+Un modèle HTML, CSS et JavaScript prêt à adapter est fourni dans `assets/presentation-template-1/`.
 
 ## Auteur
 
