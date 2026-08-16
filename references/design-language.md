@@ -19,6 +19,7 @@ Reproduire les principes, pas une imitation superficielle. Les références expl
 - Éviter les dominantes beige, crème, violette ou les grands aplats colorés arbitraires.
 - Utiliser le bleu, le cyan, le vert ou une autre couleur issue de la référence comme accents, pas comme remplissage systématique.
 - Employer des cadres blancs arrondis lorsqu'un contenant est utile, avec bordure fine et ombre légère ou absente.
+- Arrondir les bords des illustrations, captures et visuels insérés lorsqu’ils ne possèdent pas déjà leurs propres coins arrondis. Ne pas ajouter un second arrondi ni un cadre supplémentaire lorsque le fichier source intègre déjà cette finition.
 - Garder beaucoup d'espace et une hiérarchie lisible en moins de deux secondes.
 
 ## Hiérarchie et densité
@@ -27,6 +28,7 @@ Reproduire les principes, pas une imitation superficielle. Les références expl
 - Viser 6 à 12 mots pour le titre et une seule courte phrase d'appui au maximum.
 - Afficher une phrase seulement si elle ajoute une information absente du titre et du visuel.
 - Traiter de façon homogène les éléments de même niveau : dimensions, alignement, rayon, espacement, numérotation et ordre d'apparition.
+- Préserver un rythme vertical généreux : séparer nettement le titre, le texte d’appui, le groupe principal, les exemples et la conclusion. Ne pas tasser les marges, les paddings ou les interlignes pour faire entrer le contenu ; simplifier ou répartir lorsque la slide ne respire plus.
 - Préférer une comparaison, une matrice, un diagramme ou une preuve visuelle à un paragraphe encadré.
 - Ne pas réduire fortement la police pour faire entrer trop de contenu ; simplifier ou répartir.
 
@@ -68,8 +70,9 @@ Ne jamais ajouter un contrôle graphique inerte pour rendre une illustration « 
 
 Définir les étapes à partir de l'ordre de parole, pas à partir du nombre d'éléments DOM.
 
-- Garder les slides statiques quand la simultanéité aide la compréhension.
-- Viser généralement 0 à 3 clics significatifs par slide ; dépasser ce nombre seulement pour une démonstration dense assumée.
+- Garder le titre visible comme repère fixe et révéler successivement au clavier chaque unité de contenu de la slide.
+- Une slide contenant plusieurs paragraphes, éléments de liste, cartes, étapes ou visuels doit posséder plusieurs builds ; ne pas tout afficher dans l'état initial.
+- Le nombre de clics découle du nombre d'unités sémantiques à présenter. Regrouper seulement les éléments qui doivent réellement être perçus au même moment.
 - Révéler une unité sémantique par clic, pas chaque mot ni chaque décoration.
 - Faire apparaître successivement les blocs présentés successivement.
 - Déclencher l'animation interne seulement lorsque son bloc devient visible.

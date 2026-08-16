@@ -74,6 +74,15 @@ Lors d'une retouche, préserver le contrat d'interface existant sauf demande exp
 - Maintenir une géométrie fixe pendant les apparitions afin d'éviter les sauts de mise en page.
 - Ne pas introduire de dépendance distante indispensable à une présentation locale sans fallback.
 
+### Séquençage obligatoire du contenu
+
+- Dans toute création ou refonte, faire apparaître successivement au clavier les unités de contenu de chaque slide : paragraphes, éléments de liste, cartes, étapes, visuels et conclusions.
+- Laisser le titre visible comme repère fixe, puis attribuer un ordre d'apparition explicite à chaque unité avec le mécanisme de build de la présentation.
+- Faire parcourir tous les builds de la slide avant de passer à la suivante avec `ArrowRight`, `PageDown` ou `Space`. Avec `ArrowLeft` ou `PageUp`, masquer d'abord la dernière unité révélée avant de revenir à la slide précédente.
+- Réserver dès l'état initial la géométrie finale de tous les éléments masqués afin que les apparitions ne déplacent aucun contenu.
+- Conserver le séquençage sous `prefers-reduced-motion` ; rendre seulement les transitions instantanées.
+- Ne laisser une slide entièrement statique que si elle ne contient qu'une seule unité de contenu en plus de son titre.
+
 ## Vérification obligatoire
 
 ### Contenu
@@ -93,6 +102,8 @@ Lors d'une retouche, préserver le contrat d'interface existant sauf demande exp
 ### Mouvement et interaction
 
 - Tester l'état initial puis chaque clic de chaque slide animée.
+- Vérifier que chaque unité de contenu apparaît dans l'ordre au clavier et qu'aucune slide contenant plusieurs unités ne les affiche toutes dès son état initial.
+- Vérifier que la navigation arrière masque les builds dans l'ordre inverse avant de changer de slide.
 - Capturer le départ, le milieu et l'état final des démonstrations longues.
 - Vérifier que les animations internes commencent seulement lorsque leur bloc apparaît et finissent dans un état stable.
 - Vérifier `prefers-reduced-motion` sans supprimer le séquençage ni le contenu.
