@@ -16,7 +16,7 @@ Elle couvre aussi bien la création complète d’un diaporama que les retouches
 - validation statique de la structure et des interactions ;
 - vérification visuelle à plusieurs résolutions, et mesure de la réserve verticale de chaque slide ;
 - calendriers interactifs à vues semaine, mois et année réellement navigables ;
-- deux modèles graphiques optionnels et réutilisables.
+- trois modèles graphiques optionnels et réutilisables, dont une variante sombre.
 
 ## Installation
 
@@ -73,7 +73,8 @@ Ajoute une slide présentant le calendrier de l’année, avec des vues mois et 
 │   └── openai.yaml           manifeste propre à Codex
 ├── assets/
 │   ├── presentation-template-1/   socle du modèle 1
-│   └── presentation-template-2/   socle du modèle 2, logo générique à remplacer
+│   ├── presentation-template-2/   socle du modèle 2, logo générique à remplacer
+│   └── presentation-template-3/   socle du modèle 3, variante sombre
 ├── references/
 │   ├── design-language.md         grammaire visuelle
 │   ├── editorial-contract.md      contenu, notes, contenus figés
@@ -81,7 +82,8 @@ Ajoute une slide présentant le calendrier de l’année, avec des vues mois et 
 │   ├── verification-mesuree.md    mesurer plutôt que regarder
 │   ├── interactive-calendar.md    vues semaine, mois et année
 │   ├── presentation-model-1.md
-│   └── presentation-model-2.md
+│   ├── presentation-model-2.md
+│   └── presentation-model-3.md
 └── scripts/
     └── validate_presentation.py
 ```
@@ -118,6 +120,18 @@ Second modèle optionnel, dérivé d'un gabarit institutionnel :
 - une barre d'en-tête portée par `body`, qui échappe au zoom du plein écran.
 
 Le socle est dans `assets/presentation-template-2/`. Il partage le `presentation.js` du modèle 1 sans modification. **Le logo livré n'est qu'un repère géométrique neutre** : remplacer `logo.svg` par celui de l'établissement, et renseigner `data-institution` dans `index.html`.
+
+## Modèle 3
+
+Variante **sombre** du modèle 1 : mêmes classes, mêmes slides, même `presentation.js`. Seules changent la palette et les surfaces.
+
+- fond `#0b1220`, cartes `#141c2e`, cadrillage clair à faible opacité ;
+- hiérarchie des teintes inversée — sur fond sombre, c'est la teinte la plus claire qui ressort ;
+- fonds d'accent en voiles translucides plutôt qu'en aplats pâles ;
+- panneaux de notes plus clairs que le fond d'un cran, jamais blancs, pour ne pas éblouir en salle obscurcie ;
+- ratios de contraste mesurés et documentés, le plus faible à 4,30 pour un seuil de 3,0.
+
+Le socle est dans `assets/presentation-template-3/`.
 
 ## Auteur
 

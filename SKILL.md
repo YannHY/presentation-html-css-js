@@ -27,6 +27,7 @@ Ne jamais laisser une préférence générique de la skill remplacer une instruc
 - **Insertion ou suppression de slide** : lire la section correspondante de [references/verification-mesuree.md](references/verification-mesuree.md). Les identifiants doivent rester contigus et des sélecteurs CSS visent des slides par leur numéro.
 - **Modèle 1** : lorsque l'utilisateur demande ce modèle ou qu'une présentation existante emploie déjà son fond cadrillé, sa palette bleu-vert et sa barre inférieure, lire [references/presentation-model-1.md](references/presentation-model-1.md). Pour une nouvelle présentation, copier `assets/presentation-template-1/` puis remplacer le contenu d'exemple. Ne jamais appliquer ce modèle par défaut à un autre projet.
 - **Modèle 2** : lorsque l'utilisateur demande ce modèle, ou qu'une présentation existante emploie déjà son cambré institutionnel en pleine hauteur sur le bord gauche et ses deux bleus `#0b4295` et `#006eb7`, lire [references/presentation-model-2.md](references/presentation-model-2.md). Pour une nouvelle présentation, copier `assets/presentation-template-2/` puis remplacer le contenu d'exemple et le logo. Ne jamais appliquer ce modèle par défaut à un autre projet.
+- **Modèle 3** : lorsque l'utilisateur demande un mode sombre, ce modèle, ou qu'une présentation existante emploie déjà son fond `#0b1220` et ses surfaces sombres, lire [references/presentation-model-3.md](references/presentation-model-3.md). Pour une nouvelle présentation, copier `assets/presentation-template-3/`. C'est le modèle 1 en sombre : mêmes classes et même JavaScript. Ne jamais appliquer ce modèle par défaut à un autre projet.
 
 ## Workflow de création ou de refonte
 
@@ -132,6 +133,8 @@ Lors d'une retouche, préserver le contrat d'interface existant sauf demande exp
 - `assets/presentation-template-1/` : socle HTML, CSS et JavaScript réutilisable du modèle 1.
 - [references/presentation-model-2.md](references/presentation-model-2.md) : modèle visuel optionnel, cambré institutionnel, deux bleus de marque, dégagement du contenu et barre d'en-tête.
 - `assets/presentation-template-2/` : socle réutilisable du modèle 2. Même `presentation.js` que le modèle 1, plus `logo.png` à remplacer.
+- [references/presentation-model-3.md](references/presentation-model-3.md) : variante sombre du modèle 1, inversion de la hiérarchie des teintes et ratios de contraste mesurés.
+- `assets/presentation-template-3/` : socle réutilisable du modèle 3.
 - [references/interactive-calendar.md](references/interactive-calendar.md) : vues semaine, mois et année réellement navigables, séries récurrentes, légende et décomptes.
 - [references/verification-mesuree.md](references/verification-mesuree.md) : mesure de la réserve, pièges de spécificité et d'animation, renumérotation des slides, limites de l'aperçu.
 - `scripts/validate_presentation.py` : contrôle statique, avec nombre de slides attendu en option.
