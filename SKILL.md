@@ -23,7 +23,10 @@ Ne jamais laisser une préférence générique de la skill remplacer une instruc
 - **Création ou refonte** : lire [references/editorial-contract.md](references/editorial-contract.md) et [references/design-language.md](references/design-language.md) avant de coder.
 - **Retouche ciblée** : lire [references/targeted-edits.md](references/targeted-edits.md). Lire aussi `design-language.md` seulement si la demande redessine ou ajoute un composant.
 - **Modification mêlant contenu et mise en scène** : appliquer les trois références.
+- **Calendrier ou programme daté** : lire [references/interactive-calendar.md](references/interactive-calendar.md) avant de composer une vue calendaire, un agenda ou une frise de rendez-vous.
+- **Insertion ou suppression de slide** : lire la section correspondante de [references/verification-mesuree.md](references/verification-mesuree.md). Les identifiants doivent rester contigus et des sélecteurs CSS visent des slides par leur numéro.
 - **Modèle 1** : lorsque l'utilisateur demande ce modèle ou qu'une présentation existante emploie déjà son fond cadrillé, sa palette bleu-vert et sa barre inférieure, lire [references/presentation-model-1.md](references/presentation-model-1.md). Pour une nouvelle présentation, copier `assets/presentation-template-1/` puis remplacer le contenu d'exemple. Ne jamais appliquer ce modèle par défaut à un autre projet.
+- **Modèle 2** : lorsque l'utilisateur demande ce modèle, ou qu'une présentation existante emploie déjà son cambré institutionnel en pleine hauteur sur le bord gauche et ses deux bleus `#0b4295` et `#006eb7`, lire [references/presentation-model-2.md](references/presentation-model-2.md). Pour une nouvelle présentation, copier `assets/presentation-template-2/` puis remplacer le contenu d'exemple et le logo. Ne jamais appliquer ce modèle par défaut à un autre projet.
 
 ## Workflow de création ou de refonte
 
@@ -97,7 +100,9 @@ Lors d'une retouche, préserver le contrat d'interface existant sauf demande exp
 - Vérifier l'homogénéité des éléments frères.
 - Limiter chaque bloc à un seul contenant décoratif principal.
 - Contrôler la précision interne des visuels et l'absence de collisions, coupes ou compressions.
-- Inspecter toutes les slides à `1366×768` et `1600×900`, puis au moins un format étroit pertinent.
+- **Mesurer la réserve verticale de chaque slide** — place disponible moins hauteur du contenu — et non `scrollHeight`, qui ne détecte pas le débordement d'un contenu centré verticalement et renvoie de faux « aucun débordement ». Procédure dans [references/verification-mesuree.md](references/verification-mesuree.md).
+- Balayer toutes les slides avec tous les builds révélés, à chaque format : `1366×768`, `1600×900`, un format bas comme `1280×720`, puis au moins un format étroit pertinent.
+- Viser une réserve confortable et non nulle : quelques pixels de marge débordent au format immédiatement inférieur.
 
 ### Mouvement et interaction
 
@@ -108,6 +113,8 @@ Lors d'une retouche, préserver le contrat d'interface existant sauf demande exp
 - Vérifier que les animations internes commencent seulement lorsque leur bloc apparaît et finissent dans un état stable.
 - Vérifier `prefers-reduced-motion` sans supprimer le séquençage ni le contenu.
 - Tester clavier, tactile, hash, chapitres, compteur, notes, plein écran, focus et console.
+- Pour tout contrôle ajouté, piloter réellement chaque état et vérifier qu'il ne bloque pas la navigation clavier du deck : le focus doit être relâché après un clic souris, conservé après une activation clavier.
+- Vérifier que les décomptes d'une légende correspondent au nombre de repères réellement peints, catégorie par catégorie.
 
 ### Régression
 
@@ -123,4 +130,8 @@ Lors d'une retouche, préserver le contrat d'interface existant sauf demande exp
 - [references/targeted-edits.md](references/targeted-edits.md) : retouches sans effets collatéraux.
 - [references/presentation-model-1.md](references/presentation-model-1.md) : modèle visuel optionnel, tokens, cadrillage, métadonnées et barre de commandes.
 - `assets/presentation-template-1/` : socle HTML, CSS et JavaScript réutilisable du modèle 1.
+- [references/presentation-model-2.md](references/presentation-model-2.md) : modèle visuel optionnel, cambré institutionnel, deux bleus de marque, dégagement du contenu et barre d'en-tête.
+- `assets/presentation-template-2/` : socle réutilisable du modèle 2. Même `presentation.js` que le modèle 1, plus `logo.png` à remplacer.
+- [references/interactive-calendar.md](references/interactive-calendar.md) : vues semaine, mois et année réellement navigables, séries récurrentes, légende et décomptes.
+- [references/verification-mesuree.md](references/verification-mesuree.md) : mesure de la réserve, pièges de spécificité et d'animation, renumérotation des slides, limites de l'aperçu.
 - `scripts/validate_presentation.py` : contrôle statique, avec nombre de slides attendu en option.

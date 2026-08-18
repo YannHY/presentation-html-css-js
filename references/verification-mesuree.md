@@ -1,0 +1,92 @@
+# Vérifier par la mesure
+
+Regarder une capture ne suffit pas, et certaines vérifications naïves donnent de faux « tout va bien ». Ce document rassemble les pièges rencontrés et la mesure qui les détecte.
+
+## Le débordement vertical ne se mesure pas avec `scrollHeight`
+
+Les slides centrent leur contenu (`place-items: center`). Quand le contenu dépasse, il dépasse **par le haut et par le bas** : `scrollHeight` ne compte que le débordement inférieur et renvoie souvent `0`. Une slide tronquée passe alors pour saine.
+
+La seule métrique fiable est la **réserve** : place disponible moins hauteur du contenu.
+
+```js
+const cs = getComputedStyle(slide);
+const dispo = slide.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+const reserve = dispo - slide.querySelector('.slide-inner').getBoundingClientRect().height;
+// reserve < 0  =>  contenu rogné, même si scrollHeight vaut 0
+```
+
+- Balayer **toutes** les slides, tous les builds révélés, à chaque format testé.
+- Viser une réserve confortable, pas nulle : une réserve de quelques pixels déborde au format immédiatement inférieur.
+- Après toute correction de hauteur, remesurer la slide corrigée **et** les autres : un réglage global les touche toutes.
+
+## Ne pas rogner à l'aveugle : trouver le vrai moteur de la hauteur
+
+Une slide qui déborde de 12 px ne se corrige pas en réduisant le premier candidat venu. Mesurer bloc par bloc, et se méfier :
+
+- Un `min-height` ne contraint rien si le contenu est déjà plus haut. Le réduire ne gagne alors aucun pixel.
+- Dans deux colonnes égalisées par une grille, réduire la plus courte ne gagne rien : c'est la plus haute qui dimensionne.
+- Tester plusieurs candidats en injectant du CSS temporaire et lire les chiffres, plutôt que de raisonner :
+
+```js
+const st = document.createElement('style'); document.head.appendChild(st);
+st.textContent = '.candidat { … }';   // mesurer, comparer, puis st.remove()
+```
+
+## Prouver un invariant, ne pas le supposer
+
+Quand une retouche doit laisser un élément exactement en place, le prouver par un témoin. Exemple : compenser un changement d'interligne par un décalage de `top` — la théorie dit que c'est exact, la mesure le confirme sur un élément de contrôle portant les deux réglages successifs. Un écart mesuré de `0` vaut mieux qu'un raisonnement juste.
+
+## Pièges CSS
+
+**La spécificité écrase les styles d'un composant ajouté.** Un `<p>` inséré dans un conteneur `.card` hérite de `.card p` (0,0,2,0), plus spécifique qu'une classe seule (0,0,1,0) : taille et marges déclarées sont silencieusement perdues. Vérifier la valeur *calculée*, pas celle écrite :
+
+```js
+getComputedStyle(el).marginBottom  // "0px" alors que la règle dit 16px
+```
+
+Cibler depuis le parent du composant pour reprendre la main.
+
+**Une règle qui paraît morte ne l'est pas forcément.** Déplacer un élément et supprimer la règle qui le visait fait disparaître ce qu'elle portait — un `gap`, une marge. Avant de supprimer, chercher ce que la règle apportait réellement. Et si le style manquant vient d'une règle trop locale, le corriger **à la racine** : les autres occurrences du même composant souffrent probablement du même défaut.
+
+**Ne pas déclarer `opacity: 0` dans la règle d'animation.** Sa spécificité écrase le garde-fou `prefers-reduced-motion`, et le contenu reste invisible pour qui a réduit les animations. Laisser `animation-fill-mode: both` appliquer l'état initial des keyframes ; le garde-fou peut alors rétablir l'opacité.
+
+**Animer le glyphe, pas son support.** Un `<i>` d'icône stylé en pastille *est* la pastille : l'animer dilate le fond. Porter l'animation sur `::before`, qui est le glyphe.
+
+**Un battement régulier n'a pas de temps mort.** Des keyframes concentrées sur les premiers pourcents suivies d'une longue immobilité se lisent comme des à-coups. Un aller-retour unique en `ease-in-out` est régulier. Le contrôler en échantillonnant la courbe :
+
+```js
+const a = el.getAnimations({subtree: true})[0];
+a.pause(); a.currentTime = t;   // lire le transform calculé, pas juger à l'œil
+```
+
+## Insérer une slide sans casser les animations
+
+Les identifiants doivent former une suite contiguë `slide-1..N` — le validateur le vérifie — et des sélecteurs CSS visent des slides par leur numéro.
+
+1. Renuméroter **en ordre décroissant** pour éviter les collisions, avec une borne de chiffre : `slide-12` ne doit pas être attrapé en cherchant `slide-1`.
+
+```python
+for n in range(dernier, position - 1, -1):
+    s = re.sub(r'slide-%d(?!\d)' % n, 'slide-%d' % (n + 1), s)
+```
+
+2. Le littéral JavaScript `` `#slide-${…}` `` ne contient pas de chiffre : il reste intact. Le vérifier tout de même.
+3. Après renumérotation, **vérifier que chaque animation vise toujours son contenu** : interroger `#slide-N .selecteur-attendu` pour chacune.
+4. Mettre à jour le compteur statique du pied de page.
+
+## Le pane d'aperçu peut mentir
+
+Constaté à répétition dans cette skill : l'aperçu sert des captures et des coordonnées de clic périmées, parfois décalées de dizaines de pixels, et met en cache le fichier.
+
+- Forcer le rechargement par une chaîne de requête (`?v=2`), un simple rechargement ne suffit pas.
+- **Les mesures DOM restent fiables** quand les captures ne le sont pas : diagnostiquer par mesure, confirmer visuellement ensuite.
+- Un rendu qui « disparaît » après une transition de slide est souvent un défaut de repeinte de l'aperçu, pas du deck : recharger à froid avant de conclure.
+- Pour juger un détail de quelques pixels, agrandir temporairement l'élément (`transform: scale(3)`), capturer, puis recharger. Vérifier qu'aucune transformation ne subsiste.
+- Ouvrir un onglet neuf donne parfois la seule capture juste.
+- Si l'outil ne parvient pas à cliquer, tester le gestionnaire en émettant l'évènement voulu ; le dire explicitement dans le compte rendu.
+
+## Vérifier les données de la source
+
+- **Contrôler les jours de semaine annoncés** avant de construire quoi que ce soit de daté : le calcul est immédiat, et une erreur projetée est visible de tous.
+- **Additionner les totaux fournis.** Un écart entre la somme des détails et le total annoncé se signale avant de composer, et se laisse hors de la projection tant qu'il n'est pas expliqué.
+- Ne jamais afficher un total dérivé de données incomplètes : une frise sans somme ne peut pas contredire un chiffre voisin.

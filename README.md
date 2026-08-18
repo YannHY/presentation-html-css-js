@@ -12,19 +12,35 @@ Elle couvre aussi bien la création complète d’un diaporama que les retouches
 - notes de l’intervenant et mode plein écran ;
 - retouches précises sans modifier les éléments non demandés ;
 - validation statique de la structure et des interactions ;
-- vérification visuelle à plusieurs résolutions ;
-- modèle graphique optionnel et réutilisable.
+- vérification visuelle à plusieurs résolutions, et mesure de la réserve verticale de chaque slide ;
+- calendriers interactifs à vues semaine, mois et année réellement navigables ;
+- deux modèles graphiques optionnels et réutilisables.
 
 ## Installation
 
-Cloner le dépôt dans le dossier des skills personnelles de Codex :
+Cloner le dépôt dans le dossier des skills personnelles de son outil.
+
+**Claude Code** :
+
+```bash
+git clone https://github.com/YannHY/presentation-html-css-js.git \
+  ~/.claude/skills/create-interactive-html-presentations
+```
+
+**Codex** :
 
 ```bash
 git clone https://github.com/YannHY/presentation-html-css-js.git \
   ~/.codex/skills/create-interactive-html-presentations
 ```
 
-La skill sera ensuite disponible sous le nom `create-interactive-html-presentations`.
+Le dossier doit porter ce nom exact. La skill est ensuite disponible sous le nom `create-interactive-html-presentations`, et se déclenche d'elle-même sur une demande de présentation HTML.
+
+Pour récupérer les mises à jour :
+
+```bash
+git -C ~/.claude/skills/create-interactive-html-presentations pull
+```
 
 ## Utilisation
 
