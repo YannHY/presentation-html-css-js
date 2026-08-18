@@ -65,6 +65,20 @@ Puis **regarder la capture la plus exigeante** du deck — celle qui porte le vi
 
 Le validateur OOXML de la skill `pptx` d'Anthropic exige Python 3.10 : il échoue sur un poste en 3.9. Dans ce cas, contrôler le paquet à la main — parties essentielles présentes, XML bien formé, slides déclarées dans `sldIdLst` toutes résolues.
 
+### Si PowerPoint est installé sur le poste
+
+Ne pas chercher à le piloter par AppleScript : la moindre boîte de dialogue — autorisation d'automatisation de macOS, écran de démarrage, session — fait expirer l'AppleEvent au bout de soixante secondes, sans rien dire de la validité du fichier. Trois tentatives suffisent à le constater.
+
+Le signal fiable est ailleurs. Demander l'ouverture, puis vérifier que PowerPoint **tient le fichier ouvert** :
+
+```bash
+open -a "Microsoft PowerPoint" sortie.pptx
+lsof sortie.pptx          # PowerPoint doit y figurer avec un descripteur
+ls -a | grep '^~\$'       # PowerPoint crée un fichier de verrouillage ~$nom.pptx
+```
+
+Si PowerPoint détient un descripteur et a posé son verrou, le fichier a été accepté et analysé : ni réparation ni refus. Le rendu proprement dit, lui, ne se juge qu'à l'œil, sur l'écran de l'utilisateur.
+
 ## Mode natif : ce qu'il rapporte
 
 Le mode natif imprime la liste de **tout ce qu'il n'a pas su convertir**, par classe et par nombre d'occurrences. Trois familles :
