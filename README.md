@@ -1,6 +1,8 @@
 # Create Interactive HTML Presentations
 
-Skill Codex pour créer, adapter et vérifier des présentations HTML interactives, éditoriales et visuellement soignées.
+Skill pour **Claude Code** et **Codex**, destinée à créer, adapter et vérifier des présentations HTML interactives, éditoriales et visuellement soignées.
+
+Les deux outils lisent le même `SKILL.md` et les mêmes références : le contenu de la skill est identique. Seuls diffèrent le dossier d'installation, et le fichier `agents/openai.yaml`, propre à Codex, que Claude Code ignore.
 
 Elle couvre aussi bien la création complète d’un diaporama que les retouches ciblées d’une présentation existante, avec une attention particulière portée au contenu, au rythme des apparitions, à l’accessibilité et aux régressions visuelles.
 
@@ -58,20 +60,28 @@ Sur la slide 4, fais apparaître les trois cartes successivement au clic.
 Crée une nouvelle présentation avec le modèle visuel 1.
 ```
 
+```text
+Ajoute une slide présentant le calendrier de l’année, avec des vues mois et semaine.
+```
+
 ## Structure
 
 ```text
 .
-├── SKILL.md
+├── SKILL.md                  point d'entrée, lu par Claude Code et Codex
 ├── agents/
-│   └── openai.yaml
+│   └── openai.yaml           manifeste propre à Codex
 ├── assets/
-│   └── presentation-template-1/
+│   ├── presentation-template-1/   socle du modèle 1
+│   └── presentation-template-2/   socle du modèle 2, logo générique à remplacer
 ├── references/
-│   ├── design-language.md
-│   ├── editorial-contract.md
+│   ├── design-language.md         grammaire visuelle
+│   ├── editorial-contract.md      contenu, notes, contenus figés
+│   ├── targeted-edits.md          retouches sans effets collatéraux
+│   ├── verification-mesuree.md    mesurer plutôt que regarder
+│   ├── interactive-calendar.md    vues semaine, mois et année
 │   ├── presentation-model-1.md
-│   └── targeted-edits.md
+│   └── presentation-model-2.md
 └── scripts/
     └── validate_presentation.py
 ```
@@ -98,6 +108,16 @@ Le modèle optionnel documente notamment :
 - les précautions nécessaires pour Safari.
 
 Un modèle HTML, CSS et JavaScript prêt à adapter est fourni dans `assets/presentation-template-1/`.
+
+## Modèle 2
+
+Second modèle optionnel, dérivé d'un gabarit institutionnel :
+
+- un cambré en SVG pleine hauteur sur le bord gauche, dont la géométrie commande le décalage du contenu ;
+- deux bleus de marque et un fond uni, sans cadrillage ;
+- une barre d'en-tête portée par `body`, qui échappe au zoom du plein écran.
+
+Le socle est dans `assets/presentation-template-2/`. Il partage le `presentation.js` du modèle 1 sans modification. **Le logo livré n'est qu'un repère géométrique neutre** : remplacer `logo.svg` par celui de l'établissement, et renseigner `data-institution` dans `index.html`.
 
 ## Auteur
 
