@@ -23,6 +23,7 @@ Ne jamais laisser une préférence générique de la skill remplacer une instruc
 - **Création ou refonte** : lire [references/editorial-contract.md](references/editorial-contract.md) et [references/design-language.md](references/design-language.md) avant de coder.
 - **Retouche ciblée** : lire [references/targeted-edits.md](references/targeted-edits.md). Lire aussi `design-language.md` seulement si la demande redessine ou ajoute un composant.
 - **Modification mêlant contenu et mise en scène** : appliquer les trois références.
+- **Export PowerPoint** : le livrable par défaut de cette skill est une **page web**. Ne produire un `.pptx` que sur demande explicite, et lire alors [references/export-powerpoint.md](references/export-powerpoint.md). Employer le mode `images`, fidèle, qui capture chaque état ; ne proposer le mode `natif` que pour un deck purement textuel, car il ne porte que du texte et vide une présentation visuelle.
 - **Calendrier ou programme daté** : lire [references/interactive-calendar.md](references/interactive-calendar.md) avant de composer une vue calendaire, un agenda ou une frise de rendez-vous.
 - **Insertion ou suppression de slide** : lire la section correspondante de [references/verification-mesuree.md](references/verification-mesuree.md). Les identifiants doivent rester contigus et des sélecteurs CSS visent des slides par leur numéro.
 - **Modèle 1** : lorsque l'utilisateur demande ce modèle ou qu'une présentation existante emploie déjà son fond cadrillé, sa palette bleu-vert et sa barre inférieure, lire [references/presentation-model-1.md](references/presentation-model-1.md). Pour une nouvelle présentation, copier `assets/presentation-template-1/` puis remplacer le contenu d'exemple. Ne jamais appliquer ce modèle par défaut à un autre projet.
@@ -86,6 +87,8 @@ Lors d'une retouche, préserver le contrat d'interface existant sauf demande exp
 - Réserver dès l'état initial la géométrie finale de tous les éléments masqués afin que les apparitions ne déplacent aucun contenu.
 - Conserver le séquençage sous `prefers-reduced-motion` ; rendre seulement les transitions instantanées.
 - Ne laisser une slide entièrement statique que si elle ne contient qu'une seule unité de contenu en plus de son titre.
+- **Réserver les apparitions et les animations au plein écran.** Hors plein écran, révéler d'emblée toutes les unités de la slide et neutraliser transitions et animations : on relit et on retouche sans dérouler les étapes. Piloter cela par une fonction unique — `buildsActifs()` — qui exige le plein écran et l'absence de `prefers-reduced-motion`, et rejouer l'état des apparitions à l'entrée comme à la sortie du plein écran.
+- Conséquence à ne pas oublier : tout élément dont l'état initial est masqué par sa règle d'animation doit être rétabli hors plein écran, exactement comme sous `prefers-reduced-motion`, sinon il reste invisible.
 
 ## Vérification obligatoire
 
@@ -138,3 +141,5 @@ Lors d'une retouche, préserver le contrat d'interface existant sauf demande exp
 - [references/interactive-calendar.md](references/interactive-calendar.md) : vues semaine, mois et année réellement navigables, séries récurrentes, légende et décomptes.
 - [references/verification-mesuree.md](references/verification-mesuree.md) : mesure de la réserve, pièges de spécificité et d'animation, renumérotation des slides, limites de l'aperçu.
 - `scripts/validate_presentation.py` : contrôle statique, avec nombre de slides attendu en option.
+- [references/export-powerpoint.md](references/export-powerpoint.md) : export `.pptx`, choix du mode, crochet de capture, durée et vérification.
+- `scripts/export_pptx.py` : exportateur PowerPoint. Dépend de `python-pptx` et, en mode images, de Chrome. Long : lancer en arrière-plan.

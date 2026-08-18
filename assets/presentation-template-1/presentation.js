@@ -1,4 +1,5 @@
 (() => {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const slides = [...document.querySelectorAll('.slide')];
   const chapters = [...new Set(slides.map(slide => slide.dataset.chapter))];
   const chapterLabels = Object.fromEntries(slides.map(slide => [slide.dataset.chapter, slide.dataset.chapterLabel || slide.dataset.chapter]));
@@ -44,15 +45,22 @@
     shortcutsToggle.setAttribute('aria-label', 'Afficher les raccourcis clavier');
   }
 
+  // Les apparitions ne servent qu'en projection : hors plein écran la slide se
+  // montre entière, pour relire et retoucher sans dérouler les étapes.
+  function buildsActifs() {
+    return Boolean(fullscreenElement()) && !reducedMotion.matches;
+  }
+
   function updateBuildState() {
+    const revealAll = !buildsActifs();
     const lastBuild = maxBuild();
     slides[current].querySelectorAll('[data-build]').forEach(item => {
-      const visible = Number(item.dataset.build) <= currentBuild;
+      const visible = revealAll || Number(item.dataset.build) <= currentBuild;
       item.classList.toggle('is-visible', visible);
       item.setAttribute('aria-hidden', String(!visible));
     });
-    const hasNextBuild = currentBuild < lastBuild;
-    const hasPreviousBuild = currentBuild > 1;
+    const hasNextBuild = !revealAll && currentBuild < lastBuild;
+    const hasPreviousBuild = !revealAll && currentBuild > 1;
     nextButton.classList.toggle('has-build', hasNextBuild);
     nextButton.disabled = current === slides.length - 1 && !hasNextBuild;
     previousButton.disabled = current === 0 && !hasPreviousBuild;
@@ -64,7 +72,7 @@
     const next = Math.max(0, Math.min(slides.length - 1, index));
     const changed = next !== current;
     current = next;
-    currentBuild = reveal === 'end' ? maxBuild(current) : 1;
+    currentBuild = reveal === 'end' && buildsActifs() ? maxBuild(current) : 1;
     slides.forEach((slide, slideIndex) => {
       const active = slideIndex === current;
       slide.classList.toggle('active', active);
@@ -101,15 +109,17 @@
     icon.classList.toggle('fa-expand', !active);
     icon.classList.toggle('fa-compress', active);
     fullscreenButton.setAttribute('aria-label', active ? 'Quitter le plein écran' : 'Passer en plein écran');
+    currentBuild = 1;
+    updateBuildState();
   }
 
   function advance() {
-    if (currentBuild < maxBuild()) { currentBuild += 1; updateBuildState(); return; }
+    if (buildsActifs() && currentBuild < maxBuild()) { currentBuild += 1; updateBuildState(); return; }
     if (current < slides.length - 1) goTo(current + 1);
   }
 
   function retreat() {
-    if (currentBuild > 1) { currentBuild -= 1; updateBuildState(); return; }
+    if (buildsActifs() && currentBuild > 1) { currentBuild -= 1; updateBuildState(); return; }
     if (current > 0) goTo(current - 1, { reveal: 'end' });
   }
 

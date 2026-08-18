@@ -18,6 +18,8 @@ Elle couvre aussi bien la création complète d’un diaporama que les retouches
 - calendriers interactifs à vues semaine, mois et année réellement navigables ;
 - trois modèles graphiques optionnels et réutilisables, dont une variante sombre.
 
+Le livrable par défaut est une **page web**. Un export **PowerPoint** est disponible en option : par captures fidèles de chaque état, ou en formes natives éditables pour un deck purement textuel.
+
 ## Installation
 
 Cloner le dépôt dans le dossier des skills personnelles de son outil.
@@ -80,12 +82,14 @@ Ajoute une slide présentant le calendrier de l’année, avec des vues mois et 
 │   ├── editorial-contract.md      contenu, notes, contenus figés
 │   ├── targeted-edits.md          retouches sans effets collatéraux
 │   ├── verification-mesuree.md    mesurer plutôt que regarder
+│   ├── export-powerpoint.md       export .pptx : périmètre et limites
 │   ├── interactive-calendar.md    vues semaine, mois et année
 │   ├── presentation-model-1.md
 │   ├── presentation-model-2.md
 │   └── presentation-model-3.md
 └── scripts/
-    └── validate_presentation.py
+    ├── validate_presentation.py   contrôle statique
+    └── export_pptx.py             export PowerPoint, optionnel
 ```
 
 ## Validation
@@ -132,6 +136,21 @@ Variante **sombre** du modèle 1 : mêmes classes, mêmes slides, même `present
 - ratios de contraste mesurés et documentés, le plus faible à 4,30 pour un seuil de 3,0.
 
 Le socle est dans `assets/presentation-template-3/`.
+
+## Export PowerPoint
+
+Optionnel, sur demande.
+
+```bash
+pip install --user python-pptx
+python3 scripts/export_pptx.py chemin/vers/index.html -o sortie.pptx
+```
+
+Le mode par défaut, `images`, capture chaque état avec Chrome et le pose en pleine page : le rendu est **identique au web** — SVG, cambré, trames de données, calendrier, icônes. Une slide est émise par étape d'apparition, ce qui préserve le déroulé, et les notes d'intervenant sont conservées. En contrepartie les textes ne sont pas éditables et le fichier est lourd.
+
+Le mode `--mode natif` produit de vraies formes PowerPoint éditables, mais ne porte que du texte : sur une présentation visuelle il ne rend qu'un squelette. À réserver à un deck purement textuel.
+
+Compter environ 2,5 s par état — près de deux minutes et demie pour un deck de 17 slides à 39 états. À lancer en arrière-plan. Aucun serveur n'est nécessaire : la capture se fait en `file://`.
 
 ## Auteur
 
