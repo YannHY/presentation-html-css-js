@@ -66,6 +66,11 @@
     previousButton.disabled = current === 0 && !hasPreviousBuild;
     nextButton.setAttribute('aria-label', hasNextBuild ? 'Afficher la suite' : 'Slide suivante');
     previousButton.setAttribute('aria-label', hasPreviousBuild ? 'Masquer la dernière étape' : 'Slide précédente');
+    // Les visuels s'abonnent à cet évènement pour démarrer en arrivant sur leur
+    // slide et s'arrêter en la quittant : une slide inactive ne fait rien tourner.
+    document.dispatchEvent(new CustomEvent('presentation:build', {
+      detail: { slide: slides[current], slideIndex: current, build: revealAll ? lastBuild : currentBuild, lastBuild }
+    }));
   }
 
   function goTo(index, { updateHash = true, reveal = 'start' } = {}) {
@@ -123,6 +128,11 @@
     if (current > 0) goTo(current - 1, { reveal: 'end' });
   }
 
+  // Les visuels construits en JavaScript ajoutent leurs [data-build] après le
+  // premier rendu. Sans ce crochet, ils n'obtiennent jamais `is-visible` et
+  // restent invisibles pour toujours.
+  document.addEventListener('presentation:refresh', () => updateBuildState());
+
   previousButton.addEventListener('click', retreat);
   nextButton.addEventListener('click', advance);
   notesToggle.addEventListener('click', () => {
@@ -154,7 +164,10 @@
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape') { closeNotes(); closeShortcuts(); return; }
     const focused = document.activeElement;
-    if (['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'A'].includes(focused?.tagName) || focused?.isContentEditable) return;
+    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(focused?.tagName) || focused?.isContentEditable) return;
+    // Un bouton de slide gardé au focus ne doit pas confisquer les flèches du
+    // deck : on ne lui laisse que les touches qui l'activent.
+    if (['BUTTON', 'A'].includes(focused?.tagName) && (event.key === ' ' || event.key === 'Enter')) return;
     if (['ArrowRight', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); advance(); }
     if (['ArrowLeft', 'PageUp'].includes(event.key)) { event.preventDefault(); retreat(); }
     if (event.key === 'Home') { event.preventDefault(); goTo(0); }

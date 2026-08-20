@@ -350,6 +350,39 @@ def validate(path: Path, expected_slides: int | None = None) -> tuple[list[str],
                 )
                 break
 
+    # Intégrité du couple balisage / script. Une substitution de texte sur un
+    # fichier entier peut dupliquer un bloc ou en supprimer plusieurs sans que
+    # rien ne le signale : node --check passe et des visuels ont disparu.
+    hooks = re.findall(r"getElementById\(\s*['\"]([^'\"]+)['\"]\s*\)", js)
+    for hook in sorted(set(hooks)):
+        if hook not in ids:
+            errors.append(
+                f"the script reads #{hook} but no element carries that id"
+            )
+
+    section_titles = re.findall(r"/\*\s*-{4,}\s*(.+?)\s*-{4,}\s*\*/", js)
+    repeated_sections = sorted(
+        title for title, count in Counter(section_titles).items() if count > 1
+    )
+    if repeated_sections:
+        warnings.append(
+            "duplicated script section header, likely a duplicated block: "
+            + ", ".join(repeated_sections)
+        )
+
+    parents = {id(element.parent) for element in parser.elements if element.parent is not None}
+    for element in parser.elements:
+        if not element.identifier or element.tag in VOID_TAGS:
+            continue
+        if id(element) in parents or element.text.strip():
+            continue
+        if element.identifier in hooks:
+            continue
+        warnings.append(
+            f"empty container #{element.identifier} at {element_label(element, parser.slides)} "
+            "that no script fills"
+        )
+
     if len(parser.slides) < 3:
         warnings.append("fewer than three slides; confirm this is intentional")
     if re.search(r"THREE\s*\.", js) and not re.search(r"three(?:\.min)?\.js|three@", html, re.I):

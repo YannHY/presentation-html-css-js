@@ -78,6 +78,9 @@ Lors d'une retouche, préserver le contrat d'interface existant sauf demande exp
 - Suspendre les animations hors de la slide active.
 - Maintenir une géométrie fixe pendant les apparitions afin d'éviter les sauts de mise en page.
 - Ne pas introduire de dépendance distante indispensable à une présentation locale sans fallback.
+- **Plafonner la largeur de tout SVG en ligne placé dans une colonne.** Un `viewBox` dont le rapport diffère de celui de sa colonne se dilate : 400×360 dans une colonne de 660 px donne 594 px de haut et fait déborder la slide. Poser un `max-width` en même temps que la figure, pas après la mesure.
+- **N'écrire aucun sélecteur visant un numéro de slide.** Ni `#slide-7` en CSS, ni `'#slide-7'` en JavaScript : passer par des classes et des identifiants porteurs de sens. C'est ce qui rend une insertion ou un réordonnancement de slides sans danger, alors que la renumérotation la plus soigneuse finit par casser une règle oubliée.
+- **Appliquer la typographie française au texte projeté** : espace fine insécable avant `?`, `!` et `;`, espace insécable avant `:`, et à l'intérieur des guillemets français. Attention en revanche à ne pas passer un remplacement global sur le JavaScript : `a ? b : c` y survivrait mal. Traiter le balisage en bloc, les chaînes du script une par une.
 
 ### Séquençage obligatoire du contenu
 
@@ -87,8 +90,13 @@ Lors d'une retouche, préserver le contrat d'interface existant sauf demande exp
 - Réserver dès l'état initial la géométrie finale de tous les éléments masqués afin que les apparitions ne déplacent aucun contenu.
 - Conserver le séquençage sous `prefers-reduced-motion` ; rendre seulement les transitions instantanées.
 - Ne laisser une slide entièrement statique que si elle ne contient qu'une seule unité de contenu en plus de son titre.
-- **Réserver les apparitions et les animations au plein écran.** Hors plein écran, révéler d'emblée toutes les unités de la slide et neutraliser transitions et animations : on relit et on retouche sans dérouler les étapes. Piloter cela par une fonction unique — `buildsActifs()` — qui exige le plein écran et l'absence de `prefers-reduced-motion`, et rejouer l'état des apparitions à l'entrée comme à la sortie du plein écran.
-- Conséquence à ne pas oublier : tout élément dont l'état initial est masqué par sa règle d'animation doit être rétabli hors plein écran, exactement comme sous `prefers-reduced-motion`, sinon il reste invisible.
+- **Réserver au plein écran le séquençage, pas le mouvement.** Distinguer deux choses que l'on confond facilement :
+  - les **apparitions** — l'ordre dans lequel les unités se révèlent — restent liées au plein écran. Hors projection, tout est visible d'emblée : on relit et on retouche sans dérouler les étapes. Piloter cela par une fonction unique, `buildsActifs()`, qui exige le plein écran et l'absence de `prefers-reduced-motion`, et rejouer l'état des apparitions à l'entrée comme à la sortie du plein écran ;
+  - les **animations sémantiques** — un tracé qui se dessine, un flux qui circule, une simulation qui tourne — s'exécutent dès que leur slide est active, plein écran ou non. Une slide immobile quand on ouvre le fichier passe pour inachevée, et c'est l'un des reproches les plus immédiats qu'on essuie.
+- Conséquence à ne pas oublier : tout élément dont l'état initial est masqué par sa règle d'animation doit être rétabli sous `prefers-reduced-motion`, sinon il reste invisible.
+- **Conditionner toute boucle infinie à `.slide.active`.** Un sélecteur qui ne dépend pas de la slide active démarre au chargement de la page : à l'arrivée sur la slide, le cycle est déjà entamé et le spectateur voit une animation prise en cours de route. En l'accrochant à la slide active, elle repart de zéro à chaque visite, gratuitement.
+- **Ne pas laisser une figure interactive vide à l'arrivée.** Une zone qui attend un clic se lit comme un défaut d'affichage, pas comme une invitation. Afficher un exemple déjà traité, que l'action de l'utilisateur remplace.
+- **Donner à chaque atelier une consigne et une légende.** Une phrase qui dit ce qu'on regarde et ce qu'il faut faire, et une légende qui nomme chaque repère du visuel : couleur, forme, trait, zone. Un atelier sans ces deux éléments est joli et incompréhensible.
 
 ## Vérification obligatoire
 
@@ -119,6 +127,11 @@ Lors d'une retouche, préserver le contrat d'interface existant sauf demande exp
 - Tester clavier, tactile, hash, chapitres, compteur, notes, plein écran, focus et console.
 - Pour tout contrôle ajouté, piloter réellement chaque état et vérifier qu'il ne bloque pas la navigation clavier du deck : le focus doit être relâché après un clic souris, conservé après une activation clavier.
 - Vérifier que les décomptes d'une légende correspondent au nombre de repères réellement peints, catégorie par catégorie.
+
+### Intégrité du fichier après édition
+
+- **Vérifier l'inventaire des visuels après chaque édition du script.** Une substitution de texte sur un fichier entier peut dupliquer un bloc ou en supprimer plusieurs sans que rien ne le signale : `node --check` passe, le validateur passe, et six ateliers ont disparu. Contrôler que chaque identifiant lu par le script existe dans le balisage, qu'aucun en-tête de section n'apparaît deux fois, et qu'aucun conteneur ne reste vide. `scripts/validate_presentation.py` fait ces trois contrôles.
+- Préférer les remplacements ancrés sur une ligne ou sur un couple de bornes vérifié aux substitutions globales. Quand on remplace un bloc délimité par deux marqueurs, s'assurer que le second se trouve bien **après** le premier : sinon le découpage recolle le fichier à l'envers.
 
 ### Régression
 

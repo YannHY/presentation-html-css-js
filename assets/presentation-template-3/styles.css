@@ -37,9 +37,10 @@ button:focus-visible, a:focus-visible { outline: 3px solid rgba(147, 197, 253, .
 
 .stage { position: fixed; inset: 0 0 52px; overflow: hidden; }
 .slide { position: absolute; inset: 0; display: grid; place-items: center; padding: clamp(28px, 4vw, 58px) clamp(34px, 6vw, 88px); visibility: hidden; opacity: 0; transform: translateY(8px); pointer-events: none; background: var(--bg); transition: opacity 240ms ease, transform 280ms var(--ease), visibility 0s 280ms; }
-/* cadrillage : sur fond sombre les lignes sont plus claires que le fond,
-   à une opacité plus basse qu'en clair pour éviter le moiré à la projection */
-.slide::before { content: ""; position: absolute; inset: 6% 5%; pointer-events: none; background-image: linear-gradient(to right, rgba(148,163,184,.10) 1px, transparent 1px), linear-gradient(to bottom, rgba(148,163,184,.10) 1px, transparent 1px); background-size: 40px 40px; mask-image: radial-gradient(ellipse 72% 64% at 52% 48%, #000 18%, transparent 100%); }
+/* fond en semis de points : un point d'un pixel sur une trame de 32px. Sur fond
+   sombre le point est clair, à faible opacité, et un masque radial l'atténue vers
+   les bords pour qu'il structure la surface sans concurrencer le contenu. */
+.slide::before { content: ""; position: absolute; inset: 4% 3%; pointer-events: none; background-image: radial-gradient(circle, rgba(148, 163, 184, .30) 1px, transparent 1px); background-size: 32px 32px; mask-image: radial-gradient(ellipse 78% 70% at 50% 48%, #000 26%, transparent 100%); }
 .slide.active { visibility: visible; opacity: 1; transform: none; pointer-events: auto; transition-delay: 0s; }
 .slide-inner { position: relative; z-index: 1; width: min(100%, 1160px); }
 .presentation-fullscreen .slide-inner { zoom: var(--presentation-scale, 1); }
@@ -48,9 +49,9 @@ button:focus-visible, a:focus-visible { outline: 3px solid rgba(147, 197, 253, .
 .build-step.is-visible { visibility: visible; opacity: 1; transform: none; transition-delay: var(--build-delay, 0ms), var(--build-delay, 0ms), 0s; }
 
 .slide-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; margin-bottom: clamp(24px, 3vw, 38px); }
-.slide-head h2 { margin: 0; max-width: 900px; font-size: clamp(38px, 4vw, 56px); line-height: 1.02; letter-spacing: -.03em; }
+.slide-head h2 { margin: 0; font-size: clamp(38px, 4vw, 56px); line-height: 1.02; letter-spacing: -.03em; }
 .eyebrow { margin: 0 0 12px; color: var(--blue-strong); font-size: 14px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-.cover-content h1 { max-width: 900px; margin: 0; font-size: clamp(64px, 8vw, 112px); line-height: .92; letter-spacing: -.03em; }
+.cover-content h1 { margin: 0; font-size: clamp(64px, 8vw, 112px); line-height: .92; letter-spacing: -.03em; }
 .cover-byline { margin: 20px 0 0; color: var(--muted); font-size: 15px; font-weight: 650; }
 
 .card { min-height: 260px; padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }

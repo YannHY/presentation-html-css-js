@@ -18,6 +18,7 @@ const reserve = dispo - slide.querySelector('.slide-inner').getBoundingClientRec
 - Balayer **toutes** les slides, tous les builds révélés, à chaque format testé.
 - Viser une réserve confortable, pas nulle : une réserve de quelques pixels déborde au format immédiatement inférieur.
 - Après toute correction de hauteur, remesurer la slide corrigée **et** les autres : un réglage global les touche toutes.
+- **Remesurer après chaque ajout de contenu, pas seulement après une correction.** Ajouter une consigne et une légende à un atelier coûte une centaine de pixels et fait déborder plusieurs slides d'un coup.
 
 ## Ne pas rogner à l'aveugle : trouver le vrai moteur de la hauteur
 
@@ -36,6 +37,30 @@ st.textContent = '.candidat { … }';   // mesurer, comparer, puis st.remove()
 
 Quand une retouche doit laisser un élément exactement en place, le prouver par un témoin. Exemple : compenser un changement d'interligne par un décalage de `top` — la théorie dit que c'est exact, la mesure le confirme sur un élément de contrôle portant les deux réglages successifs. Un écart mesuré de `0` vaut mieux qu'un raisonnement juste.
 
+## Ce que les moteurs animent réellement
+
+**WebKit refuse d'animer en CSS une propriété de peinture SVG posée en attribut.** Un `fill` ou un `stroke` écrit avec `setAttribute` gagne contre les keyframes : le style calculé annonce bien l'animation, et `getAnimations()` renvoie une liste vide.
+
+```js
+getComputedStyle(el).animationName   // "ma-pulsation" — l'air d'aller
+el.getAnimations().length            // 0 — rien ne tourne
+```
+
+Primitives fiables sur du SVG dans tous les moteurs : `opacity`, `stroke-dasharray`, `stroke-dashoffset`, `r`, et `transform: translate()` sur un `<g>`. Tout effet coloré se construit donc par superposition de calques dont on anime l'opacité, jamais en animant la couleur d'un élément qui porte un attribut de peinture.
+
+**`requestAnimationFrame` peut être gelé** — onglet en arrière-plan, panneau d'aperçu occulté. Mesuré à zéro frame en une seconde alors que les animations CSS continuaient de tourner. Deux conséquences :
+
+- préférer CSS pour tout mouvement continu ;
+- **ne jamais placer une mise à jour d'état dans un callback rAF.** Calculer et afficher l'état de façon synchrone, puis lancer l'animation qui ne fait qu'illustrer un déplacement déjà décidé. Sinon un compteur reste bloqué à sa valeur initiale pendant que l'utilisateur clique dans le vide.
+
+Le contrôle se fait en échantillonnant la courbe, pas à l'œil :
+
+```js
+const a = el.getAnimations()[0];
+a.pause(); a.currentTime = a.effect.getTiming().duration * 0.25;
+getComputedStyle(el).opacity   // lire la valeur interpolée
+```
+
 ## Pièges CSS
 
 **La spécificité écrase les styles d'un composant ajouté.** Un `<p>` inséré dans un conteneur `.card` hérite de `.card p` (0,0,2,0), plus spécifique qu'une classe seule (0,0,1,0) : taille et marges déclarées sont silencieusement perdues. Vérifier la valeur *calculée*, pas celle écrite :
@@ -44,7 +69,9 @@ Quand une retouche doit laisser un élément exactement en place, le prouver par
 getComputedStyle(el).marginBottom  // "0px" alors que la règle dit 16px
 ```
 
-Cibler depuis le parent du composant pour reprendre la main.
+Cibler depuis le parent du composant pour reprendre la main : `.panel .footnote`, `.card .legende`. **Toute classe utilitaire placée dans une carte ou un panneau doit être ciblée depuis ce parent**, sans exception — la règle vaut pour les marges autant que pour la couleur et le corps.
+
+**`:first-child` ignore les nœuds texte.** `.liste b:first-child` attrape le premier *élément* du conteneur : dans `<span>du texte puis <b>un mot</b></span>`, c'est le mot en gras de la phrase qui est visé. Un `<b>` de numérotation stylé en pastille transforme alors chaque mise en gras du texte en pastille. Ne jamais styler une balise par sa position dans de la prose : passer par une classe.
 
 **Une règle qui paraît morte ne l'est pas forcément.** Déplacer un élément et supprimer la règle qui le visait fait disparaître ce qu'elle portait — un `gap`, une marge. Avant de supprimer, chercher ce que la règle apportait réellement. Et si le style manquant vient d'une règle trop locale, le corriger **à la racine** : les autres occurrences du même composant souffrent probablement du même défaut.
 
@@ -83,6 +110,8 @@ Constaté à répétition dans cette skill : l'aperçu sert des captures et des 
 - Un rendu qui « disparaît » après une transition de slide est souvent un défaut de repeinte de l'aperçu, pas du deck : recharger à froid avant de conclure.
 - Pour juger un détail de quelques pixels, agrandir temporairement l'élément (`transform: scale(3)`), capturer, puis recharger. Vérifier qu'aucune transformation ne subsiste.
 - Ouvrir un onglet neuf donne parfois la seule capture juste.
+- La **première capture après une navigation ou un changement de slide est souvent périmée** : en prendre deux et lire la seconde.
+- Quand la capture sort à demi-échelle — contenu tassé dans le quart supérieur gauche —, l'action `zoom` renvoie la même vue à l'échelle correcte.
 - Si l'outil ne parvient pas à cliquer, tester le gestionnaire en émettant l'évènement voulu ; le dire explicitement dans le compte rendu.
 
 ## Vérifier les données de la source

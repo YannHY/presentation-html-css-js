@@ -66,9 +66,9 @@ button:focus-visible, a:focus-visible { outline: 3px solid rgba(0, 110, 183, .55
 .build-step.is-visible { visibility: visible; opacity: 1; transform: none; transition-delay: var(--build-delay, 0ms), var(--build-delay, 0ms), 0s; }
 
 .slide-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; margin-bottom: clamp(24px, 3vw, 38px); }
-.slide-head h2 { margin: 0; max-width: 900px; font-size: clamp(38px, 4vw, 56px); line-height: 1.02; letter-spacing: -.03em; }
+.slide-head h2 { margin: 0; font-size: clamp(38px, 4vw, 56px); line-height: 1.02; letter-spacing: -.03em; }
 .eyebrow { margin: 0 0 12px; color: var(--brand-deep); font-size: 14px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-.cover-content h1 { max-width: 900px; margin: 0; font-size: clamp(56px, 7vw, 96px); line-height: .94; letter-spacing: -.03em; }
+.cover-content h1 { margin: 0; font-size: clamp(56px, 7vw, 96px); line-height: .94; letter-spacing: -.03em; }
 .cover-content h1 em { display: block; margin-top: 8px; color: var(--brand); font-style: normal; }
 
 .card { min-height: 260px; padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
