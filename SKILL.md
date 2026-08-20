@@ -155,6 +155,7 @@ Une slide n'est pas une page web qui s'adapte : c'est une **maquette de taille f
 ### Intégrité du fichier après édition
 
 - **Vérifier l'inventaire des visuels après chaque édition du script.** Une substitution de texte sur un fichier entier peut dupliquer un bloc ou en supprimer plusieurs sans que rien ne le signale : `node --check` passe, le validateur passe, et six ateliers ont disparu. Contrôler que chaque identifiant lu par le script existe dans le balisage, qu'aucun en-tête de section n'apparaît deux fois, et qu'aucun conteneur ne reste vide. `scripts/validate_presentation.py` fait ces trois contrôles.
+- **Poursuivre dans le script toute classe ou tout identifiant renommé.** Les figures vivent dans des IIFE successives, mais elles partagent un seul script : une `querySelector` qui renvoie `null` lève une exception, et cette exception interrompt **toutes les figures déclarées ensuite**. Le symptôme trompe, parce qu'il apparaît ailleurs — on redessine un pictogramme sur une slide, et c'est le schéma d'une autre slide, dix écrans plus loin, qui s'affiche vide. Après tout renommage, relire la console avant de conclure quoi que ce soit sur la slide qu'on croit avoir cassée.
 - Préférer les remplacements ancrés sur une ligne ou sur un couple de bornes vérifié aux substitutions globales. Quand on remplace un bloc délimité par deux marqueurs, s'assurer que le second se trouve bien **après** le premier : sinon le découpage recolle le fichier à l'envers.
 
 ### Régression
