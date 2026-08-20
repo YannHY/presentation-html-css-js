@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Logo à remplacer">
+  <title>Repère générique — remplacer par le logo de l’établissement</title>
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="none" stroke="#0b4295" stroke-width="5"/>
+  <path d="M22 44V28a10 10 0 0 1 20 0v16" fill="none" stroke="#0b4295" stroke-width="5" stroke-linecap="round"/>
+</svg>

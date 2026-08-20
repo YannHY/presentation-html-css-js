@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8fafc">
+  <title>Titre de la présentation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-institution="NOM DE L’ÉTABLISSEMENT · JJ MOIS AAAA" data-author="Nom Prénom">
+  <main class="stage" id="stage">
+    <section class="slide cover-slide active" id="slide-1" data-chapter="introduction" data-chapter-label="Introduction" aria-label="Titre de la présentation" data-notes="Notes de la slide d’ouverture.">
+      <div class="slide-inner cover-content">
+        <p class="eyebrow">Occasion</p>
+        <h1>Titre de la présentation<em>Sous-titre accentué</em></h1>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-2" data-chapter="contenu" data-chapter-label="Contenu" aria-label="Un message principal" data-notes="Présenter les trois idées successivement.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Un angle complémentaire</p><h2>Un message principal</h2></div>
+        </header>
+        <div class="example-grid">
+          <article class="card"><span class="number">01</span><h3>Première idée</h3><p>Une formulation courte et utile.</p></article>
+          <article class="card build-step" data-build="2"><span class="number">02</span><h3>Deuxième idée</h3><p>Elle apparaît au clic suivant.</p></article>
+          <article class="card build-step" data-build="3"><span class="number">03</span><h3>Troisième idée</h3><p>Elle apparaît séparément.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide thanks-slide" id="slide-3" data-chapter="conclusion" data-chapter-label="Conclusion" aria-label="Merci" data-notes="Merci.">
+      <div class="slide-inner thanks-content"><h2>Merci</h2></div>
+    </section>
+
+    <!-- Cambré institutionnel : hampe du « f ». Dernier enfant de .stage, donc
+         peint au-dessus des fonds de slide et sous le contenu. Décoratif. -->
+    <svg class="swash" viewBox="0 0 830 3508" preserveAspectRatio="xMinYMid meet" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="swash-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="var(--brand-deep)"/>
+          <stop offset="1" stop-color="var(--brand)"/>
+        </linearGradient>
+      </defs>
+      <path d="M829 0C817.2 16 779.2 63.2 758 96C736.8 128.8 719 162.7 702 197C685 231.3 670 266.5 656 302C642 337.5 629.8 373.7 618 410C606.2 446.3 595.2 482.8 585 520C574.8 557.2 565.8 595.2 557 633C548.2 670.8 540 708.8 532 747C524 785.2 516 823.5 509 862C502 900.5 496.2 939.2 490 978C483.8 1016.8 477.8 1056 472 1095C466.2 1134 460.3 1172.8 455 1212C449.7 1251.2 444.8 1290.7 440 1330C435.2 1369.3 430.7 1408.5 426 1448C421.3 1487.5 416.5 1527.5 412 1567C407.5 1606.5 403.3 1645.5 399 1685C394.7 1724.5 390.3 1764.3 386 1804C381.7 1843.7 377.5 1883.3 373 1923C368.5 1962.7 363.5 2002.5 359 2042C354.5 2081.5 350.7 2120.7 346 2160C341.3 2199.3 336 2238.7 331 2278C326 2317.3 321.3 2356.8 316 2396C310.7 2435.2 305 2474 299 2513C293 2552 286.5 2591.2 280 2630C273.5 2668.8 267.2 2707.7 260 2746C252.8 2784.3 245 2822 237 2860C229 2898 221.2 2936.3 212 2974C202.8 3011.7 192.7 3049 182 3086C171.3 3123 160.5 3159.7 148 3196C135.5 3232.3 121.8 3268.7 107 3304C92.2 3339.3 76.8 3374.2 59 3408C41.2 3441.8 9.8 3490.5 0 3507L0 3507L0 0Z" fill="url(#swash-fill)"/>
+    </svg>
+  </main>
+
+  <footer class="controls" aria-label="Commandes de présentation">
+    <nav class="chapters" id="chapter-nav" aria-label="Chapitres"></nav>
+    <div class="transport">
+      <button class="control-button" id="previous" type="button" aria-label="Slide précédente" title="Précédent"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i><span class="sr-only">Précédent</span></button>
+      <span class="counter" id="counter" aria-live="polite">01 / 03</span>
+      <button class="control-button" id="next" type="button" aria-label="Slide suivante" title="Suivant"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i><span class="sr-only">Suivant</span></button>
+    </div>
+    <div class="utilities">
+      <button class="control-button" id="shortcuts-toggle" type="button" aria-label="Afficher les raccourcis clavier" aria-expanded="false" aria-controls="keyboard-shortcuts" title="Raccourcis clavier"><i class="fa-regular fa-keyboard" aria-hidden="true"></i><span class="sr-only">Raccourcis clavier</span></button>
+      <button class="control-button" id="notes-toggle" type="button" aria-label="Afficher les notes" aria-expanded="false" aria-controls="notes" title="Notes (N)"><i class="fa-regular fa-note-sticky" aria-hidden="true"></i><span class="sr-only">Notes</span></button>
+      <button class="control-button" id="fullscreen" type="button" aria-label="Passer en plein écran" title="Plein écran (F)"><i class="fa-solid fa-expand" aria-hidden="true"></i><span class="sr-only">Plein écran</span></button>
+    </div>
+    <i class="progress" id="progress" aria-hidden="true"></i>
+  </footer>
+
+  <aside class="overlay-panel notes" id="notes" aria-label="Notes de l’intervenant">
+    <p class="panel-label">Notes intervenant · touche N</p><p id="notes-content"></p>
+  </aside>
+
+  <aside class="overlay-panel keyboard-shortcuts" id="keyboard-shortcuts" aria-label="Raccourcis clavier">
+    <p class="panel-label">Raccourcis clavier</p>
+    <ul class="shortcut-list">
+      <li><span>Précédent</span><span class="shortcut-keys"><kbd>←</kbd><kbd>Page ↑</kbd></span></li>
+      <li><span>Suivant</span><span class="shortcut-keys"><kbd>→</kbd><kbd>Espace</kbd><kbd>Page ↓</kbd></span></li>
+      <li><span>Première slide</span><span class="shortcut-keys" role="img" aria-label="fn plus flèche gauche"><kbd aria-hidden="true">fn</kbd><span class="shortcut-plus" aria-hidden="true">+</span><kbd aria-hidden="true">←</kbd></span></li>
+      <li><span>Dernière slide</span><span class="shortcut-keys" role="img" aria-label="fn plus flèche droite"><kbd aria-hidden="true">fn</kbd><span class="shortcut-plus" aria-hidden="true">+</span><kbd aria-hidden="true">→</kbd></span></li>
+      <li><span>Plein écran</span><span class="shortcut-keys"><kbd>F</kbd></span></li>
+      <li><span>Notes</span><span class="shortcut-keys"><kbd>N</kbd></span></li>
+      <li><span>Fermer</span><span class="shortcut-keys"><kbd>Échap</kbd></span></li>
+    </ul>
+  </aside>
+
+  <script src="presentation.js"></script>
+</body>
+</html>

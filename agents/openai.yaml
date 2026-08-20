@@ -1,0 +1,4 @@
+interface:
+  display_name: "Présentations HTML interactives"
+  short_description: "Créer des présentations HTML sobres et fidèles"
+  default_prompt: "Utilise $create-interactive-html-presentations pour transformer ce contenu en une présentation HTML fidèle, concise, interactive et soigneusement vérifiée."
