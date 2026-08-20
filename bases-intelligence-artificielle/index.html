@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <title>L’intelligence artificielle, comment ça marche ?</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-institution="INSTITUT FLORIMONT · 2026–2027" data-author="Yann Houry">
+  <main class="stage" id="stage">
+
+    <!-- 01 ─────────────────────────────────────── couverture -->
+    <section class="slide cover-slide active" id="slide-1" data-chapter="histoire" data-chapter-label="1 · Histoire" aria-label="L’intelligence artificielle, comment ça marche ?" data-notes="Annoncer le parcours : soixante-dix ans d’histoire, puis les trois façons d’apprendre, le deep learning, le langage, les agents, et enfin les limites. Prévenir la classe qu’elle va entraîner elle-même six machines pendant la séance.">
+      <div class="slide-inner cover-content">
+        <p class="cover-ask build-step" data-build="2" aria-hidden="true"><span id="cover-typed"></span><i class="caret"></i></p>
+        <p class="sr-only">Cette présentation répond à quatre questions : est-ce qu’elle comprend ce qu’elle dit ? est-ce qu’elle peut se tromper ? est-ce qu’elle apprend comme toi ? est-ce qu’elle pense ?</p>
+        <h1>L’intelligence artificielle,<br>comment ça marche&#8239;?</h1>
+        <figure class="figure cover-figure build-step" data-build="3">
+          <svg viewBox="0 0 560 236" role="img" aria-label="Un réseau de neurones traversé par une vague d’activation, de l’entrée à la réponse." id="cover-net"></svg>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 02 ─────────────────────────────────────── frise -->
+    <section class="slide" id="slide-2" data-chapter="histoire" data-chapter-label="1 · Histoire" aria-label="Treize dates de l’histoire de l’intelligence artificielle" data-notes="Survoler un jalon fait apparaître son explication ; au clavier, la tabulation puis les flèches font la même chose. Insister sur les écarts : trente ans séparent le perceptron de la rétropropagation, et quinze de plus avant qu’elle serve vraiment. Deep Blue ne pense pas, il calcule. La rupture d’apprentissage, c’est 2012.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Rien de nouveau, sauf la puissance</p><h2>Quatre-vingts ans, treize dates</h2></div>
+        </header>
+        <div class="tl-stage" id="timeline-stage">
+          <i class="tl-rail-line" aria-hidden="true"></i>
+          <ul class="tl-marks" id="timeline-marks"></ul>
+          <div class="tl-pop" id="timeline-pop" role="status" aria-live="polite" hidden>
+            <div class="tl-pop-media" id="timeline-pop-media" hidden></div>
+            <p class="tl-pop-year" id="timeline-pop-year"></p>
+            <p class="tl-pop-title" id="timeline-pop-title"></p>
+            <p class="tl-pop-text" id="timeline-pop-text"></p>
+            <p class="credit" id="timeline-pop-credit"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 ─────────────────────────────────────── hivers -->
+    <section class="slide" id="slide-3" data-chapter="histoire" data-chapter-label="1 · Histoire" aria-label="Deux hivers avant le grand dégel" data-notes="Chaque hiver suit une promesse non tenue : la traduction automatique dans les années 1960, les systèmes experts dans les années 1980. Les financements s’arrêtent, les laboratoires ferment. La leçon vaut pour aujourd’hui : séparer ce qui marche de ce qu’on annonce.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Enthousiasme, déception, retour</p><h2>Deux hivers avant le grand dégel</h2></div>
+        </header>
+        <div class="workbench is-wide">
+          <figure class="figure winters-stage build-step" data-build="2">
+            <svg viewBox="0 0 660 330" role="img" aria-label="Courbe de l’enthousiasme pour l’intelligence artificielle de 1950 à aujourd’hui, montrant deux périodes de recul appelées hivers." id="winters">
+              <g id="winters-zones"></g>
+              <line class="axis-line" x1="52" y1="278" x2="636" y2="278"></line>
+              <g id="winters-ticks"></g>
+              <path class="curve" id="winters-curve" d=""></path>
+            </svg>
+            <div class="zone-hits" id="winters-hits"></div>
+            <div class="hover-pop" id="winters-pop" role="status" aria-live="polite" hidden>
+              <p class="tl-pop-year" id="winters-pop-year"></p>
+              <p class="tl-pop-title" id="winters-pop-title"></p>
+              <p class="tl-pop-text" id="winters-pop-text"></p>
+            </div>
+          </figure>
+          <div class="panel">
+            <h3 class="build-step" data-build="3">Deux fois, tout s’est arrêté</h3>
+            <ul class="beat-list">
+              <li class="build-step" data-build="4"><b>1974 – 1980</b><span>Les promesses de traduction automatique ne tiennent pas. Les budgets sont coupés.</span></li>
+              <li class="build-step" data-build="5"><b>1987 – 1993</b><span>Les « systèmes experts », bourrés de règles écrites à la main, deviennent impossibles à entretenir.</span></li>
+              <li class="build-step" data-build="6"><b>depuis 2012</b><span>Les réseaux profonds fonctionnent enfin. Cette fois, les résultats précèdent les promesses.</span></li>
+            </ul>
+            <p class="footnote build-step" data-build="7">Courbe d’ambiance : elle montre l’enchaînement des périodes, pas une mesure chiffrée.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 ─────────────────────────────────────── comment apprend le perceptron -->
+    <section class="slide" id="slide-4" data-chapter="histoire" data-chapter-label="1 · Histoire" aria-label="1958 : comment le perceptron apprend" data-notes="Le Mark I regardait ses images à travers 400 cellules photoélectriques, et ses poids étaient de vrais potentiomètres réglés par des moteurs électriques : l’apprentissage était mécanique, on l’entendait. Faire remarquer que la règle de correction tient en une phrase, et qu’elle est encore au cœur des réseaux actuels.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">1958 · l’ancêtre de tout le reste</p><h2>Comment le perceptron apprend</h2></div>
+        </header>
+        <div class="workbench is-wide">
+          <figure class="figure build-step" data-build="2">
+            <svg viewBox="0 0 460 300" role="img" aria-label="Une lettre vue par une grille de cellules ; chaque cellule allumée est multipliée par son poids, le tout est additionné puis comparé à un seuil." id="cells"></svg>
+          </figure>
+          <div class="panel">
+            <ol class="rule-list">
+              <li class="build-step" data-build="3"><b class="rule-num">1</b><span>Une grille de cellules regarde la lettre. Chaque cellule ne dit qu’une chose&#8239;: <b>allumée</b> ou éteinte.</span></li>
+              <li class="build-step" data-build="4"><b class="rule-num">2</b><span>Chaque cellule allumée est multipliée par son <b>poids</b>, un nombre réglable. Sur le Mark I, c’était un vrai bouton, tourné par un moteur.</span></li>
+              <li class="build-step" data-build="5"><b class="rule-num">3</b><span>On additionne le tout. Si le total dépasse le <b>seuil</b>, la machine répond «&#8239;c’est un C&#8239;».</span></li>
+              <li class="build-step" data-build="6"><b class="rule-num">4</b><span>Si elle s’est trompée, on <b>corrige les poids</b> des cellules allumées&#8239;: on les augmente quand il fallait dire oui, on les diminue quand il fallait dire non.</span></li>
+            </ol>
+            <p class="closing build-step" data-build="7">Quelques centaines d’essais suffisent. Personne n’a écrit la règle&#8239;: elle a fini par se loger dans les poids.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 ─────────────────────────────────────── ELIZA -->
+    <section class="slide" id="slide-5" data-chapter="histoire" data-chapter-label="1 · Histoire" aria-label="1966 : ELIZA, l’illusion de la conversation" data-notes="Weizenbaum a écrit ELIZA pour montrer la superficialité du procédé ; il a été troublé de voir sa secrétaire lui demander de sortir de la pièce pour se confier à la machine. Le programme tient en quelques règles : repérer un mot-clé, retourner la phrase. Faire le lien avec les modèles actuels : la mécanique a changé, l’illusion est la même.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">1966 · le premier robot de conversation</p><h2>ELIZA, ou l’illusion de comprendre</h2></div>
+        </header>
+        <div class="workbench">
+          <figure class="figure build-step" data-build="2">
+            <div class="terminal">
+              <p class="terminal-label">ELIZA · 1966</p>
+              <div class="terminal-body" id="eliza-log" aria-hidden="true"></div>
+              <p class="sr-only">Exemple d’échange : « Je suis triste. » — « Pourquoi êtes-vous triste ? » — « À cause de l’école. » — « Parlez-moi de l’école. » — « Personne ne m’écoute. » — « Pourquoi dites-vous que personne ne vous écoute ? »</p>
+            </div>
+          </figure>
+          <div class="panel">
+            <h3 class="build-step" data-build="3">Trois règles, et ça suffit</h3>
+            <ul class="beat-list">
+              <li class="build-step" data-build="4"><b>Repérer un mot</b><span>« triste », « école », « personne »… le programme cherche un mot-clé dans la phrase.</span></li>
+              <li class="build-step" data-build="5"><b>Retourner la phrase</b><span>Il la transforme en question, en échangeant « je » et « vous ».</span></li>
+              <li class="build-step" data-build="6"><b>Ne rien comprendre</b><span>Aucune trace de sens nulle part. Et pourtant des utilisateurs se sont confiés à elle.</span></li>
+            </ul>
+            <p class="footnote build-step" data-build="7">Son auteur, Joseph Weizenbaum, en fut inquiet toute sa vie : nous prêtons une intention à ce qui n’en a pas.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 ─────────────────────────────────────── le mur de 1969 -->
+    <section class="slide" id="slide-6" data-chapter="histoire" data-chapter-label="1 · Histoire" aria-label="1969 : pourquoi un neurone seul ne trace qu’une droite" data-notes="Un neurone ne fait qu’une chose : multiplier chaque entrée par un poids, additionner, comparer le total à un seuil. Sur un dessin où chaque entrée devient un axe, cette opération correspond exactement à une droite : d’un côté il répond oui, de l’autre non. C’est pour cela qu’on l’appelle un « séparateur linéaire ». — Prendre deux interrupteurs et une lampe. Avec la règle ET, un seul des quatre cas allume la lampe : le point en haut à droite. Une droite l’isole, donc un neurone y arrive, et il la trouvera seul par essais et corrections. — Avec le OU exclusif, les deux cas allumés sont en diagonale. Demander à la classe de tracer une droite qui mette les deux verts d’un côté et les deux rouges de l’autre : c’est impossible, quel que soit l’angle, et l’animation balaie les angles pour le montrer. — Minsky et Papert publient cette démonstration en 1969 dans « Perceptrons ». Elle est exacte, et elle ne vaut que pour un neurone seul : deux couches suffisent à résoudre le OU exclusif. Mais personne ne savait encore entraîner deux couches — ce sera la rétropropagation, dix-sept ans plus tard. Entre-temps, les financements s’arrêtent.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">1969 · la démonstration qui gèle tout</p><h2>Pourquoi un neurone bute sur «&#8239;un seul des deux&#8239;»</h2></div>
+        </header>
+        <p class="lead is-wide build-step" data-build="2">Un neurone additionne et compare à un seuil&#8239;: sur un dessin, cela revient à tracer <b>une droite</b> et à demander de quel côté tombe le point.</p>
+        <div class="logic-grid">
+          <article class="logic-case build-step" data-build="3">
+            <h3>Règle «&#8239;ET&#8239;»<span>la lampe s’allume si les <b>deux</b> interrupteurs le sont</span></h3>
+            <div class="logic-body">
+              <table class="truth">
+                <caption class="sr-only">Table de vérité de la règle ET</caption>
+                <thead><tr><th scope="col">A</th><th scope="col">B</th><th scope="col">lampe</th></tr></thead>
+                <tbody>
+                  <tr><td>éteint</td><td>éteint</td><td class="is-off">éteinte</td></tr>
+                  <tr><td>allumé</td><td>éteint</td><td class="is-off">éteinte</td></tr>
+                  <tr><td>éteint</td><td>allumé</td><td class="is-off">éteinte</td></tr>
+                  <tr><td>allumé</td><td>allumé</td><td class="is-on">allumée</td></tr>
+                </tbody>
+              </table>
+              <svg class="logic-plot" viewBox="0 0 200 200" role="img" aria-label="Les quatre cas placés en carré : le seul cas allumé est en haut à droite, une droite l’isole." data-logic="et"></svg>
+            </div>
+            <p class="logic-verdict is-ok">Une droite suffit&#8239;: le neurone y arrive.</p>
+          </article>
+          <article class="logic-case build-step" data-build="4">
+            <h3>Règle «&#8239;OU exclusif&#8239;»<span>la lampe s’allume si <b>un seul</b> des deux l’est</span></h3>
+            <div class="logic-body">
+              <table class="truth">
+                <caption class="sr-only">Table de vérité du OU exclusif</caption>
+                <thead><tr><th scope="col">A</th><th scope="col">B</th><th scope="col">lampe</th></tr></thead>
+                <tbody>
+                  <tr><td>éteint</td><td>éteint</td><td class="is-off">éteinte</td></tr>
+                  <tr><td>allumé</td><td>éteint</td><td class="is-on">allumée</td></tr>
+                  <tr><td>éteint</td><td>allumé</td><td class="is-on">allumée</td></tr>
+                  <tr><td>allumé</td><td>allumé</td><td class="is-off">éteinte</td></tr>
+                </tbody>
+              </table>
+              <svg class="logic-plot" viewBox="0 0 200 200" role="img" aria-label="Les quatre cas placés en carré : les deux cas allumés sont en diagonale, et aucune droite ne les sépare des deux cas éteints." data-logic="xor"></svg>
+            </div>
+            <p class="logic-verdict is-ko">Les allumés sont en diagonale&#8239;: aucune droite ne passe.</p>
+          </article>
+        </div>
+        <p class="closing build-step" data-build="5">Minsky et Papert le démontrent en 1969. La solution existait — <b>empiler deux couches</b> — mais nul ne savait les entraîner.</p>
+      </div>
+    </section>
+
+    <!-- 07 ─────────────────────────────────────── systèmes experts -->
+    <section class="slide" id="slide-7" data-chapter="histoire" data-chapter-label="1 · Histoire" aria-label="Les années 1980 : les systèmes experts" data-notes="On revient aux règles écrites à la main, et ça marche : diagnostic médical, configuration d’ordinateurs, prospection minière. Puis le nombre de règles explose, elles se contredisent, plus personne ne sait pourquoi le système répond ce qu’il répond. Les entreprises abandonnent : c’est le second hiver. La leçon vaut pour toute IA à base de règles.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Années 1980 · le retour des règles</p><h2>Écrire toutes les règles à la main</h2></div>
+        </header>
+        <div class="workbench">
+          <figure class="figure build-step" data-build="2">
+            <svg viewBox="0 0 460 300" role="img" aria-label="Une pile de règles écrites à la main qui s’accumulent, puis entrent en contradiction." id="rules-figure"></svg>
+          </figure>
+          <div class="panel">
+            <h3 class="build-step" data-build="3">Ça marche… un moment</h3>
+            <ul class="beat-list">
+              <li class="build-step" data-build="4"><b>Le principe</b><span>Des milliers de règles du type « SI… ALORS… », recueillies auprès de vrais experts.</span></li>
+              <li class="build-step" data-build="5"><b>Le succès</b><span>Diagnostic médical, configuration de machines : sur un domaine étroit, ces systèmes sont utiles.</span></li>
+              <li class="build-step" data-build="6"><b>L’effondrement</b><span>Passé quelques milliers de règles, elles se contredisent et plus personne ne sait les entretenir.</span></li>
+            </ul>
+            <p class="footnote build-step" data-build="7">Second hiver. La leçon : ce qu’on ne peut pas écrire, il faut le faire apprendre.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 ─────────────────────────────────────── rétropropagation -->
+    <section class="slide" id="slide-8" data-chapter="histoire" data-chapter-label="1 · Histoire" aria-label="1986 : la rétropropagation, ou comment savoir quel poids s’est trompé" data-notes="La question laissée ouverte par 1969 : dans un réseau à plusieurs couches, quel poids est responsable de l’erreur ? On appelle cela le problème de l’attribution du mérite. — L’image du plat trop salé marche bien : le client se plaint à la fin de la chaîne, et le reproche remonte jusqu’au cuisinier qui a mis le sel, chacun en recevant la part qui lui revient. La rétropropagation fait exactement cela avec des nombres. — Techniquement, on calcule de combien l’erreur varierait si l’on bougeait un peu chaque poids, et on bouge chaque poids dans le sens qui la réduit. Le calcul se fait de la sortie vers l’entrée parce que chaque couche a besoin du résultat de la suivante. — Rumelhart, Hinton et Williams la popularisent dans Nature en 1986 ; l’idée circulait avant eux. La méthode est là, mais il manque des montagnes d’exemples et des machines assez rapides : d’où l’attente jusqu’en 2012, vingt-six ans plus tard.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">1986 · la clé qui manquait</p><h2>Quel poids s’est trompé&#8239;?</h2></div>
+        </header>
+        <div class="workbench is-wide">
+          <figure class="figure build-step" data-build="2">
+            <svg viewBox="0 0 620 300" role="img" aria-label="Le signal traverse le réseau vers la droite ; l’erreur mesurée à la sortie remonte ensuite vers la gauche en corrigeant chaque couche." id="backprop-figure"></svg>
+            <p class="credit">Le plat est trop salé&#8239;: le reproche remonte la chaîne des cuisiniers, et chacun en reçoit sa part.</p>
+          </figure>
+          <div class="panel">
+            <ol class="rule-list">
+              <li class="build-step" data-build="3"><b class="rule-num">1</b><span><b>Le problème.</b> Avec un seul neurone, on sait quels poids corriger. Avec trois couches, l’erreur vient d’on ne sait où.</span></li>
+              <li class="build-step" data-build="4"><b class="rule-num">2</b><span><b>On mesure l’écart.</b> À la sortie&#8239;: «&#8239;tu devais répondre chat, tu as répondu chien&#8239;». Voilà de combien.</span></li>
+              <li class="build-step" data-build="5"><b class="rule-num">3</b><span><b>On partage la faute.</b> Chaque neurone reçoit la part d’erreur qui lui revient, selon ce qu’il a contribué — puis la repasse à la couche d’avant.</span></li>
+              <li class="build-step" data-build="6"><b class="rule-num">4</b><span><b>On corrige.</b> Chaque poids bouge un peu, dans le sens qui aurait réduit l’erreur. Puis on passe à l’exemple suivant.</span></li>
+            </ol>
+            <p class="closing build-step" data-build="7">La méthode existe donc en 1986. Il manque des montagnes d’exemples et des machines rapides&#8239;: elles arriveront ensemble, vingt-six ans plus tard.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 ─────────────────────────────────────── 2012 -->
+    <section class="slide" id="slide-9" data-chapter="histoire" data-chapter-label="1 · Histoire" aria-label="Pourquoi tout a basculé vers 2012" data-notes="Les réseaux à plusieurs couches étaient connus depuis les années 1980. Ce qui manquait, c’était de quoi les nourrir et de quoi les calculer. Les trois conditions arrivent ensemble : c’est cela, et non une découverte unique, qui explique 2012.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Une rencontre, pas une invention</p><h2>Pourquoi tout a basculé vers 2012</h2></div>
+        </header>
+        <figure class="figure" id="converge-figure">
+          <svg viewBox="0 0 1060 300" role="img" aria-label="Trois flux — données, puissance de calcul et algorithmes — convergent vers les réseaux profonds." id="converge">
+            <g id="converge-streams"></g>
+            <g class="build-step" data-build="5" id="converge-target"></g>
+          </svg>
+        </figure>
+        <p class="closing build-step" data-build="6">Aucune des trois ne suffisait seule. C’est leur rencontre qui a réveillé l’idée de 1958.</p>
+      </div>
+    </section>
+
+    <!-- 10 ─────────────────────────────────────── trois familles -->
+    <section class="slide" id="slide-10" data-chapter="apprendre" data-chapter-label="2 · Apprendre" aria-label="Trois façons d’apprendre" data-notes="Faire trouver des exemples scolaires pour chaque famille : un exercice corrigé, un tri de documents sans consigne, un jeu où l’on ne connaît que le score final. Les trois se combinent souvent dans un même système.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Le vocabulaire à retenir</p><h2>Trois façons d’apprendre</h2></div>
+        </header>
+        <p class="lead is-wide build-step" data-build="2">Toutes les machines de la première partie apprenaient de la même manière&#8239;: on leur montrait des exemples <b>accompagnés de la bonne réponse</b>. Ce n’est qu’une des trois façons — et AlphaGo, en 2016, en utilisait une autre.</p>
+        <div class="family-grid">
+          <article class="family build-step" data-build="2">
+            <svg class="family-glyph" viewBox="0 0 120 72" aria-hidden="true">
+              <rect class="glyph-box" x="6" y="12" width="46" height="48" rx="8"></rect>
+              <text class="glyph-mark is-blue" x="29" y="45" text-anchor="middle">?</text>
+              <path class="glyph-arrow" d="M60 36 H82"></path><path class="glyph-head" d="M90 36 l-9 -5 v10 z"></path>
+              <text class="glyph-mark is-green" x="106" y="45" text-anchor="middle">A</text>
+            </svg>
+            <h3>Supervisé</h3>
+            <p>On donne l’exemple <b>et</b> la bonne réponse. La machine apprend à relier les deux.</p>
+            <p class="family-example">Reconnaître un chat, corriger une phrase.</p>
+          </article>
+          <article class="family build-step" data-build="3">
+            <svg class="family-glyph" viewBox="0 0 120 72" aria-hidden="true">
+              <circle class="glyph-ring" cx="29" cy="34" r="21"></circle>
+              <circle class="glyph-ring" cx="86" cy="32" r="20"></circle>
+              <circle class="glyph-dot is-a" cx="26" cy="24" r="6"></circle><circle class="glyph-dot is-a" cx="38" cy="34" r="6"></circle><circle class="glyph-dot is-a" cx="22" cy="42" r="6"></circle>
+              <circle class="glyph-dot is-b" cx="80" cy="22" r="6"></circle><circle class="glyph-dot is-b" cx="94" cy="32" r="6"></circle><circle class="glyph-dot is-b" cx="82" cy="40" r="6"></circle>
+            </svg>
+            <h3>Non supervisé</h3>
+            <p>Aucune réponse fournie. La machine cherche seule des <b>groupes</b> et des régularités.</p>
+            <p class="family-example">Regrouper des clients, repérer une anomalie.</p>
+          </article>
+          <article class="family build-step" data-build="4">
+            <svg class="family-glyph" viewBox="0 0 120 72" aria-hidden="true">
+              <rect class="glyph-box" x="8" y="14" width="44" height="44" rx="8"></rect>
+              <circle class="glyph-agent" cx="30" cy="36" r="8"></circle>
+              <path class="glyph-arrow" d="M58 36 H74"></path><path class="glyph-head" d="M82 36 l-9 -5 v10 z"></path>
+              <path class="glyph-star" d="M100 16 l6 13 14 2 -10 10 3 14 -13-7 -13 7 3-14 -10-10 14-2z"></path>
+            </svg>
+            <h3>Par renforcement</h3>
+            <p>Ni exemple ni réponse : seulement une <b>récompense</b> quand le résultat est bon.</p>
+            <p class="family-example">Jouer au go, piloter un robot.</p>
+          </article>
+        </div>
+        <p class="closing build-step" data-build="5">Aucune des trois ne comprend ce qu’elle fait. Toutes les trois finissent par y arriver.</p>
+      </div>
+    </section>
+
+    <!-- 11 ─────────────────────────────────────── neurone -->
+    <section class="slide" id="slide-11" data-chapter="apprendre" data-chapter-label="2 · Apprendre" aria-label="Un neurone est une petite calculatrice" data-notes="Faire le calcul à voix haute avec les valeurs affichées : 0,58 × 1,4 puis 0,17 × (−1,1) puis 0,91 × 0,6, on additionne, on compare à zéro. Le mot « poids » se comprend après ce calcul, pas avant.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Le plus petit morceau</p><h2>Un neurone est une petite calculatrice</h2></div>
+        </header>
+        <div class="workbench">
+          <figure class="figure build-step" data-build="2">
+            <svg viewBox="0 0 620 300" role="img" aria-label="Schéma d’un neurone artificiel : trois mesures multipliées par des poids, additionnées, puis comparées à un seuil." id="neuron">
+              <g class="wires">
+                <path class="wire" d="M170 62 C240 62 250 150 316 150"></path>
+                <path class="wire" d="M170 150 H316"></path>
+                <path class="wire" d="M170 238 C240 238 250 150 316 150"></path>
+              </g>
+              <g class="inputs">
+                <rect class="node-box" x="18" y="38" width="152" height="48" rx="12"></rect>
+                <text class="node-label" x="34" y="60">longueur</text><text class="node-sub" x="34" y="76">0,58</text>
+                <rect class="node-box" x="18" y="126" width="152" height="48" rx="12"></rect>
+                <text class="node-label" x="34" y="148">largeur</text><text class="node-sub" x="34" y="164">0,17</text>
+                <rect class="node-box" x="18" y="214" width="152" height="48" rx="12"></rect>
+                <text class="node-label" x="34" y="236">couleur</text><text class="node-sub" x="34" y="252">0,91</text>
+              </g>
+              <g class="build-step" data-build="3">
+                <text class="weight-label" x="222" y="52">× 1,4</text>
+                <text class="weight-label" x="222" y="140">× −1,1</text>
+                <text class="weight-label" x="222" y="252">× 0,6</text>
+              </g>
+              <g class="build-step" data-build="4">
+                <circle class="node-box node-box-accent" cx="352" cy="150" r="38"></circle>
+                <text class="node-label" x="336" y="147">somme</text>
+                <text class="node-sub" x="345" y="164">Σ</text>
+                <path class="wire" d="M390 150 H440"></path>
+              </g>
+              <g class="build-step" data-build="5">
+                <rect class="node-box node-box-out" x="440" y="118" width="164" height="64" rx="14"></rect>
+                <text class="node-label" x="460" y="144">plus grand que 0 ?</text>
+                <text class="node-sub" x="460" y="164">banane / pomme</text>
+              </g>
+            </svg>
+          </figure>
+          <div class="panel build-step" data-build="6">
+            <h3>Les poids sont les seuls réglages</h3>
+            <p>Le neurone multiplie chaque mesure par un poids, additionne le tout, puis regarde si le résultat dépasse zéro.</p>
+            <p class="panel-note">Un poids positif tire vers « banane », un poids négatif vers « pomme ». Entraîner, c’est chercher les bons poids — et c’est exactement ce que fait la machine de 1958.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 ─────────────────────────────────────── atelier perceptron -->
+    <section class="slide" id="slide-12" data-chapter="apprendre" data-chapter-label="2 · Apprendre" aria-label="Atelier : entraîne un neurone en direct" data-notes="Faire venir un élève. Insister sur l’état de départ : dix erreurs sur dix, la machine ne sait rien. Compter ensuite les tours nécessaires. « Recommencer » repart d’autres poids au hasard : le chemin change, le résultat non.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Atelier 1 · apprentissage supervisé</p><h2>Entraîne un neurone en direct</h2></div>
+        </header>
+        <p class="lead is-wide build-step" data-build="2">Dix fruits, placés selon leur <b>longueur</b> et leur <b>largeur</b>. Le neurone doit trouver une droite qui sépare les bananes des pommes. Il part au hasard, puis se corrige.</p>
+        <div class="workbench">
+          <figure class="figure build-step" data-build="3">
+            <svg viewBox="0 0 580 360" role="img" aria-label="Nuage de points : dix fruits placés selon leur longueur et leur largeur, et les deux zones que le neurone leur attribue." id="fruit-plot">
+              <defs><clipPath id="fruit-clip"><rect x="58" y="18" width="508" height="300"></rect></clipPath></defs>
+              <g clip-path="url(#fruit-clip)">
+                <polygon class="region is-banana" id="region-banana" points=""></polygon>
+                <polygon class="region is-apple" id="region-apple" points=""></polygon>
+                <line class="boundary" id="fruit-boundary" x1="0" y1="0" x2="0" y2="0"></line>
+              </g>
+              <line class="axis-line" x1="58" y1="318" x2="566" y2="318"></line>
+              <line class="axis-line" x1="58" y1="18" x2="58" y2="318"></line>
+              <text class="axis-title" x="566" y="344" text-anchor="end">LONGUEUR (CM)</text>
+              <text class="axis-title" x="58" y="12">LARGEUR (CM)</text>
+              <g id="fruit-ticks"></g>
+              <g id="fruit-labels"></g>
+              <g id="fruit-dots"></g>
+            </svg>
+            <div class="legend"><span><i class="is-banana" aria-hidden="true"></i>banane</span><span><i class="is-apple" aria-hidden="true"></i>pomme</span><span><i class="is-dashed" aria-hidden="true"></i>fruit mal classé</span><span><i class="is-zone" aria-hidden="true"></i>la zone que le neurone attribue</span></div>
+          </figure>
+          <div class="panel build-step" data-build="4">
+            <h3>Il corrige ses poids, tour après tour</h3>
+            <p>À chaque tour, le neurone examine les dix fruits. Quand il se trompe, il déplace un peu sa frontière.</p>
+            <div class="readout">
+              <span class="readout-value" id="fruit-errors">10</span>
+              <span class="readout-unit">erreurs sur 10<br>tour n° <b id="fruit-epoch">0</b></span>
+            </div>
+            <div class="action-row">
+              <button class="action" type="button" id="fruit-run"><i class="fa-solid fa-bolt" aria-hidden="true"></i>Entraîner</button>
+              <button class="action is-quiet" type="button" id="fruit-step"><i class="fa-solid fa-forward-step" aria-hidden="true"></i>Un tour</button>
+              <button class="action is-quiet" type="button" id="fruit-reset"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i>Recommencer</button>
+            </div>
+            <p class="status" id="fruit-status">Les poids de départ sont pris au hasard : la frontière est n’importe où.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 ─────────────────────────────────────── k-means -->
+    <section class="slide" id="slide-13" data-chapter="apprendre" data-chapter-label="2 · Apprendre" aria-label="Atelier : trier sans connaître les réponses" data-notes="Personne n’a dit combien de groupes existent : c’est nous qui avons choisi trois. La machine ne sait pas ce que sont ces groupes, seulement qu’ils existent. Relancer avec de nouveaux points pour montrer que la méthode ne dépend pas de ce nuage.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Atelier 2 · apprentissage non supervisé</p><h2>Trier sans connaître les réponses</h2></div>
+        </header>
+        <p class="lead is-wide build-step" data-build="2">Quarante-cinq points, et <b>aucune étiquette</b>&#8239;: personne n’a dit lesquels vont ensemble. On demande trois groupes, la machine les trouve seule.</p>
+        <div class="workbench">
+          <figure class="figure build-step" data-build="3">
+            <svg viewBox="0 0 580 360" role="img" aria-label="Nuage de points regroupé automatiquement en trois familles, avec le centre de chaque famille marqué par une croix." id="kmeans-plot">
+              <rect class="plot-field" x="24" y="16" width="532" height="328" rx="14"></rect>
+              <g id="kmeans-links"></g>
+              <g id="kmeans-points"></g>
+              <g id="kmeans-centers"></g>
+            </svg>
+            <div class="legend"><span><i class="is-cluster" aria-hidden="true"></i>point (sa couleur = son groupe)</span><span><i class="is-cross" aria-hidden="true"></i>centre du groupe</span><span><i class="is-tie" aria-hidden="true"></i>à quel centre le point est rattaché</span></div>
+          </figure>
+          <div class="panel build-step" data-build="4">
+            <h3>Deux gestes, répétés</h3>
+            <p>Chaque point rejoint le centre le plus proche, puis chaque centre se replace au milieu de ses points. Un clic = un geste.</p>
+            <div class="readout">
+              <span class="readout-value" id="kmeans-round">0</span>
+              <span class="readout-unit" id="kmeans-unit"></span>
+            </div>
+            <div class="action-row">
+              <button class="action" type="button" id="kmeans-run"><i class="fa-solid fa-bolt" aria-hidden="true"></i>Lancer</button>
+              <button class="action is-quiet" type="button" id="kmeans-step"><i class="fa-solid fa-forward-step" aria-hidden="true"></i>Un geste</button>
+              <button class="action is-quiet" type="button" id="kmeans-new"><i class="fa-solid fa-shuffle" aria-hidden="true"></i>Nouveaux points</button>
+            </div>
+            <p class="status" id="kmeans-status">Au départ, les trois centres sont posés au hasard et aucun point n’appartient à un groupe.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14 ─────────────────────────────────────── renforcement -->
+    <section class="slide" id="slide-14" data-chapter="apprendre" data-chapter-label="2 · Apprendre" aria-label="Atelier : apprendre par récompense" data-notes="Au premier essai, le robot se déplace au hasard : il ignore où est la sortie. Chaque partie laisse une trace dans la mémoire des cases. Les flèches ne sont pas programmées, elles apparaissent. C’est la méthode qui a permis à AlphaGo de progresser en jouant contre lui-même.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Atelier 3 · apprentissage par renforcement</p><h2>Apprendre par récompense, sans exemple</h2></div>
+        </header>
+        <p class="lead is-wide build-step" data-build="2">Le robot part en haut à gauche et cherche la sortie, <b>sans carte</b>. Un piège lui coûte un point. Après cinquante parties, regarde les flèches apparaître.</p>
+        <div class="workbench is-square">
+          <figure class="figure build-step" data-build="3">
+            <svg viewBox="0 0 400 360" role="img" aria-label="Grille de jeu où un robot doit atteindre la sortie en évitant deux pièges ; la couleur des cases et les flèches montrent ce que la machine a appris." id="grid-plot">
+              <g id="grid-cells"></g>
+              <g id="grid-arrows"></g>
+              <g id="grid-agent"></g>
+            </svg>
+            <div class="legend"><span><i class="is-goal" aria-hidden="true"></i>★ la sortie, +1 point</span><span><i class="is-trap" aria-hidden="true"></i>✕ un piège, −1 point</span><span><i class="is-value" aria-hidden="true"></i>bleu de la case&#8239;: ce qu’il croit y gagner</span><span><i class="is-arrow" aria-hidden="true"></i>la direction qu’il choisirait</span></div>
+          </figure>
+          <div class="panel build-step" data-build="4">
+            <h3>Récompense, pénalité, mémoire</h3>
+            <p>Atteindre la sortie rapporte un point, tomber dans un piège en coûte un. Le robot ne reçoit rien d’autre : ni carte, ni consigne.</p>
+            <div class="readout">
+              <span class="readout-value" id="grid-episodes">0</span>
+              <span class="readout-unit">parties jouées<br>trajet appris : <b id="grid-steps">—</b></span>
+            </div>
+            <div class="action-row">
+              <button class="action" type="button" id="grid-learn"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>Jouer 50 parties</button>
+              <button class="action is-quiet" type="button" id="grid-replay"><i class="fa-solid fa-route" aria-hidden="true"></i>Suivre le trajet</button>
+              <button class="action is-quiet" type="button" id="grid-reset"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i>Tout oublier</button>
+            </div>
+            <p class="status" id="grid-status">Mémoire vide : le robot se déplacera complètement au hasard.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15 ─────────────────────────────────────── deep learning -->
+    <section class="slide" id="slide-15" data-chapter="apprendre" data-chapter-label="2 · Apprendre" aria-label="Le deep learning, c’est empiler les couches" data-notes="« Profond » ne veut rien dire de plus que « à beaucoup de couches ». Personne ne décide de ce que chaque couche repère : cette organisation apparaît pendant l’entraînement. Et c’est cet empilement qui résout enfin le problème de 1969.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Le mot « profond » expliqué</p><h2>Le deep learning, c’est empiler les couches</h2></div>
+        </header>
+        <div class="workbench is-wide">
+          <figure class="figure" id="deep-figure">
+            <svg viewBox="0 0 640 320" role="img" aria-label="Réseau à cinq couches : l’information entre à gauche et ressort à droite sous forme de réponse." id="deep-net">
+              <g id="deep-links"></g>
+              <g id="deep-nodes"></g>
+              <g id="deep-captions"></g>
+            </svg>
+          </figure>
+          <div class="panel">
+            <h3 class="build-step" data-build="2">Chaque couche voit un peu plus loin</h3>
+            <ol class="layer-list">
+              <li class="build-step" data-build="3"><b>Couche 1</b><span>des traits, des bords, des contrastes</span></li>
+              <li class="build-step" data-build="4"><b>Couche 2</b><span>des coins, des courbes, des textures</span></li>
+              <li class="build-step" data-build="5"><b>Couche 3</b><span>une oreille, un œil, une roue</span></li>
+              <li class="build-step" data-build="6"><b>Sortie</b><span>chat, chien, voiture</span></li>
+            </ol>
+            <p class="footnote build-step" data-build="7">Un neurone seul ne trace qu’une droite — le mur de 1969. Empilés par millions, ils découpent n’importe quelle forme.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16 ─────────────────────────────────────── voir une image -->
+    <section class="slide" id="slide-16" data-chapter="apprendre" data-chapter-label="2 · Apprendre" aria-label="Atelier : comment une IA voit une image" data-notes="Ce que fait vraiment la première couche d’un réseau d’images : elle promène une petite fenêtre sur l’image et calcule, à chaque position, une somme de neuf multiplications. C’est tout. Le filtre vertical répond fort là où l’image change brusquement de gauche à droite : il détecte les bords verticaux. Le filtre horizontal fait la même chose de haut en bas. Le troisième réagit à tout contour. Point essentiel : personne n’a écrit ces neuf nombres. Ici je les ai choisis pour que la démonstration soit lisible, mais dans un vrai réseau ce sont des poids, trouvés par l’entraînement — exactement comme ceux du neurone de l’atelier 1. Et la couche suivante refait la même opération sur la carte produite, ce qui lui permet de repérer des formes plus grandes.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Atelier 4 · voir une image</p><h2>Une petite fenêtre qui glisse</h2></div>
+        </header>
+        <p class="lead is-wide build-step" data-build="2">Pour «&#8239;voir&#8239;», la première couche promène une fenêtre de neuf cases sur l’image et calcule à chaque position une somme de neuf multiplications. Le résultat forme une nouvelle image&#8239;: une <b>carte</b> de ce que le filtre a trouvé.</p>
+        <div class="workbench">
+          <figure class="figure build-step" data-build="3">
+            <svg viewBox="0 0 520 250" role="img" aria-label="À gauche l’image d’origine et la fenêtre de neuf cases qui la parcourt ; à droite la carte que le filtre produit, qui se remplit case par case." id="convo"></svg>
+          </figure>
+          <div class="panel build-step" data-build="4">
+            <h3>Les neuf nombres du filtre</h3>
+            <div class="kernel" id="kernel" aria-hidden="true"></div>
+            <p class="sr-only" id="kernel-text"></p>
+            <div class="action-row">
+              <button class="action" type="button" id="convo-run"><i class="fa-solid fa-bolt" aria-hidden="true"></i>Passer le filtre</button>
+              <button class="action is-quiet" type="button" id="convo-step"><i class="fa-solid fa-forward-step" aria-hidden="true"></i>Un pas</button>
+              <button class="action is-quiet" type="button" id="convo-next"><i class="fa-solid fa-shuffle" aria-hidden="true"></i>Changer de filtre</button>
+            </div>
+            <p class="status" id="convo-status"></p>
+            <p class="footnote">Ici j’ai choisi les neuf nombres pour que ce soit lisible. Dans un vrai réseau, ce sont des <b>poids trouvés par l’entraînement</b>, comme ceux du premier atelier.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 17 ─────────────────────────────────────── jetons -->
+    <section class="slide" id="slide-17" data-chapter="langage" data-chapter-label="3 · Générer" aria-label="Atelier : elle lit des morceaux, pas des mots" data-notes="Faire dicter une phrase par la classe. Essayer un mot très long, puis un mot inventé : le découpage change, ce qui explique comment un modèle se débrouille avec des mots jamais vus.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Atelier 5 · du texte aux nombres</p><h2>Elle lit des morceaux, pas des mots</h2></div>
+        </header>
+        <p class="lead build-step" data-build="2">Avant tout calcul, le texte est coupé en <b>jetons</b>, et chaque jeton devient un nombre. Écris ta phrase :</p>
+        <div class="build-step" data-build="3">
+          <label class="sr-only" for="token-input">Phrase à découper en jetons</label>
+          <input class="token-input" id="token-input" type="text" value="L’intelligence artificielle apprend avec des exemples." autocomplete="off" spellcheck="false">
+          <div class="token-strip" id="token-strip" aria-live="polite"></div>
+          <p class="token-count" id="token-count"></p>
+        </div>
+        <p class="footnote build-step" data-build="4">Découpage simplifié pour la démonstration : les vrais modèles utilisent un dictionnaire de morceaux appris sur des textes. <b>Tout ce qui suit se passe sur ces jetons</b>, jamais sur des mots entiers.</p>
+      </div>
+    </section>
+
+    <!-- 18 ─────────────────────────────────────── mot suivant -->
+    <section class="slide" id="slide-18" data-chapter="langage" data-chapter-label="3 · Générer" aria-label="Atelier : deviner le mot suivant" data-notes="Faire voter la classe avant de cliquer. Souligner que le modèle ne prend pas toujours le plus probable : c’est pour cela que deux réponses à la même question peuvent différer.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Atelier 6 · une seule opération</p><h2>Son seul travail : deviner le mot suivant</h2></div>
+        </header>
+        <p class="lead is-wide build-step" data-build="2">Le modèle ne fait que cela&#8239;: proposer les mots possibles avec leur probabilité, puis en choisir un. Clique pour choisir à sa place.</p>
+        <div class="workbench">
+          <div class="build-step" data-build="3">
+            <p class="sentence" id="sentence-text"></p>
+            <p class="footnote build-step" data-build="5">On écrit ici des mots entiers pour rester lisible : le modèle, lui, empile les <b>jetons</b> découpés juste avant. Les probabilités sont choisies pour la démonstration — un vrai modèle en calcule des dizaines de milliers à chaque jeton.</p>
+          </div>
+          <div class="panel build-step" data-build="4">
+            <h3>Choisis un mot</h3>
+            <p>Le modèle propose plusieurs suites, chacune avec sa probabilité. Clique pour en choisir une.</p>
+            <ul class="candidates" id="candidates" aria-live="polite"></ul>
+            <div class="action-row">
+              <button class="action is-quiet" type="button" id="sentence-reset"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i>Recommencer la phrase</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 19 ─────────────────────────────────────── attention -->
+    <section class="slide" id="slide-19" data-chapter="langage" data-chapter-label="3 · Générer" aria-label="Atelier : l’attention, ou comment un mot regarde les autres" data-notes="L’article fondateur s’appelle « Attention Is All You Need », publié en 2017 : il introduit le Transformer, l’architecture de tous les modèles de langage actuels. Le mot « il » n’a aucun sens tout seul ; c’est l’attention qui va chercher « chat ». Faire deviner à la classe sur quel mot chaque mot va regarder avant de cliquer.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Atelier 7 · l’invention de 2017</p><h2>Chaque mot regarde les autres</h2></div>
+        </header>
+        <p class="lead build-step" data-build="2">« <b>Attention Is All You Need</b> », 2017 : chaque mot d’une phrase va chercher les mots dont il a besoin. Clique sur n’importe quel mot souligné pour voir où il va chercher son sens.</p>
+        <div class="attention-stage build-step" data-build="3">
+          <svg class="att-svg" id="attention-arcs" aria-hidden="true"></svg>
+          <div class="word-row" id="attention-words"></div>
+        </div>
+        <p class="status attention-status build-step" data-build="4" id="attention-status" aria-live="polite"></p>
+        <p class="footnote build-step" data-build="5">Ce sont les <b>jetons</b> qui se regardent, pas les mots : on affiche des mots entiers pour que la phrase reste lisible. Poids choisis pour la démonstration ; un vrai modèle en calcule des milliers par couche, et personne ne les a écrits.</p>
+      </div>
+    </section>
+
+    <!-- 20 ─────────────────────────────────────── LLM -->
+    <section class="slide" id="slide-20" data-chapter="langage" data-chapter-label="3 · Générer" aria-label="Ce qu’est un grand modèle de langage" data-notes="Préciser qu’aucun texte n’est stocké tel quel : le modèle ne conserve que des poids. C’est pourquoi il ne retrouve pas une page, il la reconstitue de façon plausible.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Le mot à connaître</p><h2>Un grand modèle de langage</h2></div>
+        </header>
+        <div class="figure-block">
+          <div class="gen-box build-step" data-build="2">
+            <p class="gen-line" id="gen-line" aria-hidden="true"></p>
+            <p class="sr-only">Exemple de phrase produite mot à mot : « Un modèle de langage écrit chaque mot en regardant tous les précédents. »</p>
+            <p class="gen-note">un jeton, puis le suivant, puis le suivant…</p>
+          </div>
+          <ul class="plain-list">
+            <li class="build-step" data-build="3"><i class="fa-solid fa-book-open-reader" aria-hidden="true"></i><span>Entraîné sur <b>d’énormes quantités de textes</b>, en devinant sans arrêt le mot caché.</span></li>
+            <li class="build-step" data-build="4"><i class="fa-solid fa-sliders" aria-hidden="true"></i><span>Il ne garde <b>aucun texte en mémoire</b> : seulement des milliards de poids réglés.</span></li>
+            <li class="build-step" data-build="5"><i class="fa-solid fa-eye" aria-hidden="true"></i><span>À chaque mot, l’<b>attention</b> relit toute la phrase pour choisir le suivant.</span></li>
+            <li class="build-step" data-build="6"><i class="fa-solid fa-comments" aria-hidden="true"></i><span>Une longue réponse n’est qu’une <b>suite de jetons devinés</b>, un par un, très vite.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 21 ─────────────────────────────────────── diffusion -->
+    <section class="slide" id="slide-21" data-chapter="langage" data-chapter-label="3 · Générer" aria-label="La diffusion : comment une IA fabrique une image" data-notes="La diffusion ne ressemble à rien de ce qu'on a vu avant : on n'y devine pas le mot suivant, on retire du bruit. L'entraînement se fait à l'envers : on abîme volontairement de vraies images en y ajoutant du bruit par étapes, et on apprend au modèle à remonter d'un cran à chaque fois. Pour créer une image neuve, on part de bruit pur — donc d'un tirage au hasard, ce qui explique que deux essais avec la même description ne donnent jamais la même image. La description écrite est transformée en nombres qui orientent chaque étape de débruitage : c'est elle qui décide de ce qui va apparaître. Insister sur un point : rien n'est découpé ni recollé depuis une banque d'images. L'image n'existait pas avant d'être débruitée. Ce qui n'empêche pas la question des droits, puisque les images d'entraînement, elles, avaient des auteurs.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Les images, tout autrement</p><h2>Fabriquer une image en retirant du bruit</h2></div>
+        </header>
+        <div class="workbench">
+          <figure class="figure build-step" data-build="2">
+            <svg viewBox="0 0 300 300" role="img" aria-label="Un carré de neige aléatoire se transforme progressivement en une image reconnaissable, puis redevient de la neige." id="diffusion"></svg>
+            <p class="credit">De la neige au dessin, en une trentaine d’étapes. Rien n’est copié&#8239;: l’image n’existait pas avant d’être débruitée.</p>
+          </figure>
+          <div class="panel">
+            <ol class="rule-list">
+              <li class="build-step" data-build="3"><b class="rule-num">1</b><span>On prend de <b>vraies images</b> et on y ajoute du bruit, encore et encore, jusqu’à ce qu’il ne reste que de la neige.</span></li>
+              <li class="build-step" data-build="4"><b class="rule-num">2</b><span>On entraîne le modèle à faire <b>l’inverse</b>&#8239;: retrouver l’image un peu moins bruitée.</span></li>
+              <li class="build-step" data-build="5"><b class="rule-num">3</b><span>Pour une image neuve, on part de <b>bruit pur</b> et on répète l’opération une trentaine de fois.</span></li>
+              <li class="build-step" data-build="6"><b class="rule-num">4</b><span>Ta <b>description</b> devient des nombres qui orientent chaque étape&#8239;: c’est elle qui décide de ce qui apparaît.</span></li>
+            </ol>
+            <p class="closing build-step" data-build="7">On part du hasard&#8239;: deux essais avec la même phrase ne donnent jamais la même image.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 22 ─────────────────────────────────────── la chaîne de Stable Diffusion -->
+    <section class="slide" id="slide-22" data-chapter="langage" data-chapter-label="3 · Générer" aria-label="La chaîne complète d’un modèle d’images comme Stable Diffusion" data-notes="La slide précédente donnait le principe ; celle-ci donne la machine, celle d'un modèle comme Stable Diffusion. Quatre pièces. Un encodeur de texte transforme la phrase en nombres — la même idée que les jetons du chapitre précédent. Un tirage de bruit au hasard, qui explique que deux essais avec la même phrase ne donnent jamais la même image. Un débruiteur qui travaille non pas sur l'image finale mais sur un petit tableau de nombres, l'espace latent : c'est le mot « latent » de « latent diffusion », et c'est ce qui rend le calcul possible sur une machine ordinaire — quelques milliers de cases au lieu de plusieurs millions de pixels. À chaque étape, le débruiteur regarde les nombres de la phrase pour savoir vers quoi aller. Enfin un décodeur déplie ce petit tableau en une image en pixels. C'est parce que le gros du calcul se fait en petit que ces modèles ont pu être téléchargés et lancés par des particuliers dès 2022.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">La machine, pièce par pièce</p><h2>Ce qui se passe entre ta phrase et l’image</h2></div>
+        </header>
+        <p class="lead is-wide build-step" data-build="2">Dans un modèle comme <b>Stable Diffusion</b>, quatre pièces travaillent à la suite. Et le débruitage ne se fait jamais sur l’image finale.</p>
+        <figure class="figure build-step" data-build="3">
+          <svg viewBox="0 0 1120 250" role="img" aria-label="La phrase passe dans un encodeur qui la transforme en nombres ; du bruit tiré au hasard est débruité étape par étape dans un petit tableau, guidé par ces nombres ; un décodeur déplie enfin ce tableau en image." id="sd-chain"></svg>
+        </figure>
+        <div class="sd-notes">
+          <p class="build-step" data-build="4"><b>Pourquoi « latent »&#8239;?</b> Le débruitage travaille sur quelques milliers de cases, pas sur les millions de pixels de l’image. C’est mille fois moins de calcul.</p>
+          <p class="build-step" data-build="5"><b>Pourquoi ça tourne chez toi&#8239;?</b> Justement parce que le gros du travail se fait en petit. Dès 2022, ces modèles ont pu être téléchargés et lancés sur un ordinateur ordinaire.</p>
+          <p class="build-step" data-build="6"><b>Pourquoi jamais deux fois la même&#8239;?</b> Parce qu’on part d’un tirage de bruit au hasard. Même phrase, autre bruit, autre image.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 23 ─────────────────────────────────────── harnais -->
+    <section class="slide" id="slide-23" data-chapter="agir" data-chapter-label="4 · Agir" aria-label="Le modèle seul ne fait rien : le harnais" data-notes="Le mot « harnais » est le terme employé par les concepteurs : tout ce qu’on attache autour du modèle pour en faire un outil utilisable. Quand on change d’assistant sans changer de modèle, c’est le harnais qui change. C’est aussi là que se placent les garde-fous, pas dans le modèle.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Ce qu’on ne voit jamais</p><h2>Le modèle seul ne fait rien</h2></div>
+        </header>
+        <p class="lead build-step" data-build="2">Un modèle nu ne sait que continuer du texte. Chercher, calculer, se souvenir, refuser : tout cela vient de ce qu’on attache autour. On appelle cela le <b>harnais</b>.</p>
+        <figure class="figure build-step" data-build="3">
+          <svg viewBox="0 0 1080 232" role="img" aria-label="Le modèle au centre, entouré de quatre modules attachés : la consigne, les outils, la mémoire et les garde-fous." id="harness"></svg>
+        </figure>
+        <p class="closing build-step" data-build="8">Tu ne parles donc jamais au modèle. Tu parles à tout ce qu’on a attaché autour.</p>
+      </div>
+    </section>
+
+    <!-- 24 ─────────────────────────────────────── agents -->
+    <section class="slide" id="slide-24" data-chapter="agir" data-chapter-label="4 · Agir" aria-label="Un agent : observer, décider, agir, vérifier" data-notes="La différence entre un assistant et un agent : l’assistant répond, l’agent agit puis regarde le résultat et recommence. Exemple concret : « trouve pourquoi ce programme plante et corrige-le » — il lit le code, lance le test, lit l’erreur, modifie, relance. Et comme il agit vraiment, une erreur ne reste plus dans le texte : elle a des conséquences.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Répondre ne suffit plus</p><h2>Un agent ne répond pas : il agit</h2></div>
+        </header>
+        <div class="workbench is-square">
+          <figure class="figure build-step" data-build="2">
+            <svg viewBox="0 0 470 356" role="img" aria-label="Boucle en quatre étapes : observer, décider, agir, vérifier, puis retour à observer." id="agent-loop"></svg>
+          </figure>
+          <div class="panel">
+            <h3 class="build-step" data-build="3">La boucle change tout</h3>
+            <ul class="beat-list">
+              <li class="build-step" data-build="4"><b>Un assistant</b><span>Tu demandes, il répond une fois. C’est toi qui vérifies et qui recommences.</span></li>
+              <li class="build-step" data-build="5"><b>Un agent</b><span>Il agit, regarde le résultat, corrige, recommence — jusqu’à ce que ce soit fait.</span></li>
+              <li class="build-step" data-build="6"><b>La conséquence</b><span>Une erreur ne reste plus dans le texte : un fichier est modifié, un message est envoyé.</span></li>
+            </ul>
+            <p class="footnote build-step" data-build="7">C’est pour cela qu’un agent demande une autorisation avant les actions qu’on ne peut pas annuler.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 25 ─────────────────────────────────────── sous-agents -->
+    <section class="slide" id="slide-25" data-chapter="agir" data-chapter-label="4 · Agir" aria-label="Les sous-agents : un agent qui en commande d’autres" data-notes="Le problème que résolvent les sous-agents est double. D’abord le temps : un agent seul traite les morceaux les uns après les autres, alors que plusieurs sous-agents avancent en même temps. Ensuite la place : tout ce qu’un agent lit reste dans sa mémoire de travail, qui est limitée ; un sous-agent lit beaucoup et ne rend qu’un résumé, ce qui garde la mémoire de l’agent principal disponible. Le revers : l’agent principal ne voit que les résumés, donc il peut manquer un détail que le sous-agent a jugé secondaire.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Quand un seul ne suffit plus</p><h2>Un agent qui en commande d’autres</h2></div>
+        </header>
+        <p class="lead is-wide build-step" data-build="2">Sur une tâche longue, un agent seul traite tout à la suite et sa mémoire de travail se remplit. Alors il découpe le travail et le confie à des <b>sous-agents</b>.</p>
+        <div class="workbench is-wide">
+          <figure class="figure build-step" data-build="3">
+            <svg viewBox="0 0 560 300" role="img" aria-label="Un agent principal découpe une tâche et l’envoie à trois sous-agents qui travaillent en parallèle, puis lui renvoient chacun un résumé." id="subagents"></svg>
+          </figure>
+          <div class="panel">
+            <ol class="rule-list">
+              <li class="build-step" data-build="4"><b class="rule-num">1</b><span>L’agent principal <b>découpe</b> : « lis ces trois dossiers », un par sous-agent.</span></li>
+              <li class="build-step" data-build="5"><b class="rule-num">2</b><span>Chaque sous-agent travaille <b>en même temps</b>, avec sa propre mémoire et ses propres outils.</span></li>
+              <li class="build-step" data-build="6"><b class="rule-num">3</b><span>Il ne renvoie pas tout&nbsp;: seulement un <b>résumé</b>. La mémoire du principal reste dégagée.</span></li>
+              <li class="build-step" data-build="7"><b class="rule-num">4</b><span>L’agent principal <b>assemble</b> les résumés et rend la réponse.</span></li>
+            </ol>
+            <p class="closing build-step" data-build="8">Le revers&nbsp;: le principal ne voit que des résumés. Ce qu’un sous-agent a jugé secondaire est perdu.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 26 ─────────────────────────────────────── où en est-on -->
+    <section class="slide" id="slide-26" data-chapter="agir" data-chapter-label="4 · Agir" aria-label="Ce qui a changé ces dernières années" data-notes="Cinq changements, tous postérieurs à 2022, et aucun ne modifie le principe de 1958. Le raisonnement : le modèle produit un brouillon avant de répondre, et on lui laisse plus de temps de calcul sur les problèmes difficiles. Le multimodal : un même modèle traite texte, image et son. La mémoire longue : des documents entiers tiennent dans une seule requête. Les agents qui pilotent un ordinateur : ils cliquent, écrivent des fichiers, lancent des programmes. Les modèles ouverts : on peut les télécharger et les faire tourner soi-même, ce qui change qui contrôle la technologie.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Où en est-on</p><h2>Ce qui a changé depuis 2022</h2></div>
+        </header>
+        <div class="recent-grid">
+          <article class="recent build-step" data-build="2"><i class="fa-solid fa-brain" aria-hidden="true"></i><h3>Le raisonnement</h3><p>Le modèle écrit d’abord un brouillon de raisonnement, puis répond. Plus de temps de calcul, de meilleures réponses sur les problèmes difficiles.</p></article>
+          <article class="recent build-step" data-build="3"><i class="fa-solid fa-photo-film" aria-hidden="true"></i><h3>Le multimodal</h3><p>Un même modèle lit du texte, regarde une image, écoute du son. Les jetons ne viennent plus seulement de l’écrit.</p></article>
+          <article class="recent build-step" data-build="4"><i class="fa-solid fa-scroll" aria-hidden="true"></i><h3>La mémoire longue</h3><p>Des documents entiers tiennent dans une seule requête. Le modèle peut relire tout un livre avant de répondre.</p></article>
+          <article class="recent build-step" data-build="5"><i class="fa-solid fa-computer-mouse" aria-hidden="true"></i><h3>Les agents outillés</h3><p>Ils cliquent, écrivent des fichiers, lancent des programmes. Ils n’écrivent plus seulement du texte&nbsp;: ils agissent.</p></article>
+          <article class="recent build-step" data-build="6"><i class="fa-solid fa-box-open" aria-hidden="true"></i><h3>Les modèles ouverts</h3><p>Certains se téléchargent et tournent sur ses propres machines, à côté des modèles fermés loués par abonnement.</p></article>
+          <article class="recent build-step" data-build="7"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i><h3>Et ce qui n’a pas changé</h3><p>Le principe reste celui de 1958&nbsp;: des poids réglés par l’erreur. Ce sont l’échelle, le harnais et l’usage qui bougent.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 27 ─────────────────────────────────────── hallucination -->
+    <section class="slide" id="slide-27" data-chapter="limites" data-chapter-label="5 · Limites" aria-label="Elle se trompe sans changer de ton" data-notes="Nommer le phénomène : on parle d’« hallucination ». Rien dans le calcul du modèle ne mesure la vérité : il mesure la vraisemblance.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Le piège principal</p><h2>Elle se trompe sans changer de ton</h2></div>
+        </header>
+        <p class="lead build-step" data-build="2">Même question, deux réponses. Regarde-les s’écrire : même vitesse, même aplomb.</p>
+        <div class="answer-grid">
+          <article class="answer is-true build-step" data-build="3">
+            <p class="answer-tag"><i class="fa-solid fa-check" aria-hidden="true"></i>Réponse juste</p>
+            <blockquote data-type="« Le Petit Prince a été publié en 1943. »"></blockquote>
+            <p>Exact.</p>
+          </article>
+          <article class="answer is-false build-step" data-build="4">
+            <p class="answer-tag"><i class="fa-solid fa-xmark" aria-hidden="true"></i>Réponse inventée</p>
+            <blockquote data-type="« Le Petit Prince a été publié en 1938. »"></blockquote>
+            <p>Faux, et dit du même ton.</p>
+          </article>
+        </div>
+        <p class="closing build-step" data-build="5">Le modèle cherche la suite la plus vraisemblable, jamais la plus vraie. Seule la vérification tranche.</p>
+      </div>
+    </section>
+
+    <!-- 28 ─────────────────────────────────────── biais -->
+    <section class="slide" id="slide-28" data-chapter="limites" data-chapter-label="5 · Limites" aria-label="Ce qu’on ne lui montre pas devient une erreur" data-notes="Ici la machine n’a aucun bug : elle applique correctement sa règle. Le défaut vient des exemples. Faire le lien avec les biais qui touchent des personnes, pas seulement des animaux.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Atelier 8 · le biais des données</p><h2>Ce qu’on ne lui montre pas devient une erreur</h2></div>
+        </header>
+        <p class="lead build-step" data-build="2">Cette IA classe un animal en cherchant l’exemple connu dont la taille est la plus proche. Change ses exemples, garde le même animal.</p>
+        <div class="workbench is-square">
+          <figure class="figure build-step" data-build="3">
+            <svg viewBox="0 0 320 300" role="img" aria-label="Échelle des tailles : les exemples connus de l’IA à droite, l’animal à classer à gauche, relié à l’exemple le plus proche." id="bias-plot">
+              <line class="axis-line" x1="168" y1="28" x2="168" y2="272"></line>
+              <text class="axis-title" x="168" y="16" text-anchor="middle">GRAND</text>
+              <text class="axis-title" x="168" y="292" text-anchor="middle">PETIT</text>
+              <g id="bias-link"></g>
+              <g id="bias-dots"></g>
+              <g id="bias-test"></g>
+            </svg>
+            <div class="legend">
+              <span><i class="is-cat" aria-hidden="true"></i>exemples de chats</span>
+              <span><i class="is-dog" aria-hidden="true"></i>exemples de chiens</span>
+              <span><i class="is-test" aria-hidden="true"></i>à classer : un petit chien</span>
+            </div>
+          </figure>
+          <div class="panel build-step" data-build="4">
+            <h3>Quels exemples lui donner ?</h3>
+            <p>Les deux jeux d’exemples sont exacts. L’un est seulement incomplet.</p>
+            <div class="action-row">
+              <button class="action" type="button" id="bias-narrow">Seulement de gros chiens</button>
+              <button class="action is-quiet" type="button" id="bias-wide">Des chiens de toutes tailles</button>
+            </div>
+            <p class="verdict" id="bias-verdict" aria-live="polite"></p>
+            <p class="footnote">La règle de calcul ne change jamais entre les deux essais. Seuls les exemples changent.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 29 ─────────────────────────────────────── ne comprend pas -->
+    <section class="slide" id="slide-29" data-chapter="limites" data-chapter-label="5 · Limites" aria-label="Elle calcule, elle ne comprend pas" data-notes="Ne pas trancher le débat philosophique. S’en tenir au vérifiable : pas de corps, pas de souvenirs propres, aucun moyen interne de séparer le vrai du vraisemblable. La phrase « le chat dort sur le canapé » n’évoque chez elle ni chat, ni sommeil, ni canapé : seulement quinze nombres et leurs voisinages habituels.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Remettre l’outil à sa place</p><h2>Elle calcule, elle ne comprend pas</h2></div>
+        </header>
+        <div class="workbench is-wide">
+          <div>
+            <ul class="plain-list">
+              <li class="build-step" data-build="2"><i class="fa-solid fa-eye-slash" aria-hidden="true"></i><span>Elle n’a <b>jamais vu le monde</b> : elle n’a traité que des suites de signes.</span></li>
+              <li class="build-step" data-build="3"><i class="fa-solid fa-heart-crack" aria-hidden="true"></i><span>Elle n’a <b>ni intention ni sentiment</b>, même quand ses phrases en donnent l’impression.</span></li>
+              <li class="build-step" data-build="4"><i class="fa-solid fa-scale-unbalanced" aria-hidden="true"></i><span>Elle ne sait pas <b>ce qu’elle ne sait pas</b> : rien en elle ne mesure sa propre certitude.</span></li>
+            </ul>
+            <p class="closing build-step" data-build="7">Un outil très fort pour produire du texte, et un très mauvais juge de la vérité.</p>
+          </div>
+          <div class="split-card">
+            <figure class="figure build-step" data-build="5">
+              <p class="split-label">Ce que <b>tu</b> comprends</p>
+              <svg viewBox="0 0 300 132" role="img" aria-label="Un chat endormi sur un canapé : la scène qu’un lecteur humain se représente." id="scene-figure"></svg>
+            </figure>
+            <figure class="figure build-step" data-build="6">
+              <p class="split-label">Ce qu’<b>elle</b> reçoit</p>
+              <div class="number-strip" id="number-strip"></div>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 30 ─────────────────────────────────────── énergie -->
+    <section class="slide" id="slide-30" data-chapter="limites" data-chapter-label="5 · Limites" aria-label="Ce que l’intelligence artificielle consomme" data-notes="Deux coûts de nature différente. L’entraînement : des milliers de processeurs pendant des semaines, une fois, et il faut recommencer à chaque nouveau modèle. L’usage : très peu par question, mais multiplié par un nombre de questions qui augmente sans cesse — c’est devenu la part dominante. S’y ajoutent l’eau de refroidissement et la pression sur les réseaux électriques, qui décide désormais du lieu d’implantation des centres de données. Dire clairement aux élèves que les chiffres publiés varient beaucoup et que les entreprises en communiquent peu : on peut décrire la forme du coût, pas le mesurer en classe. Une question utile : est-ce que l’usage que j’en fais valait cette dépense ?">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Le coût qu’on ne voit pas</p><h2>Ce que ça consomme</h2></div>
+        </header>
+        <p class="lead is-wide build-step" data-build="2">Deux dépenses de nature différente&nbsp;: entraîner le modèle une fois, puis répondre à des milliards de questions.</p>
+        <div class="workbench is-wide">
+          <figure class="figure build-step" data-build="3">
+            <svg viewBox="0 0 620 300" role="img" aria-label="Un centre de données : l’électricité arrive par un pylône, l’eau part vers une tour de refroidissement qui dégage de la vapeur, la chaleur s’échappe du toit, et les requêtes entrent en flot continu." id="energy-figure"></svg>
+            <p class="credit">Schéma de principe. Les chiffres publiés varient beaucoup selon les modèles et les méthodes de calcul&nbsp;: on montre ici la <b>forme</b> du coût, pas une mesure.</p>
+          </figure>
+          <div class="panel">
+            <ul class="beat-list is-first">
+              <li class="build-step" data-build="4"><b>Entraîner</b><span>Des milliers de processeurs pendant des semaines. Très cher, mais une seule fois — et à refaire à chaque nouveau modèle.</span></li>
+              <li class="build-step" data-build="5"><b>Utiliser</b><span>Presque rien par question. Multiplié par des milliards de questions, c’est devenu la part la plus lourde.</span></li>
+                            <li class="build-step" data-build="6"><b>Refroidir et alimenter</b><span>Les centres de données chauffent&#8239;: il faut de l’eau, et leur consommation pèse sur les réseaux électriques.</span></li>
+            </ul>
+            <p class="closing build-step" data-build="7">La question à se poser avant d’envoyer une requête&nbsp;: est-ce que j’en avais besoin&#8239;?</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 31 ─────────────────────────────────────── craintes -->
+    <section class="slide" id="slide-31" data-chapter="limites" data-chapter-label="5 · Limites" aria-label="Atelier : trier les craintes liées à l’intelligence artificielle" data-notes="L’objectif est de séparer ce qui est documenté de ce qui est spéculatif, sans minimiser ni dramatiser. Les trois premières craintes sont constatées aujourd’hui, avec des victimes réelles. Les deux suivantes sont des débats sérieux, où les spécialistes ne s’accordent pas. La dernière relève de la fiction en l’état des connaissances — ce qui ne veut pas dire qu’il ne faut pas y réfléchir, mais qu’elle ne doit pas masquer les trois premières. Faire voter la classe avant de cliquer, et demander pourquoi les craintes lointaines occupent plus de place dans les médias que les craintes présentes.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Atelier 9 · faire le tri</p><h2>Trois sortes de craintes</h2></div>
+        </header>
+        <p class="lead is-wide build-step" data-build="2">Certaines craintes sont constatées, d’autres se discutent, d’autres relèvent de la fiction. Classe-les.</p>
+        <ul class="fear-list" id="fears">
+          <li class="build-step" data-build="3" data-answer="now" data-because="Des photos, des voix et des vidéos truquées circulent déjà et trompent des gens tous les jours.">
+            <p class="fear-claim">Des images et des voix truquées trompent des gens.</p>
+            <div class="fear-answers"><button type="button" data-choice="now">Déjà là</button><button type="button" data-choice="debate">En débat</button><button type="button" data-choice="later">Pas pour demain</button></div>
+            <span class="fear-feedback"></span>
+          </li>
+          <li class="build-step" data-build="4" data-answer="now" data-because="Une poignée d’entreprises possède les modèles les plus puissants et les machines pour les entraîner.">
+            <p class="fear-claim">Très peu d’entreprises contrôlent cette technologie.</p>
+            <div class="fear-answers"><button type="button" data-choice="now">Déjà là</button><button type="button" data-choice="debate">En débat</button><button type="button" data-choice="later">Pas pour demain</button></div>
+            <span class="fear-feedback"></span>
+          </li>
+          <li class="build-step" data-build="5" data-answer="debate" data-because="Des métiers changent, d’autres apparaissent. Personne ne sait encore le solde, et les spécialistes s’opposent.">
+            <p class="fear-claim">Ces outils vont détruire plus d’emplois qu’ils n’en créent.</p>
+            <div class="fear-answers"><button type="button" data-choice="now">Déjà là</button><button type="button" data-choice="debate">En débat</button><button type="button" data-choice="later">Pas pour demain</button></div>
+            <span class="fear-feedback"></span>
+          </li>
+          <li class="build-step" data-build="6" data-answer="debate" data-because="C’est l’enjeu du tapis roulant. On l’observe déjà un peu, mais l’ampleur reste à mesurer.">
+            <p class="fear-claim">À force de déléguer, nous perdrons des compétences.</p>
+            <div class="fear-answers"><button type="button" data-choice="now">Déjà là</button><button type="button" data-choice="debate">En débat</button><button type="button" data-choice="later">Pas pour demain</button></div>
+            <span class="fear-feedback"></span>
+          </li>
+          <li class="build-step" data-build="7" data-answer="later" data-because="Rien dans un modèle actuel ne ressemble à une volonté. En parler ne doit pas faire oublier les trois premières.">
+            <p class="fear-claim">Une IA décidera d’elle-même de nuire aux humains.</p>
+            <div class="fear-answers"><button type="button" data-choice="now">Déjà là</button><button type="button" data-choice="debate">En débat</button><button type="button" data-choice="later">Pas pour demain</button></div>
+            <span class="fear-feedback"></span>
+          </li>
+        </ul>
+        <p class="quiz-score build-step" data-build="8" id="fear-score" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 32 ─────────────────────────────────────── tapis roulant -->
+    <section class="slide" id="slide-32" data-chapter="reflexes" data-chapter-label="6 · Réflexes" aria-label="Le tapis roulant : usage passif, usage actif, usage entraînement" data-notes="Les deux jauges se lisent ensemble : l’usage passif ne coûte rien et n’apprend rien, l’usage entraînement coûte le plus et apprend le plus. Les deux premiers usages se passent sur un tapis d’aéroport ou de métro ; le troisième sur un tapis de salle de sport, qui ne déplace personne. Ne pas diaboliser l’outil : le tapis n’est ni bon ni mauvais, c’est l’usage qui change. Faire nommer par les élèves, pour un devoir précis, lequel des trois usages serait honnête. Insister sur le troisième : c’est le seul qui rend autonome.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">La question qui reste</p><h2>Le tapis roulant : trois usages</h2></div>
+        </header>
+        <div class="belt-grid">
+          <article class="belt-case build-step" data-build="2">
+            <p class="belt-kind is-passif">Usage passif</p>
+            <svg class="belt" viewBox="0 0 300 132" data-belt="passif" role="img" aria-label="Une personne immobile, valise à la main, portée d’un bout à l’autre du tapis."></svg>
+            <p>On se déplace à la même vitesse, <b>sans fournir d’effort</b>. L’outil réalise l’intégralité du travail à notre place.</p>
+            <ul class="gauge-set">
+              <li class="gauge is-effort" style="--fill: 4%"><span>effort</span><i></i></li>
+              <li class="gauge is-progress" style="--fill: 0%"><span>progrès</span><i></i></li>
+            </ul>
+          </article>
+          <article class="belt-case build-step" data-build="3">
+            <p class="belt-kind is-actif">Usage actif</p>
+            <svg class="belt" viewBox="0 0 300 132" data-belt="actif" role="img" aria-label="Une personne qui marche sur le tapis et le dépasse largement."></svg>
+            <p>On marche sur le tapis : <b>à effort égal</b>, on avance beaucoup plus vite et on va plus loin.</p>
+            <ul class="gauge-set">
+              <li class="gauge is-effort" style="--fill: 46%"><span>effort</span><i></i></li>
+              <li class="gauge is-progress" style="--fill: 14%"><span>progrès</span><i></i></li>
+            </ul>
+          </article>
+          <article class="belt-case build-step" data-build="4">
+            <p class="belt-kind is-train">Usage entraînement</p>
+            <svg class="belt" viewBox="0 0 300 132" data-belt="entrainement" role="img" aria-label="Une personne qui court sur un tapis de salle de sport : elle n’avance pas d’un mètre."></svg>
+            <p>Tapis de salle de sport : il ne sert pas à se déplacer, mais à devenir <b>plus performant et autonome</b>.</p>
+            <ul class="gauge-set">
+              <li class="gauge is-effort" style="--fill: 92%"><span>effort</span><i></i></li>
+              <li class="gauge is-progress" style="--fill: 100%"><span>progrès</span><i></i></li>
+            </ul>
+          </article>
+        </div>
+        <p class="closing build-step" data-build="5">Aucun des trois n’est interdit. Un seul te rend autonome. <b>Lequel choisis-tu pour ton prochain devoir ?</b></p>
+      </div>
+    </section>
+
+    <!-- 33 ─────────────────────────────────────── quiz -->
+    <section class="slide" id="slide-33" data-chapter="reflexes" data-chapter-label="6 · Réflexes" aria-label="Vrai ou faux" data-notes="Faire voter à main levée avant chaque clic. Les six pièges reprennent les six malentendus les plus fréquents de la séance.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Atelier 10 · contrôle rapide</p><h2>Vrai ou faux ?</h2></div>
+        </header>
+        <ul class="quiz" id="quiz">
+          <li class="build-step" data-build="2" data-answer="faux" data-because="Elle ne conserve que des poids réglés, aucun texte.">
+            <div><p class="quiz-claim">Une IA garde en mémoire tous les textes qu’elle a lus.</p><span class="quiz-feedback"></span></div>
+            <div class="quiz-answers"><button type="button" data-choice="vrai">Vrai</button><button type="button" data-choice="faux">Faux</button></div>
+          </li>
+          <li class="build-step" data-build="3" data-answer="vrai" data-because="C’est l’apprentissage par renforcement, comme le robot de la grille.">
+            <div><p class="quiz-claim">Une machine peut apprendre sans qu’on lui donne aucune bonne réponse.</p><span class="quiz-feedback"></span></div>
+            <div class="quiz-answers"><button type="button" data-choice="vrai">Vrai</button><button type="button" data-choice="faux">Faux</button></div>
+          </li>
+          <li class="build-step" data-build="4" data-answer="faux" data-because="Le perceptron date de 1958 ; seules les données et la puissance sont récentes.">
+            <div><p class="quiz-claim">Les réseaux de neurones ont été inventés il y a une dizaine d’années.</p><span class="quiz-feedback"></span></div>
+            <div class="quiz-answers"><button type="button" data-choice="vrai">Vrai</button><button type="button" data-choice="faux">Faux</button></div>
+          </li>
+          <li class="build-step" data-build="5" data-answer="vrai" data-because="Elle cherche la suite la plus vraisemblable, pas la plus vraie.">
+            <div><p class="quiz-claim">Une IA peut donner une réponse fausse avec un ton parfaitement assuré.</p><span class="quiz-feedback"></span></div>
+            <div class="quiz-answers"><button type="button" data-choice="vrai">Vrai</button><button type="button" data-choice="faux">Faux</button></div>
+          </li>
+          <li class="build-step" data-build="6" data-answer="faux" data-because="Chercher, calculer ou se souvenir vient du harnais, pas du modèle.">
+            <div><p class="quiz-claim">Un modèle de langage sait chercher sur Internet tout seul.</p><span class="quiz-feedback"></span></div>
+            <div class="quiz-answers"><button type="button" data-choice="vrai">Vrai</button><button type="button" data-choice="faux">Faux</button></div>
+          </li>
+          <li class="build-step" data-build="7" data-answer="vrai" data-because="Comme pour le petit chien : ce qu’on ne montre pas devient une erreur.">
+            <div><p class="quiz-claim">Si les exemples d’entraînement sont incomplets, l’IA se trompera.</p><span class="quiz-feedback"></span></div>
+            <div class="quiz-answers"><button type="button" data-choice="vrai">Vrai</button><button type="button" data-choice="faux">Faux</button></div>
+          </li>
+        </ul>
+        <p class="quiz-score" id="quiz-score" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 34 ─────────────────────────────────────── à retenir -->
+    <section class="slide" id="slide-34" data-chapter="reflexes" data-chapter-label="6 · Réflexes" aria-label="À retenir" data-notes="Demander à cinq élèves de redire ces cinq phrases avec leurs mots. Si les cinq passent, l’objectif de la séance est atteint.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">Le minimum à emporter</p><h2>À retenir</h2></div>
+        </header>
+        <ul class="recap">
+          <li class="build-step recap-item" data-build="2" style="animation-delay: 0ms"><span class="number">01</span><p>Elle apprend avec des exemples ou des récompenses.<span>Personne ne lui écrit les règles : elle les trouve en corrigeant ses erreurs, comme en 1958.</span></p></li>
+          <li class="build-step recap-item" data-build="3" style="animation-delay: 3200ms"><span class="number">02</span><p>« Profond » veut dire « à beaucoup de couches ».<span>Chaque couche repère quelque chose d’un peu plus gros que la précédente.</span></p></li>
+          <li class="build-step recap-item" data-build="4" style="animation-delay: 6400ms"><span class="number">03</span><p>Un modèle de langage devine, mot après mot.<span>L’attention lui permet de relire la phrase entière avant chaque mot.</span></p></li>
+          <li class="build-step recap-item" data-build="5" style="animation-delay: 9600ms"><span class="number">04</span><p>Le modèle nu ne fait rien.<span>Chercher, calculer, se souvenir, agir : tout cela vient du harnais qu’on lui attache.</span></p></li>
+          <li class="build-step recap-item" data-build="6" style="animation-delay: 12800ms"><span class="number">05</span><p>Trois usages du tapis roulant, un seul choix.<span>Passif, il travaille à ta place. Actif, tu vas plus loin. Entraînement, tu deviens autonome.</span></p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 35 ─────────────────────────────────────── sources -->
+    <section class="slide" id="slide-35" data-chapter="conclusion" data-chapter-label="Merci" aria-label="Sources et crédits" data-notes="Les trois photographies viennent de Wikimedia Commons. Deux sont dans le domaine public, la troisième est sous licence Creative Commons Attribution, qui n’exige que le crédit. Toutes les autres illustrations du deck sont dessinées en SVG.">
+      <div class="slide-inner">
+        <header class="slide-head">
+          <div><p class="eyebrow">D’où viennent les images</p><h2>Sources et crédits</h2></div>
+        </header>
+        <ul class="source-list">
+          <li class="build-step" data-build="2">
+            <span class="source-thumb"><img src="assets/turing-1951.jpg" alt="Portrait d’Alan Turing en 1951." loading="lazy"></span>
+            <span class="source-what"><b>Alan Turing, 1951</b><span>Photographie d’Elliott &amp; Fry</span></span>
+            <em>domaine public</em>
+          </li>
+          <li class="build-step" data-build="3">
+            <span class="source-thumb"><img src="assets/dartmouth-1956.jpg" alt="Dartmouth Hall." loading="lazy"></span>
+            <span class="source-what"><b>Dartmouth Hall, 1956</b><span>Photographie de Daderot</span></span>
+            <em>CC0</em>
+          </li>
+          <li class="build-step" data-build="4">
+            <span class="source-thumb"><img src="assets/perceptron-mark1-1958.jpg" alt="Le Mark I Perceptron." loading="lazy"></span>
+            <span class="source-what"><b>Mark I Perceptron, 1958</b><span>National Museum of the U.S. Navy</span></span>
+            <em>domaine public</em>
+          </li>
+          <li class="build-step" data-build="5">
+            <span class="source-thumb"><img src="assets/minsky-1969.jpg" alt="Portrait de Marvin Minsky." loading="lazy"></span>
+            <span class="source-what"><b>Marvin Minsky</b><span>Photographie de David Orban</span></span>
+            <em>CC BY 2.0</em>
+          </li>
+          <li class="build-step" data-build="6">
+            <span class="source-thumb"><img src="assets/deep-blue-1997.jpg" alt="Le calculateur IBM Deep Blue." loading="lazy"></span>
+            <span class="source-what"><b>IBM Deep Blue</b><span>Photographie d’Anton Chiang</span></span>
+            <em>CC BY 2.0</em>
+          </li>
+          <li class="build-step" data-build="7">
+            <span class="source-thumb"><img src="assets/watson-2011.jpg" alt="Les pupitres du jeu Jeopardy!." loading="lazy"></span>
+            <span class="source-what"><b>Watson au jeu Jeopardy!, 2011</b><span>Photographie d’Atomic Taco</span></span>
+            <em>CC BY-SA 2.0</em>
+          </li>
+          <li class="build-step" data-build="8">
+            <span class="source-thumb"><img src="assets/feifei-li-2012.jpg" alt="Portrait de Fei-Fei Li." loading="lazy"></span>
+            <span class="source-what"><b>Fei-Fei Li, créatrice d’ImageNet</b><span>Photographie d’ITU Pictures</span></span>
+            <em>CC BY 2.0</em>
+          </li>
+          <li class="build-step" data-build="9">
+            <span class="source-thumb"><img src="assets/go-2016.jpg" alt="Une pierre posée sur un plateau de go." loading="lazy"></span>
+            <span class="source-what"><b>Plateau de go</b><span>Photographie de Luis de Bethencourt</span></span>
+            <em>CC BY 2.0</em>
+          </li>
+          <li class="build-step" data-build="10">
+            <span class="source-thumb is-drawn" aria-hidden="true"></span>
+            <span class="source-what"><b>Toutes les autres illustrations</b><span>Frise, schémas, ateliers, tapis roulants — dessinés en SVG pour cette présentation</span></span>
+            <em>—</em>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 36 ─────────────────────────────────────── merci -->
+    <section class="slide thanks-slide" id="slide-36" data-chapter="conclusion" data-chapter-label="Merci" aria-label="Merci" data-notes="Laisser la slide affichée pendant les questions.">
+      <div class="slide-inner thanks-content">
+        <h2>Merci</h2>
+        <p class="thanks-sub build-step" data-build="2">Institut Florimont · 2026–2027 · Yann Houry</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="controls" aria-label="Commandes de présentation">
+    <nav class="chapters" id="chapter-nav" aria-label="Chapitres"></nav>
+    <div class="transport">
+      <button class="control-button" id="previous" type="button" aria-label="Slide précédente" title="Précédent"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i><span class="sr-only">Précédent</span></button>
+      <span class="counter" id="counter" aria-live="polite">01 / 36</span>
+      <button class="control-button" id="next" type="button" aria-label="Slide suivante" title="Suivant"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i><span class="sr-only">Suivant</span></button>
+    </div>
+    <div class="utilities">
+      <button class="control-button" id="shortcuts-toggle" type="button" aria-label="Afficher les raccourcis clavier" aria-expanded="false" aria-controls="keyboard-shortcuts" title="Raccourcis clavier"><i class="fa-regular fa-keyboard" aria-hidden="true"></i><span class="sr-only">Raccourcis clavier</span></button>
+      <button class="control-button" id="notes-toggle" type="button" aria-label="Afficher les notes" aria-expanded="false" aria-controls="notes" title="Notes (N)"><i class="fa-regular fa-note-sticky" aria-hidden="true"></i><span class="sr-only">Notes</span></button>
+      <button class="control-button" id="fullscreen" type="button" aria-label="Passer en plein écran" title="Plein écran (F)"><i class="fa-solid fa-expand" aria-hidden="true"></i><span class="sr-only">Plein écran</span></button>
+    </div>
+    <i class="progress" id="progress" aria-hidden="true"></i>
+  </footer>
+
+  <aside class="overlay-panel notes" id="notes" aria-label="Notes de l’intervenant">
+    <p class="panel-label">Notes intervenant · touche N</p><p id="notes-content"></p>
+  </aside>
+
+  <aside class="overlay-panel keyboard-shortcuts" id="keyboard-shortcuts" aria-label="Raccourcis clavier">
+    <p class="panel-label">Raccourcis clavier</p>
+    <ul class="shortcut-list">
+      <li><span>Précédent</span><span class="shortcut-keys"><kbd>←</kbd><kbd>Page ↑</kbd></span></li>
+      <li><span>Suivant</span><span class="shortcut-keys"><kbd>→</kbd><kbd>Espace</kbd><kbd>Page ↓</kbd></span></li>
+      <li><span>Première slide</span><span class="shortcut-keys" role="img" aria-label="fn plus flèche gauche"><kbd aria-hidden="true">fn</kbd><span class="shortcut-plus" aria-hidden="true">+</span><kbd aria-hidden="true">←</kbd></span></li>
+      <li><span>Dernière slide</span><span class="shortcut-keys" role="img" aria-label="fn plus flèche droite"><kbd aria-hidden="true">fn</kbd><span class="shortcut-plus" aria-hidden="true">+</span><kbd aria-hidden="true">→</kbd></span></li>
+      <li><span>Plein écran</span><span class="shortcut-keys"><kbd>F</kbd></span></li>
+      <li><span>Notes</span><span class="shortcut-keys"><kbd>N</kbd></span></li>
+      <li><span>Fermer</span><span class="shortcut-keys"><kbd>Échap</kbd></span></li>
+    </ul>
+  </aside>
+
+  <script src="presentation.js"></script>
+</body>
+</html>

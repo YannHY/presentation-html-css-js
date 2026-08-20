@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8fafc">
+  <title>Gemini, un atelier de production pour l’enseignant</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-institution="INSTITUT FLORIMONT · 2026–2027" data-author="Yann Houry">
+  <main class="stage" id="stage">
+    <section class="slide source-slide active" id="slide-1" data-chapter="gemini" data-chapter-label="01 · Gemini" aria-label="Gemini, un atelier de production pour l’enseignant" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head source-head gemini-opening-head">
+          <img class="gemini-mark" src="assets/google-gemini.png" alt="Icône de Gemini" width="512" height="512">
+          <div><p class="eyebrow">Objectifs de la présentation</p><h1>Gemini, un atelier de production pour l’enseignant</h1></div>
+        </header>
+        <p class="source-lead build-step" data-build="2">Cette présentation montre comment un enseignant peut utiliser Gemini pour produire des ressources pédagogiques.</p>
+        <p class="list-intro build-step" data-build="3">Nous nous intéresserons à cinq fonctionnalités :</p>
+        <ul class="source-list feature-source-list">
+          <li class="build-step" data-build="4"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span><strong>Storybook</strong>, pour créer un récit illustré</span></li>
+          <li class="build-step" data-build="5"><i class="fa-regular fa-gem" aria-hidden="true"></i><span><strong>les Gems</strong>, pour conserver et réutiliser un scénario pédagogique</span></li>
+          <li class="build-step" data-build="6"><i class="fa-solid fa-image" aria-hidden="true"></i><span><strong>les images</strong>, pour illustrer un texte ou expliquer une notion</span></li>
+          <li class="build-step" data-build="7"><i class="fa-solid fa-shapes" aria-hidden="true"></i><span><strong>Canvas</strong>, pour produire des quiz et des activités interactives</span></li>
+          <li class="build-step" data-build="8"><i class="fa-solid fa-music" aria-hidden="true"></i><span><strong>Lyria</strong>, pour générer une ressource musicale</span></li>
+        </ul>
+        <p class="source-closing build-step" data-build="9">L’objectif n’est pas de présenter toutes les possibilités de Gemini, mais quelques usages concrets et reproductibles.</p>
+      </div>
+    </section>
+
+    <section class="slide source-slide" id="slide-2" data-chapter="gemini" data-chapter-label="01 · Gemini" aria-label="Une IA utilisée par l’enseignant" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head source-head"><div><p class="eyebrow">Gemini, un atelier de production pour l’enseignant</p><h2>Une IA utilisée par l’enseignant</h2></div></header>
+        <p class="source-lead build-step" data-build="2">Dans les exemples proposés, c’est l’enseignant qui utilise Gemini et</p>
+        <ul class="source-list action-source-list">
+          <li class="build-step" data-build="3">définit l’objectif pédagogique</li>
+          <li class="build-step" data-build="4">rédige la consigne</li>
+          <li class="build-step" data-build="5">sélectionne les documents de référence</li>
+          <li class="build-step" data-build="6">examine la production</li>
+          <li class="build-step" data-build="7">demande les modifications nécessaires</li>
+          <li class="build-step" data-build="8">choisit la forme de diffusion</li>
+        </ul>
+        <div class="source-closing emphasis-closing build-step" data-build="9">
+          <p>Les élèves reçoivent ensuite une ressource finalisée.</p>
+          <p class="build-step" data-build="10">Ils ne sont pas obligés de disposer d’un compte Gemini ni de dialoguer avec une IA.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide source-slide" id="slide-3" data-chapter="gemini" data-chapter-label="01 · Gemini" aria-label="Un même contenu, plusieurs supports" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head source-head"><div><p class="eyebrow">Gemini, un atelier de production pour l’enseignant</p><h2>Un même contenu, plusieurs supports</h2></div></header>
+        <p class="source-lead build-step" data-build="2">À partir d’un même sujet, Gemini peut aider l’enseignant à produire :</p>
+        <ul class="source-list support-source-list">
+          <li class="build-step" data-build="3">une histoire illustrée</li>
+          <li class="build-step" data-build="4">un quiz de compréhension</li>
+          <li class="build-step" data-build="5">un jeu de vocabulaire</li>
+          <li class="build-step" data-build="6">une musique d’accompagnement</li>
+          <li class="build-step" data-build="7">une Gem permettant de renouveler les activités</li>
+          <li class="build-step" data-build="8">une illustration ou une infographie</li>
+        </ul>
+        <p class="source-closing build-step" data-build="9">Le contenu pédagogique reste le même, mais sa forme varie selon l’objectif et les conditions d’utilisation.</p>
+        <blockquote class="source-quote build-step" data-build="10"><strong>L’enseignant conçoit, Gemini assiste, l’élève utilise la ressource produite.</strong></blockquote>
+      </div>
+    </section>
+
+    <section class="slide source-slide" id="slide-4" data-chapter="gemini" data-chapter-label="01 · Gemini" aria-label="Ce que permet Education Fundamentals" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head source-head"><div><p class="eyebrow">Gemini, un atelier de production pour l’enseignant</p><h2>Ce que permet Education Fundamentals</h2></div></header>
+        <ul class="source-list dense-source-list">
+          <li class="build-step" data-build="2"><span>Modèles <strong>Rapide</strong>, <strong>Raisonnement</strong> et <strong>Pro</strong></span></li>
+          <li class="build-step" data-build="3"><span>Accès à Storybook, Canvas et aux Gems</span></li>
+          <li class="build-step" data-build="4"><span>Jusqu’à 20 images par jour</span></li>
+          <li class="build-step" data-build="5"><span>Jusqu’à 10 morceaux courts et 5 morceaux complets par jour</span></li>
+          <li class="build-step" data-build="6"><span>Jusqu’à 5 recherches approfondies par mois</span></li>
+          <li class="build-step" data-build="7"><span>Jusqu’à 20 présentations par jour</span></li>
+          <li class="build-step" data-build="8"><span>Pas de génération vidéo</span></li>
+          <li class="build-step" data-build="9"><span>Pas d’accès à Gemini Spark avec un compte scolaire</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide source-slide" id="slide-5" data-chapter="gemini" data-chapter-label="01 · Gemini" aria-label="Limites et confidentialité" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head source-head"><div><p class="eyebrow">Gemini, un atelier de production pour l’enseignant</p><h2>Limites et confidentialité</h2></div></header>
+        <ul class="source-list limits-source-list">
+          <li class="build-step" data-build="2"><span>Limites variables selon le modèle, la complexité des demandes et les fichiers importés</span></li>
+          <li class="build-step" data-build="3"><span>Accès gratuit moins prioritaire en période de forte utilisation</span></li>
+          <li class="build-step" data-build="4"><span>Consultation des quotas dans <strong>Paramètres → Limites d’utilisation</strong></span></li>
+          <li class="build-step" data-build="5"><span>Conversations et fichiers ni examinés par des réviseurs humains ni utilisés pour améliorer les modèles</span></li>
+          <li class="build-step" data-build="6"><span>Historique conservé 18 mois par défaut et géré par l’administrateur</span></li>
+          <li class="build-step" data-build="7"><span>Storybook, Lyria et certaines fonctions avancées de Canvas réservés aux comptes déclarés <strong>18 ans ou plus</strong></span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide storybook-slide" id="slide-6" data-chapter="storybook" data-chapter-label="02 · Storybook" aria-label="Qu’est-ce que Storybook ?" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head storybook-head"><div><p class="eyebrow">Storybook · Créer un récit illustré</p><h2>Qu’est-ce que Storybook&nbsp;?</h2></div></header>
+        <p class="storybook-lead build-step" data-build="2"><strong>Storybook</strong>, appelé <strong>Histoire illustrée</strong> en français, est une Gem créée par Google.</p>
+        <p class="list-intro build-step" data-build="3">À partir d’une consigne, Gemini produit :</p>
+        <div class="storybook-output-grid">
+          <article class="storybook-output build-step" data-build="4"><i class="fa-solid fa-file-lines" aria-hidden="true"></i><p>un récit structuré en plusieurs pages</p></article>
+          <article class="storybook-output build-step" data-build="5"><i class="fa-solid fa-image" aria-hidden="true"></i><p>une illustration pour chaque étape</p></article>
+          <article class="storybook-output build-step" data-build="6"><i class="fa-solid fa-volume-high" aria-hidden="true"></i><p>une lecture audio de l’histoire</p></article>
+          <article class="storybook-output build-step" data-build="7"><i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i><p>un document que l’enseignant peut ensuite imprimer ou enregistrer</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide storybook-slide" id="slide-7" data-chapter="storybook" data-chapter-label="02 · Storybook" aria-label="Accéder à Histoire illustrée" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head storybook-head"><div><p class="eyebrow">Storybook · Créer un récit illustré</p><h2>Accéder à Histoire illustrée</h2></div></header>
+        <div class="access-layout">
+          <div class="access-copy">
+            <ol class="access-steps">
+              <li class="build-step" data-build="2"><span>01</span><p>Se rendre sur <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer">gemini.google.com</a></p></li>
+              <li class="build-step" data-build="3"><span>02</span><p>Ouvrir la barre latérale</p></li>
+              <li class="build-step" data-build="4"><span>03</span><p>Dans la rubrique <strong>Gems</strong>, cliquer sur <strong>Découvrir les Gems</strong></p></li>
+              <li class="build-step" data-build="6"><span>04</span><p>Sélectionner <strong>Histoire illustrée</strong></p></li>
+              <li class="build-step" data-build="7"><span>05</span><p>Saisir votre consigne dans la zone de dialogue</p></li>
+            </ol>
+            <p class="prerequisite build-step" data-build="8"><i class="fa-solid fa-user-shield" aria-hidden="true"></i><span><strong>Prérequis :</strong> cette fonction est actuellement réservée aux utilisateurs de 18 ans ou plus.</span></p>
+          </div>
+          <figure class="access-visual build-step" data-build="5">
+            <img src="assets/storybook-access-gems.png" alt="Gestionnaire de Gems dans Gemini avec Storybook entouré en bleu">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide storybook-slide prompt-slide" id="slide-8" data-chapter="storybook" data-chapter-label="02 · Storybook" aria-label="Rédiger une consigne efficace" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head storybook-head"><div><p class="eyebrow">Storybook · Créer un récit illustré</p><h2>Rédiger une consigne efficace</h2></div></header>
+        <p class="list-intro prompt-intro build-step" data-build="2">Une bonne consigne précise cinq éléments :</p>
+        <ol class="prompt-grid">
+          <li class="build-step" data-build="3"><span>01</span><p><strong>Le sujet</strong> : ce que l’histoire doit raconter</p></li>
+          <li class="build-step" data-build="4"><span>02</span><p><strong>Le public</strong> : âge ou niveau scolaire</p></li>
+          <li class="build-step" data-build="5"><span>03</span><p><strong>L’objectif pédagogique</strong> : notion à comprendre ou compétence à travailler</p></li>
+          <li class="build-step" data-build="6"><span>04</span><p><strong>Les contraintes</strong> : vocabulaire, longueur, personnages ou structure</p></li>
+          <li class="build-step" data-build="7"><span>05</span><p><strong>L’activité finale</strong> : questions, débat, résumé ou production écrite</p></li>
+        </ol>
+        <div class="prompt-example build-step" data-build="8">
+          <p class="mini-label">Exemple</p>
+          <blockquote>Crée une histoire illustrée pour des élèves de 11 ans. Un jeune citoyen découvre le fonctionnement de la démocratie à Athènes au Ve siècle avant notre ère. Explique simplement les mots « citoyen », « assemblée » et « démocratie ». Évite les anachronismes et termine par trois questions de compréhension.</blockquote>
+        </div>
+        <p class="prompt-foot build-step" data-build="9">Il est également possible d’ajouter des images ou des documents pour orienter la production.</p>
+      </div>
+    </section>
+
+    <section class="slide storybook-slide review-slide" id="slide-9" data-chapter="storybook" data-chapter-label="02 · Storybook" aria-label="Vérifier et améliorer le résultat" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head storybook-head"><div><p class="eyebrow">Storybook · Créer un récit illustré</p><h2>Vérifier et améliorer le résultat</h2></div></header>
+        <p class="review-lead build-step" data-build="2">La première version constitue un brouillon qu'il faut relire avant toute utilisation.</p>
+        <div class="review-layout">
+          <div class="review-content">
+            <p class="mini-label build-step" data-build="3">Points à contrôler</p>
+            <ul class="review-checklist">
+              <li class="build-step" data-build="4">exactitude des informations</li>
+              <li class="build-step" data-build="5">niveau de langue</li>
+              <li class="build-step" data-build="6">cohérence du récit</li>
+              <li class="build-step" data-build="7">correspondance entre texte et illustrations</li>
+              <li class="build-step" data-build="8">présence d’anachronismes ou de stéréotypes</li>
+              <li class="build-step" data-build="9">conformité avec l’objectif pédagogique</li>
+            </ul>
+            <div class="revision-stack">
+              <p class="revision-intro build-step" data-build="10">Les modifications se demandent dans la conversation :</p>
+              <blockquote class="build-step" data-build="11">Simplifie le vocabulaire des pages 3 et 4.</blockquote>
+              <blockquote class="build-step" data-build="12">Remplace le dénouement par une situation qui invite au débat.</blockquote>
+              <blockquote class="build-step" data-build="13">Génère une nouvelle version adaptée à des lecteurs plus fragiles.</blockquote>
+              <p class="revision-result build-step" data-build="14">Gemini recrée alors une version du livre tenant compte des nouvelles consignes.</p>
+            </div>
+          </div>
+          <figure class="review-visual build-step" data-build="3">
+            <img src="assets/storybook-pdf-theo-athenes.png" alt="Aperçu du PDF Théo et le Cœur d’Athènes produit avec Storybook, ouvert dans Aperçu sur macOS">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide storybook-slide applications-slide" id="slide-10" data-chapter="storybook" data-chapter-label="02 · Storybook" aria-label="Quelques applications pédagogiques" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head storybook-head"><div><p class="eyebrow">Storybook · Créer un récit illustré</p><h2>Quelques applications pédagogiques</h2></div></header>
+        <div class="subject-grid">
+          <article class="subject-card build-step" data-build="2"><div><i class="fa-solid fa-language" aria-hidden="true"></i><h3>Lettres et langues</h3></div><ul><li>illustrer un conte ou un mythe</li><li>réemployer un lexique imposé</li><li>créer une amorce pour une production écrite</li></ul></article>
+          <article class="subject-card build-step" data-build="3"><div><i class="fa-solid fa-landmark" aria-hidden="true"></i><h3>Histoire et géographie</h3></div><ul><li>raconter un événement du point de vue d’un témoin fictif</li><li>présenter une époque ou une civilisation</li><li>repérer les différences entre fiction et réalité historique</li></ul></article>
+          <article class="subject-card build-step" data-build="4"><div><i class="fa-solid fa-flask" aria-hidden="true"></i><h3>Sciences</h3></div><ul><li>mettre en récit un phénomène naturel</li><li>raconter le parcours d’une goutte d’eau ou d’un aliment</li><li>expliquer les étapes d’une expérience</li></ul></article>
+          <article class="subject-card build-step" data-build="5"><div><i class="fa-solid fa-calculator" aria-hidden="true"></i><h3>Mathématiques</h3></div><ul><li>contextualiser un problème</li><li>construire une enquête nécessitant plusieurs calculs</li><li>faire repérer des informations utiles dans un récit</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide storybook-slide download-slide" id="slide-11" data-chapter="storybook" data-chapter-label="02 · Storybook" aria-label="Télécharger et utiliser l’histoire en classe" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head storybook-head"><div><p class="eyebrow">Storybook · Créer un récit illustré</p><h2>Télécharger et utiliser l’histoire en classe</h2></div></header>
+        <ol class="download-steps">
+          <li class="build-step" data-build="2"><span>01</span><p>Ouvrir l’histoire illustrée</p></li>
+          <li class="build-step" data-build="3"><span>02</span><p>Cliquer sur <strong>Télécharger</strong> en haut du livre</p></li>
+          <li class="build-step" data-build="4"><span>03</span><p>Enregistrer le document sur l’ordinateur</p></li>
+          <li class="build-step" data-build="5"><span>04</span><p>Déposer le fichier sur Teams ou OneNote</p></li>
+        </ol>
+        <p class="uses-intro build-step" data-build="6">Le Storybook peut ensuite être :</p>
+        <ul class="use-grid">
+          <li class="build-step" data-build="7">projeté et lu collectivement</li>
+          <li class="build-step" data-build="8">imprimé</li>
+          <li class="build-step" data-build="9">proposé comme lecture autonome</li>
+          <li class="build-step" data-build="10">accompagné d’un questionnaire</li>
+          <li class="build-step" data-build="11">utilisé comme support d’expression orale</li>
+          <li class="build-step" data-build="12">analysé, corrigé ou prolongé par les élèves</li>
+        </ul>
+        <div class="download-notes">
+          <p class="audio-note build-step" data-build="13"><i class="fa-solid fa-volume-high" aria-hidden="true"></i><span>La lecture audio reste accessible avec le bouton <strong>Écouter</strong>, mais elle n’est pas intégrée au fichier téléchargé.</span></p>
+          <p class="sharing-note build-step" data-build="14">Avec un compte scolaire, la création d’un lien public peut être indisponible, notamment dans l’application mobile, ou désactivée par l’administrateur. De plus, il s’agit d’un <strong>lien public</strong>, et non d’un partage limité à la classe. Pour notre contexte, le PDF est donc préférable. <a href="https://support.google.com/gemini/answer/16434396?co=GENIE.Platform%3DDesktop&amp;hl=fr" target="_blank" rel="noopener noreferrer">Aide officielle sur Storybook</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide gems-slide gems-opening" id="slide-12" data-chapter="gems" data-chapter-label="03 · Gems" aria-label="Qu’est-ce qu’une Gem ?" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head gems-head"><div><p class="eyebrow">Gems · Créer ses assistants pédagogiques</p><h2>Qu’est-ce qu’une Gem&nbsp;?</h2></div></header>
+        <p class="gems-lead build-step" data-build="2">Une Gem est une version personnalisée de Gemini, configurée pour accomplir un type de tâche précis.</p>
+        <p class="list-intro gems-intro build-step" data-build="3">Elle peut mémoriser :</p>
+        <ul class="gems-memory-grid">
+          <li class="build-step" data-build="4"><i class="fa-solid fa-user-gear" aria-hidden="true"></i><span>un rôle</span></li>
+          <li class="build-step" data-build="5"><i class="fa-solid fa-list-check" aria-hidden="true"></i><span>une méthode de travail</span></li>
+          <li class="build-step" data-build="6"><i class="fa-solid fa-thumbtack" aria-hidden="true"></i><span>des consignes permanentes</span></li>
+          <li class="build-step" data-build="7"><i class="fa-solid fa-table-list" aria-hidden="true"></i><span>un format de réponse</span></li>
+          <li class="build-step" data-build="8"><i class="fa-solid fa-folder-open" aria-hidden="true"></i><span>des documents de référence</span></li>
+        </ul>
+        <p class="gems-note build-step" data-build="9">On n’a donc plus besoin de répéter ses exigences à chaque nouvelle conversation.</p>
+      </div>
+    </section>
+
+    <section class="slide gems-slide gems-types" id="slide-13" data-chapter="gems" data-chapter-label="03 · Gems" aria-label="Gem prédéfinie ou Gem personnalisée" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head gems-head"><div><p class="eyebrow">Gems · Créer ses assistants pédagogiques</p><h2>Gem prédéfinie ou Gem personnalisée</h2></div></header>
+        <p class="gems-lead build-step" data-build="2">Gemini propose deux catégories de Gems :</p>
+        <div class="gems-type-grid">
+          <article class="gems-type-card build-step" data-build="3"><h3>les Gems prédéfinies</h3><p>créées par Google, comme Storybook</p></article>
+          <article class="gems-type-card build-step" data-build="4"><h3>les Gems personnalisées</h3><p>créées par l’utilisateur pour répondre à ses propres besoins</p></article>
+        </div>
+        <p class="list-intro gems-intro build-step" data-build="5">Exemples de Gems personnalisées :</p>
+        <ul class="gems-example-grid">
+          <li class="build-step" data-build="6">créateur de fiches d’exercices</li>
+          <li class="build-step" data-build="7">assistant de différenciation</li>
+          <li class="build-step" data-build="8">générateur de quiz</li>
+          <li class="build-step" data-build="9">concepteur d’activités interactives</li>
+          <li class="build-step" data-build="10">relecteur utilisant une grille d’évaluation</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide gems-slide gems-create" id="slide-14" data-chapter="gems" data-chapter-label="03 · Gems" aria-label="Créer une Gem" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head gems-head"><div><p class="eyebrow">Gems · Créer ses assistants pédagogiques</p><h2>Créer une Gem</h2></div></header>
+        <ol class="gems-steps">
+          <li class="build-step" data-build="2"><span>01</span><p>Accéder à <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">gemini.google.com</a></p></li>
+          <li class="build-step" data-build="3"><span>02</span><p>Ouvrir la barre latérale</p></li>
+          <li class="build-step" data-build="4"><span>03</span><p>Cliquer sur <strong>Gems</strong></p></li>
+          <li class="build-step" data-build="5"><span>04</span><p>Cliquer sur <strong>Nouveau Gem</strong></p></li>
+          <li class="build-step" data-build="6"><span>05</span><p>Donner un nom à l’assistant</p></li>
+          <li class="build-step" data-build="7"><span>06</span><p>Rédiger ses instructions</p></li>
+          <li class="build-step" data-build="8"><span>07</span><p>Ajouter éventuellement des fichiers dans la rubrique <strong>Connaissances</strong></p></li>
+          <li class="build-step" data-build="9"><span>08</span><p>Tester la Gem dans la zone d’aperçu</p></li>
+          <li class="build-step" data-build="10"><span>09</span><p>Cliquer sur <strong>Enregistrer</strong></p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide gems-slide gems-instructions" id="slide-15" data-chapter="gems" data-chapter-label="03 · Gems" aria-label="Rédiger les instructions" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head gems-head"><div><p class="eyebrow">Gems · Créer ses assistants pédagogiques</p><h2>Rédiger les instructions</h2></div></header>
+        <p class="gems-lead build-step" data-build="2">Google recommande de préciser quatre éléments :</p>
+        <ol class="gems-framework-grid">
+          <li class="build-step" data-build="3"><span>01</span><p><strong>Persona</strong> : quel rôle la Gem doit-elle jouer ?</p></li>
+          <li class="build-step" data-build="4"><span>02</span><p><strong>Tâche</strong> : que doit-elle produire ?</p></li>
+          <li class="build-step" data-build="5"><span>03</span><p><strong>Contexte</strong> : pour quel public et dans quel cadre ?</p></li>
+          <li class="build-step" data-build="6"><span>04</span><p><strong>Format</strong> : comment présenter le résultat ?</p></li>
+        </ol>
+        <p class="list-intro gems-intro build-step" data-build="7">Il est également utile d’indiquer :</p>
+        <ul class="gems-use-grid compact">
+          <li class="build-step" data-build="8">ce que la Gem doit toujours faire</li>
+          <li class="build-step" data-build="9">ce qu’elle ne doit jamais faire</li>
+          <li class="build-step" data-build="10">les vérifications qu’elle doit effectuer</li>
+          <li class="build-step" data-build="11">les informations qu’elle doit demander si la consigne est incomplète</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide gems-slide gems-riddle" id="slide-16" data-chapter="gems" data-chapter-label="03 · Gems" aria-label="Exemple : Une énigme par jour" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head gems-head"><div><p class="eyebrow">Gems · Créer ses assistants pédagogiques</p><h2>Exemple : « Une énigme par jour »</h2></div></header>
+        <div class="access-layout">
+          <div class="access-copy">
+            <p class="gems-lead build-step" data-build="2">Cette Gem propose une courte énigme sur les Fables de La Fontaine, utilisable comme ticket de sortie.</p>
+            <p class="list-intro gems-intro build-step" data-build="3">Les élèves peuvent être invités à :</p>
+            <ul class="gems-use-grid">
+              <li class="build-step" data-build="4">reconnaître une fable</li>
+              <li class="build-step" data-build="5">identifier un personnage</li>
+              <li class="build-step" data-build="6">expliquer un mot ou une expression</li>
+              <li class="build-step" data-build="7">retrouver une moralité</li>
+              <li class="build-step" data-build="8">analyser un vers</li>
+              <li class="build-step" data-build="9">interpréter une illustration</li>
+            </ul>
+          </div>
+          <figure class="access-visual build-step" data-build="10">
+            <img src="assets/gem.png" alt="Fenêtre de capture de l’interface Gems dans Gemini">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide gems-slide gems-variety" id="slide-17" data-chapter="gems" data-chapter-label="03 · Gems" aria-label="Cadrer le déroulement" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head gems-head"><div><p class="eyebrow">Gems · Créer ses assistants pédagogiques</p><h2>Cadrer le déroulement</h2></div></header>
+        <p class="gems-lead build-step" data-build="2">Deux consignes suffisent à rendre une Gem réutilisable toute l’année :</p>
+        <div class="gems-type-grid">
+          <article class="gems-type-card build-step" data-build="3">
+            <h3>Ouvrir par un choix</h3>
+            <p>La Gem commence par demander un paramètre qui oriente la suite. Dans « Une énigme par jour », c’est un thème à choisir parmi six.</p>
+          </article>
+          <article class="gems-type-card build-step" data-build="4">
+            <h3>Imposer la variété</h3>
+            <p>La Gem doit alterner les formes de questions et changer de support à chaque fois : résumé, portrait, moralité, vers, illustration…</p>
+          </article>
+        </div>
+        <p class="gems-note build-step" data-build="5">Ces deux principes valent quelle que soit la discipline. Seules changent la <strong>liste des choix</strong> proposés en ouverture et les <strong>formes de questions</strong> attendues.</p>
+      </div>
+    </section>
+
+    <section class="slide gems-slide gems-knowledge" id="slide-18" data-chapter="gems" data-chapter-label="03 · Gems" aria-label="Ajouter des documents de référence" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head gems-head"><div><p class="eyebrow">Gems · Créer ses assistants pédagogiques</p><h2>Ajouter des documents de référence</h2></div></header>
+        <p class="gems-lead build-step" data-build="2">Dans la rubrique <strong>Connaissances</strong>, l’enseignant peut importer :</p>
+        <ul class="gems-knowledge-grid">
+          <li class="build-step" data-build="3">les textes des fables étudiées</li>
+          <li class="build-step" data-build="4">une liste des fables classées par thème</li>
+          <li class="build-step" data-build="5">un lexique des mots rares</li>
+          <li class="build-step" data-build="6">des rappels sur la versification</li>
+          <li class="build-step" data-build="7">la progression de la séquence</li>
+        </ul>
+        <p class="gems-note build-step" data-build="8">La Gem doit utiliser prioritairement ces documents.</p>
+      </div>
+    </section>
+
+    <section class="slide gems-slide gems-prompt" id="slide-19" data-chapter="gems" data-chapter-label="03 · Gems" aria-label="Instructions de la Gem" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head gems-head"><div><p class="eyebrow">Gems · Créer ses assistants pédagogiques</p><h2>Instructions de la Gem</h2></div></header>
+        <div class="gems-prompt-card">
+          <p class="build-step" data-build="2">Tu proposes une énigme invitant les élèves à découvrir une fable, un personnage, à expliquer un mot, un vers…</p>
+          <div class="gems-prompt-columns">
+            <div class="build-step" data-build="3">
+              <p><strong>1. Tu demandes à l'utilisateur quel thème il veut choisir. Il y en a six :</strong></p>
+              <ul>
+                <li>Le loup glouton</li>
+                <li>Le voyage et ses périls</li>
+                <li>Des fables pour rire</li>
+                <li>L'homme et l'animal</li>
+                <li>Trompeurs et trompés</li>
+                <li>La satire</li>
+              </ul>
+            </div>
+            <div class="build-step" data-build="4">
+              <p><strong>2. Propose une activité dont l'objectif est de reconnaître une fable. Ce peut être :</strong></p>
+              <ul>
+                <li>un bref résumé invitant à reconnaître la fable (fais en sorte que lorsque tu mentionnes les personnages, l’identification de la fable ne soit pas rendue trop facile)</li>
+                <li>une question invitant à reconnaître un personnage (propose une description des traits de caractère d’un personnage animalisé et invite à retrouver la fable correspondante)</li>
+                <li>une expression populaire issue d’une fable que l'on doit associer à l’histoire correspondante</li>
+                <li>une moralité dont il faut retrouver la fable dont elle provient</li>
+                <li>une question de vocabulaire (expliciter une expression, proposer un mot rare ou ancien dans une fable et inviter à le définir ou à donner des synonymes)</li>
+                <li>une question de versification (par exemple, ce vers est-il un octosyllabe ou un décasyllabe ou un alexandrin ?)</li>
+                <li>une illustration réalisée dans le style de Pixar et invitant à reconnaître la fable interprétée</li>
+              </ul>
+            </div>
+          </div>
+          <p class="gems-prompt-closing build-step" data-build="5">Assure-toi de proposer une grande variété de questions (résumé, personnage, moralité, versification, illustration...) et d'utiliser des fables différentes à chaque fois.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide gems-slide gems-classroom" id="slide-20" data-chapter="gems" data-chapter-label="03 · Gems" aria-label="Utilisation en classe" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head gems-head"><div><p class="eyebrow">Gems · Créer ses assistants pédagogiques</p><h2>Utilisation en classe</h2></div></header>
+        <p class="gems-lead build-step" data-build="2">Plusieurs usages sont possibles :</p>
+        <ul class="gems-classroom-grid">
+          <li class="build-step" data-build="3">projeter l’énigme et recueillir les réponses oralement</li>
+          <li class="build-step" data-build="4">copier le contenu produit par la Gem dans Microsoft Forms</li>
+          <li class="build-step" data-build="5">demander à Canvas de transformer l’énigme en page web interactive</li>
+          <li class="build-step" data-build="6">imprimer l’énigme pour en faire un ticket de sortie individuel</li>
+        </ul>
+        <p class="gems-links build-step" data-build="7"><a href="https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&amp;hl=fr" target="_blank" rel="noopener noreferrer">Aide officielle sur les Gems</a><span aria-hidden="true"> · </span><a href="https://support.google.com/gemini/answer/15235603?hl=fr" target="_blank" rel="noopener noreferrer">Conseils pour créer une Gem</a></p>
+      </div>
+    </section>
+
+    <section class="slide images-slide" id="slide-21" data-chapter="images" data-chapter-label="04 · Images" aria-label="Qu’est-ce que la création d’images ?" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head images-head"><div><p class="eyebrow">Images · Produire une ressource visuelle</p><h2>Qu’est-ce que la création d’images&nbsp;?</h2></div></header>
+        <p class="images-lead build-step" data-build="2">À partir d’une consigne, Gemini produit une image directement dans la conversation.</p>
+        <div class="images-output-grid">
+          <article class="images-output build-step" data-build="3"><i class="fa-solid fa-palette" aria-hidden="true"></i><p>une illustration destinée à accompagner un texte</p></article>
+          <article class="images-output build-step" data-build="4"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i><p>un schéma ou une infographie expliquant une notion</p></article>
+          <article class="images-output build-step" data-build="5"><i class="fa-solid fa-clone" aria-hidden="true"></i><p>plusieurs variantes d’une même image</p></article>
+          <article class="images-output build-step" data-build="6"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i><p>la modification d’une image existante qu’il a fournie</p></article>
+        </div>
+        <p class="images-note build-step" data-build="8">Avec Education Fundamentals, la production est limitée à <strong>20 images par jour</strong>.</p>
+      </div>
+    </section>
+
+    <section class="slide images-slide" id="slide-22" data-chapter="images" data-chapter-label="04 · Images" aria-label="Accéder à la création d’images" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head images-head"><div><p class="eyebrow">Images · Produire une ressource visuelle</p><h2>Accéder à la création d’images</h2></div></header>
+        <div class="access-layout">
+          <div class="access-copy">
+            <ol class="access-steps">
+              <li class="build-step" data-build="2"><span>01</span><p>Se rendre sur <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer">gemini.google.com</a></p></li>
+              <li class="build-step" data-build="3"><span>02</span><p>Cliquer sur le bouton <strong>+</strong> à gauche de la zone de dialogue</p></li>
+              <li class="build-step" data-build="5"><span>03</span><p>Choisir <strong>Créer une image</strong> dans la liste des outils</p></li>
+              <li class="build-step" data-build="6"><span>04</span><p>Décrire l’image souhaitée</p></li>
+            </ol>
+            <p class="prerequisite build-step" data-build="7"><i class="fa-solid fa-image" aria-hidden="true"></i><span>Une image peut aussi être demandée <strong>à l’intérieur d’une autre production</strong> : c’est ce que fait Storybook pour illustrer chaque page du récit.</span></p>
+          </div>
+          <figure class="access-visual build-step" data-build="4">
+            <img src="assets/images-menu-creer-image.png" alt="Menu des outils de Gemini ouvert depuis la zone de dialogue, avec l’entrée « Créer une image » mise en évidence">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide images-slide images-studio" id="slide-23" data-chapter="images" data-chapter-label="04 · Images" aria-label="L’atelier Créer des images" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head images-head"><div><p class="eyebrow">Images · Produire une ressource visuelle</p><h2>L’atelier «&nbsp;Créer des images&nbsp;»</h2></div></header>
+        <div class="images-studio-layout">
+          <figure class="images-studio-visual build-step" data-build="2">
+            <img src="assets/images-atelier-creer-des-images.png" alt="Page « Créer des images » de Gemini présentant une galerie de styles et une zone de saisie « Décrivez votre image »">
+          </figure>
+          <ul class="images-studio-list">
+            <li class="build-step" data-build="3"><span>une zone <strong>Décrivez votre image</strong> équivalente à la conversation</span></li>
+            <li class="build-step" data-build="4"><span>une galerie de <strong>styles prédéfinis</strong> : dessin, monochrome, cinématique, steampunk…</span></li>
+            <li class="build-step" data-build="5"><span>un style se choisit d’un clic, puis se complète par une consigne écrite</span></li>
+            <li class="build-step" data-build="6"><span>l’image produite peut ensuite être <strong>modifiée</strong> par de nouvelles demandes</span></li>
+          </ul>
+        </div>
+        <p class="images-note build-step" data-build="7">Cette interface évolue rapidement et reste signalée comme <strong>bêta</strong> : la disposition peut différer de celle présentée ici.</p>
+      </div>
+    </section>
+
+    <section class="slide images-slide images-compare-slide" id="slide-24" data-chapter="images" data-chapter-label="04 · Images" aria-label="Illustrer ou expliquer" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head images-head"><div><p class="eyebrow">Images · Produire une ressource visuelle</p><h2>Illustrer ou expliquer</h2></div></header>
+        <p class="images-lead build-step" data-build="2">Deux usages très différents, qui n’appellent pas les mêmes exigences.</p>
+        <div class="images-compare-grid">
+          <article class="images-compare-card build-step" data-build="3">
+            <p class="mini-label">Image illustrative</p>
+            <figure><img src="assets/images-theo-acropole.png" alt="Illustration narrative produite par Gemini : un enfant et son père marchant vers l’Acropole d’Athènes au milieu des oliviers"></figure>
+            <p>Elle accompagne le récit et installe une atmosphère. Elle ne porte aucune information que l’élève devra retenir.</p>
+          </article>
+          <article class="images-compare-card build-step" data-build="4">
+            <p class="mini-label">Image explicative</p>
+            <figure><img src="assets/images-atome-infographie.png" alt="Infographie produite par Gemini expliquant la structure de l’atome pour des élèves de lycée"></figure>
+            <p>Elle porte elle-même le contenu : schéma, infographie, frise. Chaque mot inscrit devient un élément de cours.</p>
+          </article>
+        </div>
+        <p class="images-note build-step" data-build="5">Une illustration se juge sur sa vraisemblance&nbsp;; une infographie se vérifie <strong>mot par mot</strong>.</p>
+      </div>
+    </section>
+
+    <section class="slide images-slide prompt-slide" id="slide-25" data-chapter="images" data-chapter-label="04 · Images" aria-label="Rédiger une consigne visuelle" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head images-head"><div><p class="eyebrow">Images · Produire une ressource visuelle</p><h2>Rédiger une consigne visuelle</h2></div></header>
+        <p class="list-intro prompt-intro build-step" data-build="2">Une consigne visuelle peut préciser cinq éléments :</p>
+        <ol class="prompt-grid">
+          <li class="build-step" data-build="3"><span>01</span><p><strong>Le sujet</strong> : ce que l’image doit montrer</p></li>
+          <li class="build-step" data-build="4"><span>02</span><p><strong>Le type d’image</strong> : illustration, schéma, infographie ou frise</p></li>
+          <li class="build-step" data-build="5"><span>03</span><p><strong>Le style</strong> : dessin, aquarelle, gravure ou photographie</p></li>
+          <li class="build-step" data-build="6"><span>04</span><p><strong>Le format</strong> : horizontal pour une projection, vertical pour une impression</p></li>
+          <li class="build-step" data-build="7"><span>05</span><p><strong>Le texte</strong> : les mots à faire figurer, ou l’absence totale de texte</p></li>
+        </ol>
+        <div class="prompt-example build-step" data-build="8">
+          <p class="mini-label">Exemple — une seule phrase peut suffire</p>
+          <blockquote>Crée l’illustration permettant de comprendre ce qu’est un atome pour des élèves de lycée.</blockquote>
+        </div>
+        <p class="prompt-foot build-step" data-build="9">Cette consigne nomme l’<strong>objectif</strong> et le <strong>public</strong> : elle a produit l’infographie précédente. Les cinq éléments servent surtout à reprendre la main lorsque le résultat ne convient pas.</p>
+      </div>
+    </section>
+
+    <section class="slide images-slide review-slide" id="slide-26" data-chapter="images" data-chapter-label="04 · Images" aria-label="Vérifier et améliorer l’image" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head images-head"><div><p class="eyebrow">Images · Produire une ressource visuelle</p><h2>Vérifier et améliorer l’image</h2></div></header>
+        <p class="review-lead build-step" data-build="2">La qualité varie fortement d’une image à l’autre : celle-ci, sur la Boulè, multiplie les légendes fautives.</p>
+        <div class="review-layout">
+          <div class="review-content">
+            <p class="mini-label build-step" data-build="3">Points à contrôler</p>
+            <ul class="review-checklist">
+              <li class="build-step" data-build="4">exactitude de ce qui est représenté</li>
+              <li class="build-step" data-build="5">orthographe du texte inscrit dans l’image</li>
+              <li class="build-step" data-build="6">légendes tronquées ou inventées</li>
+              <li class="build-step" data-build="7">anachronismes et stéréotypes</li>
+              <li class="build-step" data-build="8">cohérence avec le texte accompagné</li>
+              <li class="build-step" data-build="9">lisibilité une fois projetée ou imprimée</li>
+            </ul>
+            <div class="revision-stack">
+              <p class="revision-intro build-step" data-build="10">Les corrections se demandent dans la conversation :</p>
+              <blockquote class="build-step" data-build="11">Corrige les fautes dans les légendes.</blockquote>
+              <blockquote class="build-step" data-build="12">Reprends le schéma avec quatre étapes seulement.</blockquote>
+              <blockquote class="build-step" data-build="13">Refais l’image sans aucun texte.</blockquote>
+              <p class="revision-result build-step" data-build="14">Le texte inscrit dans une image reste le point faible. Pour un document remis aux élèves, une image sans texte, légendée ensuite par l’enseignant, est souvent plus sûre.</p>
+            </div>
+          </div>
+          <figure class="review-visual build-step" data-build="3">
+            <img src="assets/images-boule-infographie.png" alt="Infographie sur la Boulè comportant des légendes fautives : « sélectionnée annuell », « supervise repervises activités de hatanes »">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide images-slide images-editor" id="slide-27" data-chapter="images" data-chapter-label="04 · Images" aria-label="Retoucher l’image sans quitter Gemini" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head images-head"><div><p class="eyebrow">Images · Produire une ressource visuelle</p><h2>Retoucher l’image sans quitter Gemini</h2></div></header>
+        <div class="images-editor-layout">
+          <figure class="images-editor-visual build-step" data-build="2">
+            <img src="assets/images-editeur-annotation.png" alt="Éditeur d’image de Gemini affichant l’infographie sur l’atome, avec une palette de couleurs et les outils Dessin et Texte">
+          </figure>
+          <div class="images-editor-copy">
+            <p class="images-lead build-step" data-build="3">Un éditeur permet d’intervenir directement sur l’image produite.</p>
+            <ul class="images-editor-list">
+              <li class="build-step" data-build="4"><i class="fa-solid fa-pen" aria-hidden="true"></i><span><strong>Dessin</strong> : entourer, souligner, relier deux éléments</span></li>
+              <li class="build-step" data-build="5"><i class="fa-solid fa-t" aria-hidden="true"></i><span><strong>Texte</strong> : ajouter ou corriger une légende</span></li>
+              <li class="build-step" data-build="6"><i class="fa-solid fa-palette" aria-hidden="true"></i><span>une palette de couleurs pour distinguer les annotations</span></li>
+              <li class="build-step" data-build="7"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i><span><strong>Annuler</strong> et <strong>Rétablir</strong> pour revenir en arrière</span></li>
+              <li class="build-step" data-build="8"><i class="fa-solid fa-download" aria-hidden="true"></i><span><strong>Enregistrer</strong> ou télécharger la version annotée</span></li>
+            </ul>
+          </div>
+        </div>
+        <p class="images-note build-step" data-build="9">L’éditeur corrige la <strong>forme</strong> : une légende fautive peut être réécrite à la main. Une erreur de <strong>fond</strong> se corrige en redemandant l’image dans la conversation.</p>
+      </div>
+    </section>
+
+    <section class="slide images-slide applications-slide" id="slide-28" data-chapter="images" data-chapter-label="04 · Images" aria-label="Quelques applications pédagogiques avec les images" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head images-head"><div><p class="eyebrow">Images · Produire une ressource visuelle</p><h2>Quelques applications pédagogiques</h2></div></header>
+        <div class="subject-grid">
+          <article class="subject-card build-step" data-build="2"><div><i class="fa-solid fa-language" aria-hidden="true"></i><h3>Lettres et langues</h3></div><ul><li>illustrer une scène à décrire à l’oral</li><li>fournir une amorce pour une production écrite</li><li>représenter une expression imagée</li></ul></article>
+          <article class="subject-card build-step" data-build="3"><div><i class="fa-solid fa-landmark" aria-hidden="true"></i><h3>Histoire et géographie</h3></div><ul><li>représenter un lieu ou une époque</li><li>schématiser le fonctionnement d’une institution</li><li>confronter l’image produite à une source authentique</li></ul></article>
+          <article class="subject-card build-step" data-build="4"><div><i class="fa-solid fa-flask" aria-hidden="true"></i><h3>Sciences</h3></div><ul><li>schématiser un cycle ou un phénomène</li><li>illustrer les étapes d’une expérience</li><li>produire une planche à légender par les élèves</li></ul></article>
+          <article class="subject-card build-step" data-build="5"><div><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><h3>Éducation à l’image</h3></div><ul><li>comparer plusieurs styles pour un même sujet</li><li>faire repérer les erreurs d’une infographie générée</li><li>travailler la notion d’image produite par une IA</li></ul></article>
+        </div>
+        <p class="images-note images-note-icon build-step" data-build="6"><i class="fa-solid fa-fingerprint" aria-hidden="true"></i><span>Les images produites par Gemini comportent un filigrane numérique invisible <strong>SynthID</strong>, qui permet d’identifier leur origine.</span></p>
+      </div>
+    </section>
+
+    <section class="slide canvas-slide canvas-opening" id="slide-29" data-chapter="canvas" data-chapter-label="05 · Canvas" aria-label="Qu’est-ce que Canvas ?" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head canvas-head"><div><p class="eyebrow">Canvas · Transformer une histoire en activité pédagogique</p><h2>Qu’est-ce que Canvas&nbsp;?</h2></div></header>
+        <p class="canvas-lead build-step" data-build="2">Canvas est un espace de création intégré à Gemini.</p>
+        <p class="list-intro build-step" data-build="3">Il permet de transformer une consigne ou un document en :</p>
+        <ul class="canvas-format-grid">
+          <li class="build-step" data-build="4"><i class="fa-solid fa-align-left" aria-hidden="true"></i><span>texte structuré</span></li>
+          <li class="build-step" data-build="5"><i class="fa-solid fa-list-check" aria-hidden="true"></i><span>quiz</span></li>
+          <li class="build-step" data-build="6"><i class="fa-solid fa-display" aria-hidden="true"></i><span>diaporama</span></li>
+          <li class="build-step" data-build="7"><i class="fa-solid fa-globe" aria-hidden="true"></i><span>page web</span></li>
+          <li class="build-step" data-build="8"><i class="fa-solid fa-laptop-code" aria-hidden="true"></i><span>application interactive</span></li>
+        </ul>
+        <p class="canvas-transition build-step" data-build="9">Nous allons reprendre l’histoire de <strong>Théo et le Cœur d’Athènes</strong> pour produire deux activités :</p>
+        <ol class="canvas-goals">
+          <li class="build-step" data-build="10"><span>01</span><strong>un quiz de compréhension</strong></li>
+          <li class="build-step" data-build="11"><span>02</span><strong>un jeu de vocabulaire</strong></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide canvas-slide canvas-import" id="slide-30" data-chapter="canvas" data-chapter-label="05 · Canvas" aria-label="Importer l’histoire dans Canvas" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head canvas-head"><div><p class="eyebrow">Canvas · Transformer une histoire en activité pédagogique</p><h2>Importer l’histoire dans Canvas</h2></div></header>
+        <div class="canvas-import-layout">
+          <ol class="canvas-steps">
+            <li class="build-step" data-build="2"><span>01</span><p>Télécharger le Storybook</p></li>
+            <li class="build-step" data-build="3"><span>02</span><p>Ouvrir une nouvelle conversation dans Gemini</p></li>
+            <li class="build-step" data-build="4"><span>03</span><p>Cliquer sur <strong>Importer des fichiers et outils</strong></p></li>
+            <li class="build-step" data-build="5"><span>04</span><p>Ajouter le fichier de l’histoire</p></li>
+            <li class="build-step" data-build="6"><span>05</span><p>Sélectionner <strong>Canvas</strong></p></li>
+            <li class="build-step" data-build="7"><span>06</span><p>Décrire l’activité à produire</p></li>
+          </ol>
+          <figure class="canvas-import-visual build-step" data-build="4">
+            <img src="assets/canvas-import-files.png" alt="Menu des outils de Gemini ouvert, avec les commandes Importer des fichiers et Canvas visibles">
+          </figure>
+        </div>
+        <p class="canvas-guidance build-step" data-build="8">Le document importé fournit à Gemini le contenu de référence. Il faut toutefois préciser que les questions doivent être fondées exclusivement sur ce document.</p>
+      </div>
+    </section>
+
+    <section class="slide canvas-slide canvas-prompt-slide" id="slide-31" data-chapter="canvas" data-chapter-label="05 · Canvas" aria-label="Créer un quiz interactif" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head canvas-head"><div><p class="eyebrow">Canvas · Transformer une histoire en activité pédagogique</p><h2>Créer un quiz interactif</h2></div></header>
+        <div class="quiz-prompt-layout">
+          <div class="canvas-prompt-panel quiz-prompt-panel">
+            <p class="mini-label build-step" data-build="2">Exemple de prompt</p>
+            <blockquote>
+              <p class="build-step" data-build="3">À partir de l’histoire jointe, crée une application web de quiz interactif destiné à des élèves de 11 ans.</p>
+              <p class="build-step" data-build="4">Propose dix questions : sept QCM et trois questions « vrai ou faux ». Interroge les élèves sur le récit et sur les notions de citoyen, d’assemblée, de démocratie, la Boulé et de Pnyx.</p>
+              <p class="build-step" data-build="5">Affiche une question à la fois, donne une courte explication après chaque réponse et présente le score final. Ajoute un bouton permettant de recommencer. Utilise uniquement les informations du document fourni.</p>
+            </blockquote>
+          </div>
+          <figure class="quiz-result-visual build-step" data-build="6">
+            <img src="assets/canvas-quiz-result.png" alt="Quiz interactif créé dans Canvas à partir de l’histoire, avec une question à choix multiple et l’explication de la bonne réponse">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide canvas-slide canvas-testing" id="slide-32" data-chapter="canvas" data-chapter-label="05 · Canvas" aria-label="Tester et améliorer le quiz" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head canvas-head"><div><p class="eyebrow">Canvas · Transformer une histoire en activité pédagogique</p><h2>Tester et améliorer le quiz</h2></div></header>
+        <p class="canvas-lead build-step" data-build="2">Avant de diffuser l’activité, comme pour le storybook, vérifiez tout :</p>
+        <ul class="canvas-check-grid">
+          <li class="build-step" data-build="3"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span>l’exactitude des réponses</span></li>
+          <li class="build-step" data-build="4"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span>la clarté des consignes</span></li>
+          <li class="build-step" data-build="5"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span>la pertinence des distracteurs</span></li>
+          <li class="build-step" data-build="6"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span>le fonctionnement des boutons</span></li>
+          <li class="build-step" data-build="7"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span>le calcul du score</span></li>
+          <li class="build-step" data-build="8"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span>la lisibilité sur différents écrans</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide canvas-slide canvas-prompt-slide" id="slide-33" data-chapter="canvas" data-chapter-label="05 · Canvas" aria-label="Créer un jeu de vocabulaire" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head canvas-head"><div><p class="eyebrow">Canvas · Transformer une histoire en activité pédagogique</p><h2>Créer un jeu de vocabulaire</h2></div></header>
+        <p class="canvas-lead build-step" data-build="2">La même histoire peut être transformée en jeu du mot mystère, inspiré du pendu.</p>
+        <div class="canvas-prompt-panel compact-prompt build-step" data-build="2">
+          <p class="mini-label build-step" data-build="3">Exemple de prompt</p>
+          <blockquote>
+            <p class="build-step" data-build="4">À partir du document joint, crée une web app qui propose un jeu du mot mystère pour des élèves de 11 ans.</p>
+            <p class="build-step" data-build="5">Utilise les mots « citoyen », « assemblée », « démocratie », « Athènes » et « Pnyx ». Pour chaque mot, affiche une définition ou un indice tiré de l’histoire. L’élève sélectionne les lettres proposées à l’écran.</p>
+            <p class="build-step" data-build="6">Affiche le nombre d’erreurs restantes sans représenter de personnage pendu. Félicite l’élève lorsqu’il trouve le mot et propose ensuite un nouveau mot. Ajoute un bouton pour recommencer. L’activité doit fonctionner sans demander de données personnelles.</p>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide canvas-slide canvas-prompt-slide" id="slide-34" data-chapter="canvas" data-chapter-label="05 · Canvas" aria-label="Variante : créer des mots croisés" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head canvas-head"><div><p class="eyebrow">Canvas · Transformer une histoire en activité pédagogique</p><h2>Variante : créer des mots croisés</h2></div></header>
+        <p class="canvas-lead build-step" data-build="2">Le même corpus peut également servir à produire une grille de mots croisés.</p>
+        <div class="canvas-prompt-panel crossword-prompt build-step" data-build="2">
+          <p class="mini-label build-step" data-build="3">Exemple de prompt</p>
+          <blockquote>
+            <p class="build-step" data-build="4">Crée une petite grille de mots croisés à partir du vocabulaire de l’histoire. Utilise six à huit mots, notamment « citoyen », « Pnyx », « assemblée » et « démocratie ».</p>
+            <p class="build-step" data-build="5">Affiche les définitions à côté de la grille. Permets de saisir les lettres directement dans les cases. Ajoute un bouton « Vérifier » qui signale les erreurs sans révéler immédiatement toutes les réponses, puis un bouton « Recommencer ».</p>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide canvas-slide canvas-classroom" id="slide-35" data-chapter="canvas" data-chapter-label="05 · Canvas" aria-label="Utiliser l’activité en classe" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head canvas-head"><div><p class="eyebrow">Canvas · Transformer une histoire en activité pédagogique</p><h2>Utiliser l’activité en classe</h2></div></header>
+        <div class="canvas-import-layout">
+          <div>
+            <p class="classroom-intro build-step" data-build="2">Avec un compte Workspace for Education, le quiz ou l’application ne propose pas nécessairement d’option de partage ou de téléchargement.</p>
+            <p class="revision-intro build-step" data-build="3">Pour utiliser l’activité en dehors de Gemini :</p>
+            <ol class="classroom-steps">
+              <li class="build-step" data-build="4"><span>01</span><p>Ouvrir la vue <strong>Code</strong> dans Canvas</p></li>
+              <li class="build-step" data-build="5"><span>02</span><p>Copier le code HTML généré</p></li>
+              <li class="build-step" data-build="6"><span>03</span><p>Ouvrir Visual Studio Code</p></li>
+              <li class="build-step" data-build="7"><span>04</span><p>Créer un fichier nommé <code>index.html</code></p></li>
+              <li class="build-step" data-build="8"><span>05</span><p>Coller le code, puis enregistrer le fichier</p></li>
+              <li class="build-step" data-build="9"><span>06</span><p>Ouvrir <code>index.html</code> dans un navigateur pour tester l’activité</p></li>
+            </ol>
+            <p class="classroom-publish build-step" data-build="11">Le fichier peut ensuite être déposé sur un serveur ou dans l’espace web de l’établissement. Les élèves accèdent alors à une page classique et n’ont pas besoin d’utiliser Gemini.</p>
+          </div>
+          <figure class="quiz-result-visual build-step" data-build="10">
+            <img src="assets/vscode.png" alt="Capture d’écran de Visual Studio Code avec le code HTML d’un quiz ouvert">
+          </figure>
+        </div>
+        <p class="canvas-links build-step" data-build="12"><a href="https://support.google.com/gemini/answer/16047321?hl=fr-FR" target="_blank" rel="noopener noreferrer">Aide officielle sur Canvas</a><span aria-hidden="true"> · </span><a href="https://support.google.com/gemini/answer/16275879?hl=fr" target="_blank" rel="noopener noreferrer">Aide sur les quiz dans Gemini</a></p>
+      </div>
+    </section>
+
+    <section class="slide lyria-slide lyria-opening" id="slide-36" data-chapter="lyria" data-chapter-label="06 · Lyria" aria-label="Qu’est-ce que Lyria ?" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head lyria-head"><div><p class="eyebrow">Lyria · Produire une ressource musicale</p><h2>Qu’est-ce que Lyria&nbsp;?</h2></div></header>
+        <p class="lyria-lead build-step" data-build="2">Lyria est le générateur de musique intégré à Gemini. À partir d’une consigne, il peut produire :</p>
+        <div class="lyria-output-grid">
+          <article class="lyria-output build-step" data-build="3"><i class="fa-solid fa-music" aria-hidden="true"></i><p>une musique instrumentale</p></article>
+          <article class="lyria-output build-step" data-build="4"><i class="fa-solid fa-microphone-lines" aria-hidden="true"></i><p>une chanson avec des paroles</p></article>
+          <article class="lyria-output build-step" data-build="5"><i class="fa-solid fa-wave-square" aria-hidden="true"></i><p>une ambiance sonore</p></article>
+          <article class="lyria-output build-step" data-build="6"><i class="fa-solid fa-compact-disc" aria-hidden="true"></i><p>un morceau accompagné d’un visuel de couverture</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide lyria-slide lyria-access" id="slide-37" data-chapter="lyria" data-chapter-label="06 · Lyria" aria-label="Accéder à la création musicale" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head lyria-head"><div><p class="eyebrow">Lyria · Produire une ressource musicale</p><h2>Accéder à la création musicale</h2></div></header>
+        <div class="lyria-access-layout">
+          <ol class="lyria-steps">
+            <li class="build-step" data-build="2"><span>01</span><p>Ouvrir <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer">gemini.google.com</a></p></li>
+            <li class="build-step" data-build="3"><span>02</span><p>Cliquer sur <strong>le bouton +</strong> dans la zone de saisie</p></li>
+            <li class="build-step" data-build="4"><span>03</span><p>Choisir <strong>Créer de la musique</strong></p></li>
+            <li class="build-step" data-build="5"><span>04</span><p>Saisir une consigne décrivant le morceau</p></li>
+            <li class="build-step" data-build="6"><span>05</span><p>Lancer la génération, puis écouter le résultat</p></li>
+          </ol>
+          <figure class="lyria-access-visual build-step" data-build="4">
+            <img src="assets/lyria-create-music.png" alt="Menu des outils de Gemini ouvert, avec l’option Créer de la musique sélectionnée">
+          </figure>
+        </div>
+        <p class="lyria-note build-step" data-build="7"><i class="fa-solid fa-image" aria-hidden="true"></i><span>Il est possible d’ajouter une image ou une vidéo pour préciser l’univers visuel et l’atmosphère recherchée.</span></p>
+      </div>
+    </section>
+
+    <section class="slide lyria-slide lyria-instruction" id="slide-38" data-chapter="lyria" data-chapter-label="06 · Lyria" aria-label="Rédiger une consigne musicale" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head lyria-head"><div><p class="eyebrow">Lyria · Produire une ressource musicale</p><h2>Rédiger une consigne musicale</h2></div></header>
+        <p class="list-intro lyria-intro build-step" data-build="2">Une consigne efficace précise :</p>
+        <ol class="lyria-prompt-grid">
+          <li class="build-step" data-build="3"><span>01</span><p><strong>La fonction du morceau</strong> : introduction, ambiance, mémorisation…</p></li>
+          <li class="build-step" data-build="4"><span>02</span><p><strong>La durée</strong> : par exemple 30 secondes</p></li>
+          <li class="build-step" data-build="5"><span>03</span><p><strong>Le genre ou l’atmosphère</strong> : solennelle, joyeuse, inquiétante…</p></li>
+          <li class="build-step" data-build="6"><span>04</span><p><strong>Les instruments souhaités</strong></p></li>
+          <li class="build-step" data-build="7"><span>05</span><p><strong>Le rythme et le tempo</strong></p></li>
+          <li class="build-step" data-build="8"><span>06</span><p><strong>La présence ou l’absence de paroles</strong></p></li>
+          <li class="build-step" data-build="9"><span>07</span><p><strong>Le public et le contexte pédagogique</strong></p></li>
+        </ol>
+        <p class="lyria-note build-step" data-build="10"><i class="fa-solid fa-sliders" aria-hidden="true"></i><span>Pour un premier essai, un morceau court et instrumental est plus facile à contrôler.</span></p>
+      </div>
+    </section>
+
+    <section class="slide lyria-slide lyria-prompt-slide" id="slide-39" data-chapter="lyria" data-chapter-label="06 · Lyria" aria-label="Prolonger l’histoire de Théo" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head lyria-head"><div><p class="eyebrow">Lyria · Produire une ressource musicale</p><h2>Prolonger l’histoire de Théo</h2></div></header>
+        <div class="lyria-prompt-shell has-media build-step" data-build="2">
+          <p class="lyria-lead">La musique peut accompagner la lecture de <strong>Théo et le Cœur d’Athènes.</strong></p>
+          <div class="lyria-prompt-panel">
+            <p class="mini-label build-step" data-build="3">Exemple de prompt</p>
+            <blockquote>
+              <p class="build-step" data-build="4">Compose une courte pièce instrumentale de 30 secondes pour introduire la lecture d’une histoire située dans l’Athènes du Ve siècle avant notre ère.</p>
+              <p class="build-step" data-build="5">Crée une atmosphère calme, solennelle et légèrement mystérieuse. Utilise principalement une lyre, une flûte et des percussions légères. N’ajoute ni paroles ni sonorités électroniques modernes.</p>
+            </blockquote>
+          </div>
+          <figure class="lyria-music-card build-step" data-build="6">
+            <button class="lyria-music-toggle" type="button" aria-label="Lire le morceau Steps Toward the Pnyx" aria-pressed="false" data-play-label="Lire le morceau Steps Toward the Pnyx" data-pause-label="Mettre en pause le morceau Steps Toward the Pnyx">
+              <img src="assets/steps-toward-the-pnyx-poster.jpg" alt="Couverture du morceau Steps Toward the Pnyx">
+              <span class="music-play-state" aria-hidden="true"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
+            </button>
+            <audio preload="metadata">
+              <source src="assets/steps-toward-the-pnyx.mp4" type="audio/mp4">
+              Votre navigateur ne peut pas lire ce fichier audio.
+            </audio>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide lyria-slide lyria-prompt-slide" id="slide-40" data-chapter="lyria" data-chapter-label="06 · Lyria" aria-label="Créer une chanson mnémotechnique" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head lyria-head"><div><p class="eyebrow">Lyria · Produire une ressource musicale</p><h2>Créer une chanson mnémotechnique</h2></div></header>
+        <div class="lyria-prompt-shell has-media build-step" data-build="2">
+          <p class="lyria-lead">Lyria peut également transformer des notions du cours en chanson.</p>
+          <div class="lyria-prompt-panel">
+            <p class="mini-label build-step" data-build="3">Exemple de prompt</p>
+            <blockquote>
+              <p class="build-step" data-build="4">Crée une chanson courte et entraînante pour des élèves de 11 ans. Les paroles doivent expliquer simplement les mots « citoyen », « assemblée » et « démocratie » dans l’Athènes antique.</p>
+              <p class="build-step" data-build="5">Utilise un refrain facile à mémoriser et trois courts couplets. Évite les informations qui ne figurent pas dans le cours. Fais apparaître clairement que seuls certains habitants étaient citoyens.</p>
+            </blockquote>
+          </div>
+          <figure class="lyria-music-card build-step" data-build="6">
+            <button class="lyria-music-toggle" type="button" aria-label="Lire le morceau L’urne et le marbre" aria-pressed="false" data-play-label="Lire le morceau L’urne et le marbre" data-pause-label="Mettre en pause le morceau L’urne et le marbre">
+              <img src="assets/l-urne-et-le-marbre-poster.jpg" alt="Couverture du morceau L’urne et le marbre">
+              <span class="music-play-state" aria-hidden="true"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
+            </button>
+            <audio preload="metadata">
+              <source src="assets/l-urne-et-le-marbre.mp4" type="audio/mp4">
+              Votre navigateur ne peut pas lire ce fichier audio.
+            </audio>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide lyria-slide lyria-applications" id="slide-41" data-chapter="lyria" data-chapter-label="06 · Lyria" aria-label="Quelques applications pédagogiques avec Lyria" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head lyria-head"><div><p class="eyebrow">Lyria · Produire une ressource musicale</p><h2>Quelques applications pédagogiques</h2></div></header>
+        <p class="list-intro lyria-intro build-step" data-build="2">La musique générée peut servir à :</p>
+        <ul class="lyria-use-grid">
+          <li class="build-step" data-build="3">créer une ambiance avant une lecture</li>
+          <li class="build-step" data-build="4">accompagner un récit ou une présentation</li>
+          <li class="build-step" data-build="5">produire un générique de podcast</li>
+          <li class="build-step" data-build="6">mémoriser une notion grâce à un refrain</li>
+          <li class="build-step" data-build="7">mettre un poème en musique</li>
+          <li class="build-step" data-build="8">comparer plusieurs interprétations sonores d’un même texte</li>
+          <li class="build-step" data-build="9">faire décrire une atmosphère ou exprimer des émotions</li>
+          <li class="build-step" data-build="10">interroger les représentations modernes d’une époque historique</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide lyria-slide lyria-iterate" id="slide-42" data-chapter="lyria" data-chapter-label="06 · Lyria" aria-label="Générer une nouvelle version" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head lyria-head"><div><p class="eyebrow">Lyria · Produire une ressource musicale</p><h2>Générer une nouvelle version</h2></div></header>
+        <p class="lyria-lead build-step" data-build="2">Si le premier résultat ne convient pas, l’enseignant peut préciser sa demande :</p>
+        <div class="lyria-revision-stack">
+          <blockquote class="build-step" data-build="3">Ralentis le tempo et rends l’atmosphère plus solennelle</blockquote>
+          <blockquote class="build-step" data-build="4">Réduis l’importance des percussions</blockquote>
+          <blockquote class="build-step" data-build="5">Crée une version entièrement instrumentale</blockquote>
+          <blockquote class="build-step" data-build="6">Simplifie le refrain et évite les répétitions inutiles</blockquote>
+          <blockquote class="build-step" data-build="7">Génère une nouvelle version de 30 secondes</blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide lyria-slide lyria-download" id="slide-43" data-chapter="lyria" data-chapter-label="06 · Lyria" aria-label="Télécharger et diffuser le morceau" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head lyria-head"><div><p class="eyebrow">Lyria · Produire une ressource musicale</p><h2>Télécharger et diffuser le morceau</h2></div></header>
+        <p class="lyria-lead build-step" data-build="2">Une fois le morceau vérifié :</p>
+        <ol class="lyria-download-steps">
+          <li class="build-step" data-build="3"><span>01</span><p>Cliquer sur <strong>Télécharger</strong> en haut à droite du visuel</p></li>
+          <li class="format-step build-step" data-build="4"><span>02</span><div><p>Choisir le format souhaité :</p><ul><li><strong>MP3</strong> pour le fichier audio</li><li><strong>MP4</strong> pour la musique accompagnée de son visuel</li></ul></div></li>
+          <li class="build-step" data-build="5"><span>03</span><p>Déposer le fichier sur Teams ou OneNote</p></li>
+          <li class="build-step" data-build="6"><span>04</span><p>L’intégrer éventuellement à un diaporama, une vidéo ou un podcast</p></li>
+        </ol>
+        <p class="lyria-note build-step" data-build="7"><i class="fa-solid fa-cloud-arrow-down" aria-hidden="true"></i><span>Le téléchargement permet de diffuser la ressource sans demander aux élèves d’accéder à Gemini.</span></p>
+        <p class="lyria-watermark build-step" data-build="8">Chaque morceau contient un filigrane numérique indiquant qu’il a été généré par une IA.</p>
+        <p class="lyria-links build-step" data-build="9"><a href="https://support.google.com/gemini/answer/16901237?co=GENIE.Platform%3DDesktop&amp;hl=fr" target="_blank" rel="noopener noreferrer">Aide officielle sur la génération musicale</a><span aria-hidden="true"> · </span><a href="https://support.google.com/gemini/answer/14620100?co=DASHER._Family%3DEducation&amp;hl=fr" target="_blank" rel="noopener noreferrer">Fonctionnalités de Workspace for Education</a></p>
+      </div>
+    </section>
+
+    <section class="slide source-slide" id="slide-44" data-chapter="conclusion" data-chapter-label="07 · Conclusion" aria-label="Cinq outils, cinq productions" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head source-head"><div><p class="eyebrow">Conclusion</p><h2>Cinq outils, cinq productions</h2></div></header>
+        <ul class="source-list dense-source-list">
+          <li class="build-step" data-build="2"><span><strong>Storybook</strong> transforme une consigne en récit illustré.</span></li>
+          <li class="build-step" data-build="3"><span><strong>Les Gems</strong> transforment des consignes récurrentes en assistant personnalisé.</span></li>
+          <li class="build-step" data-build="4"><span><strong>La création d’images</strong> transforme une notion en illustration ou en infographie.</span></li>
+          <li class="build-step" data-build="5"><span><strong>Canvas</strong> transforme un contenu en quiz ou en activité interactive.</span></li>
+          <li class="build-step" data-build="6"><span><strong>Lyria</strong> transforme une intention en ressource musicale.</span></li>
+        </ul>
+        <p class="gems-note build-step" data-build="7">Ces outils répondent à des besoins différents, mais suivent la même logique : partir d’un objectif pédagogique pour produire une ressource utilisable en classe.</p>
+      </div>
+    </section>
+
+    <section class="slide source-slide" id="slide-45" data-chapter="conclusion" data-chapter-label="07 · Conclusion" aria-label="Une même démarche" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head source-head"><div><p class="eyebrow">Conclusion</p><h2>Une même démarche</h2></div></header>
+        <p class="source-lead build-step" data-build="2">Quel que soit l’outil utilisé, le travail suit plusieurs étapes :</p>
+        <ol class="gems-steps inline-steps">
+          <li class="build-step" data-build="3"><span>01</span><p>définir l’objectif</p></li>
+          <li class="build-step" data-build="4"><span>02</span><p>fournir le contexte et les documents</p></li>
+          <li class="build-step" data-build="5"><span>03</span><p>formuler une consigne précise</p></li>
+          <li class="build-step" data-build="6"><span>04</span><p>examiner la première proposition</p></li>
+          <li class="build-step" data-build="7"><span>05</span><p>corriger et adapter le résultat</p></li>
+          <li class="build-step" data-build="8"><span>06</span><p>exporter ou diffuser la ressource</p></li>
+        </ol>
+        <blockquote class="source-quote build-step" data-build="9"><strong>La qualité de la production dépend autant de la consigne initiale que du travail de vérification.</strong></blockquote>
+      </div>
+    </section>
+
+    <section class="slide source-slide" id="slide-46" data-chapter="conclusion" data-chapter-label="07 · Conclusion" aria-label="L’enseignant reste l’auteur final" data-notes="Tout le contenu fourni est affiché sur la diapositive.">
+      <div class="slide-inner">
+        <header class="slide-head source-head"><div><p class="eyebrow">Conclusion</p><h2>L’enseignant reste l’auteur final</h2></div></header>
+        <p class="source-lead build-step" data-build="2">Gemini peut accélérer la création, proposer des variantes et faciliter la production de nouveaux supports.</p>
+        <p class="source-lead build-step" data-build="3">L’enseignant reste responsable :</p>
+        <ul class="source-list dense-source-list">
+          <li class="build-step" data-build="4"><span>des objectifs pédagogiques</span></li>
+          <li class="build-step" data-build="5"><span>du choix des contenus</span></li>
+          <li class="build-step" data-build="6"><span>de l’exactitude des informations</span></li>
+          <li class="build-step" data-build="7"><span>de l’adaptation aux élèves</span></li>
+          <li class="build-step" data-build="8"><span>de la forme finale de la ressource</span></li>
+          <li class="build-step" data-build="9"><span>de ses conditions d’utilisation et de diffusion</span></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="controls" aria-label="Commandes de présentation">
+    <div class="chapter-menu-wrap">
+      <button class="chapter-current" id="chapter-menu-toggle" type="button" aria-label="Afficher le sommaire des parties" aria-expanded="false" aria-controls="chapter-nav"><span id="current-chapter">01 · Gemini</span><i class="fa-solid fa-chevron-up" aria-hidden="true"></i></button>
+      <nav class="chapters" id="chapter-nav" aria-label="Parties de la présentation"></nav>
+    </div>
+    <div class="transport">
+      <button class="control-button" id="previous" type="button" aria-label="Slide précédente" title="Précédent"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i><span class="sr-only">Précédent</span></button>
+      <span class="counter" id="counter" aria-live="polite">01 / 39</span>
+      <button class="control-button" id="next" type="button" aria-label="Slide suivante" title="Suivant"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i><span class="sr-only">Suivant</span></button>
+    </div>
+    <div class="utilities">
+      <button class="control-button" id="shortcuts-toggle" type="button" aria-label="Afficher les raccourcis clavier" aria-expanded="false" aria-controls="keyboard-shortcuts" title="Raccourcis clavier"><i class="fa-regular fa-keyboard" aria-hidden="true"></i><span class="sr-only">Raccourcis clavier</span></button>
+      <button class="control-button" id="notes-toggle" type="button" aria-label="Afficher les notes" aria-expanded="false" aria-controls="notes" title="Notes (N)"><i class="fa-regular fa-note-sticky" aria-hidden="true"></i><span class="sr-only">Notes</span></button>
+      <button class="control-button" id="fullscreen" type="button" aria-label="Passer en plein écran" title="Plein écran (F)"><i class="fa-solid fa-expand" aria-hidden="true"></i><span class="sr-only">Plein écran</span></button>
+    </div>
+    <i class="progress" id="progress" aria-hidden="true"></i>
+  </footer>
+
+  <aside class="overlay-panel notes" id="notes" aria-label="Notes de l’intervenant">
+    <p class="panel-label">Notes intervenant · touche N</p><p id="notes-content"></p>
+  </aside>
+
+  <aside class="overlay-panel keyboard-shortcuts" id="keyboard-shortcuts" aria-label="Raccourcis clavier">
+    <p class="panel-label">Raccourcis clavier</p>
+    <ul class="shortcut-list">
+      <li><span>Précédent</span><span class="shortcut-keys"><kbd>←</kbd><kbd>Page ↑</kbd></span></li>
+      <li><span>Suivant</span><span class="shortcut-keys"><kbd>→</kbd><kbd>Espace</kbd><kbd>Page ↓</kbd></span></li>
+      <li><span>Première slide</span><span class="shortcut-keys" role="img" aria-label="fn plus flèche gauche"><kbd aria-hidden="true">fn</kbd><span class="shortcut-plus" aria-hidden="true">+</span><kbd aria-hidden="true">←</kbd></span></li>
+      <li><span>Dernière slide</span><span class="shortcut-keys" role="img" aria-label="fn plus flèche droite"><kbd aria-hidden="true">fn</kbd><span class="shortcut-plus" aria-hidden="true">+</span><kbd aria-hidden="true">→</kbd></span></li>
+      <li><span>Plein écran</span><span class="shortcut-keys"><kbd>F</kbd></span></li>
+      <li><span>Notes</span><span class="shortcut-keys"><kbd>N</kbd></span></li>
+      <li><span>Fermer</span><span class="shortcut-keys"><kbd>Échap</kbd></span></li>
+    </ul>
+  </aside>
+
+  <script src="presentation.js"></script>
+</body>
+</html>
