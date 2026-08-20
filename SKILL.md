@@ -82,6 +82,18 @@ Lors d'une retouche, préserver le contrat d'interface existant sauf demande exp
 - **N'écrire aucun sélecteur visant un numéro de slide.** Ni `#slide-7` en CSS, ni `'#slide-7'` en JavaScript : passer par des classes et des identifiants porteurs de sens. C'est ce qui rend une insertion ou un réordonnancement de slides sans danger, alors que la renumérotation la plus soigneuse finit par casser une règle oubliée.
 - **Appliquer la typographie française au texte projeté** : espace fine insécable avant `?`, `!` et `;`, espace insécable avant `:`, et à l'intérieur des guillemets français. Attention en revanche à ne pas passer un remplacement global sur le JavaScript : `a ? b : c` y survivrait mal. Traiter le balisage en bloc, les chaînes du script une par une.
 
+### Le cadre de maquette
+
+Une slide n'est pas une page web qui s'adapte : c'est une **maquette de taille fixe**, mise à l'échelle d'un seul bloc. Les trois modèles fournis appliquent déjà ce cadre ; le respecter est ce qui distingue un deck qui tient à toutes les tailles d'un deck qu'il faut re-régler à chaque fenêtre.
+
+- **Le cadre fait 1310 × 700 pixels de dessin**, dont 1200 de contenu (`.slide-inner`). Le facteur `--slide-scale` est calculé en JavaScript depuis la place réellement disponible dans la slide, plafonné à 2,4, et appliqué par `zoom` sur `.slide-inner`. Composer en pixels de maquette : à 1200 de large et 700 de haut, tout ce qui tient tient partout.
+- **Recalculer l'échelle à chaque changement de taille**, y compris ceux que `resize` ne signale pas : un `ResizeObserver` sur la scène couvre le volet d'aperçu qui se rétrécit, l'entrée en plein écran et le changement de slide.
+- **Aucune taille ne doit dépendre de `vw` ou `vh` à l'intérieur du cadre.** Une unité de fenêtre placée dans un élément mis à l'échelle se réfère à la fenêtre réelle, pas au cadre : le texte grandit alors deux fois, ou pas du tout. Geler le barème typographique en pixels. Les unités de fenêtre ne restent légitimes que dans les habillages en `position: fixed`, qui vivent hors du cadre.
+- **Aucune requête de média ne doit restructurer la mise en page au-dessus du seuil de repli** (900 px). Une grille qui repasse en une colonne à 980 px alors que le cadre mesure toujours 1200 fait déborder la slide de plusieurs centaines de pixels. Sous le seuil, on abandonne franchement la maquette : `zoom: 1`, largeur fluide, contenu qui défile.
+- **Deux systèmes de coordonnées cohabitent.** `getBoundingClientRect()` rend des pixels d'écran ; `style.left` et `style.top` sont relus en pixels de maquette. Tout positionnement calculé depuis un rectangle doit être divisé par le facteur d'échelle — `slideScale()` dans les modèles — sinon il dérive dès que la fenêtre n'est pas exactement à l'échelle 1, et le pop-up d'un jalon de droite finit hors champ. Quand c'est possible, préférer `offsetLeft` et `offsetWidth`, qui sont déjà dans le repère de la maquette.
+- **Borner un pop-up sur sa demi-largeur réelle**, pas sur une constante : `placePop()` dans les modèles. Une marge devinée coupe le premier pop-up plus large que prévu.
+- **Une seule règle canonique par sélecteur.** Les ajustements empilés au fil des retouches finissent par écraser silencieusement la définition d'origine — deux blocs `.source-list li` en fin de fichier, et la grille repasse à deux colonnes sans raison visible. Modifier la règle existante plutôt qu'en ajouter une plus bas.
+
 ### Séquençage obligatoire du contenu
 
 - Dans toute création ou refonte, faire apparaître successivement au clavier les unités de contenu de chaque slide : paragraphes, éléments de liste, cartes, étapes, visuels et conclusions.
@@ -94,8 +106,13 @@ Lors d'une retouche, préserver le contrat d'interface existant sauf demande exp
   - les **apparitions** — l'ordre dans lequel les unités se révèlent — restent liées au plein écran. Hors projection, tout est visible d'emblée : on relit et on retouche sans dérouler les étapes. Piloter cela par une fonction unique, `buildsActifs()`, qui exige le plein écran et l'absence de `prefers-reduced-motion`, et rejouer l'état des apparitions à l'entrée comme à la sortie du plein écran ;
   - les **animations sémantiques** — un tracé qui se dessine, un flux qui circule, une simulation qui tourne — s'exécutent dès que leur slide est active, plein écran ou non. Une slide immobile quand on ouvre le fichier passe pour inachevée, et c'est l'un des reproches les plus immédiats qu'on essuie.
 - Conséquence à ne pas oublier : tout élément dont l'état initial est masqué par sa règle d'animation doit être rétabli sous `prefers-reduced-motion`, sinon il reste invisible.
-- **Conditionner toute boucle infinie à `.slide.active`.** Un sélecteur qui ne dépend pas de la slide active démarre au chargement de la page : à l'arrivée sur la slide, le cycle est déjà entamé et le spectateur voit une animation prise en cours de route. En l'accrochant à la slide active, elle repart de zéro à chaque visite, gratuitement.
+- **Rien ne doit avoir commencé avant l'arrivée sur la slide.** C'est le reproche qui revient le plus : « l'animation a déjà tourné ». Trois formes à traiter, pas seulement la première :
+  - une **boucle infinie** en CSS doit dépendre de `.slide.active`, sinon elle démarre au chargement de la page et le cycle est déjà entamé quand on arrive. Accrochée à la slide active, elle repart de zéro à chaque visite, gratuitement ;
+  - une **animation CSS finie** posée sans condition est terminée avant qu'on arrive : elle ne se verra jamais ;
+  - un **enchaînement piloté en JavaScript** — minuteurs, balayage progressif, machine à écrire — se lance dans `onSlideVisit` et se réinitialise en quittant, jamais à la construction de la figure.
+  Vérifier ce point pour chaque figure animée : arriver sur la slide et constater que le mouvement part de son début.
 - **Ne pas laisser une figure interactive vide à l'arrivée.** Une zone qui attend un clic se lit comme un défaut d'affichage, pas comme une invitation. Afficher un exemple déjà traité, que l'action de l'utilisateur remplace.
+- **Cadrer chaque photographie explicitement.** Un `object-fit: cover` par défaut recadre sur le centre : sur un portrait pris en pied, la tête sort du cadre. Poser un `object-position` par image, et basculer en `contain` sur un fond clair pour les captures d'écran et les schémas, qui se lisent en entier ou pas du tout. Vérifier chaque vignette à l'écran, une par une.
 - **Donner à chaque atelier une consigne et une légende.** Une phrase qui dit ce qu'on regarde et ce qu'il faut faire, et une légende qui nomme chaque repère du visuel : couleur, forme, trait, zone. Un atelier sans ces deux éléments est joli et incompréhensible.
 
 ## Vérification obligatoire
@@ -113,7 +130,8 @@ Lors d'une retouche, préserver le contrat d'interface existant sauf demande exp
 - Limiter chaque bloc à un seul contenant décoratif principal.
 - Contrôler la précision interne des visuels et l'absence de collisions, coupes ou compressions.
 - **Mesurer la réserve verticale de chaque slide** — place disponible moins hauteur du contenu — et non `scrollHeight`, qui ne détecte pas le débordement d'un contenu centré verticalement et renvoie de faux « aucun débordement ». Procédure dans [references/verification-mesuree.md](references/verification-mesuree.md).
-- Balayer toutes les slides avec tous les builds révélés, à chaque format : `1366×768`, `1600×900`, un format bas comme `1280×720`, puis au moins un format étroit pertinent.
+- Balayer toutes les slides avec tous les builds révélés, à chaque format : `1366×768`, `1600×900`, un format bas comme `1280×720`, un très grand comme `2560×1440`, puis au moins un format étroit pertinent.
+- **Exprimer la réserve en pixels de maquette** — la mesure divisée par le facteur d'échelle. Elle doit alors rester la même à toutes les tailles : une réserve qui varie d'un format à l'autre signale qu'une taille dépend encore de la fenêtre. C'est le contrôle qui prouve que le cadre tient.
 - Viser une réserve confortable et non nulle : quelques pixels de marge débordent au format immédiatement inférieur.
 
 ### Mouvement et interaction
@@ -127,6 +145,12 @@ Lors d'une retouche, préserver le contrat d'interface existant sauf demande exp
 - Tester clavier, tactile, hash, chapitres, compteur, notes, plein écran, focus et console.
 - Pour tout contrôle ajouté, piloter réellement chaque état et vérifier qu'il ne bloque pas la navigation clavier du deck : le focus doit être relâché après un clic souris, conservé après une activation clavier.
 - Vérifier que les décomptes d'une légende correspondent au nombre de repères réellement peints, catégorie par catégorie.
+- **Éprouver tout pop-up partagé sur quatre gestes**, parce qu'un seul panneau sert plusieurs cibles :
+  - passer d'une cible à la suivante — le `mouseleave` de l'ancienne arrive *après* le `mouseenter` de la nouvelle et effacerait le pop-up qu'on vient d'ouvrir. Ne refermer que si le panneau appartient encore à la cible qui s'en va ;
+  - cliquer sur une cible déjà ouverte : cela doit refermer, sinon le focus laissé par le clic garde le panneau collé à l'écran ;
+  - `Échap`, et un clic à côté : les deux referment ;
+  - mesurer les quatre bords du pop-up contre la scène, pour chaque cible et à plusieurs échelles. Un pop-up centré sur la dernière cible sort du cadre si rien ne le borne.
+- **Détecter les retours à la ligne inutiles par la mesure**, pas à l'œil : pour chaque bloc de texte, regrouper les rectangles de `Range.getClientRects()` par ligne — un rectangle par fragment en ligne, pas un par ligne — puis comparer la ligne la plus large à la place disponible. Au-delà de 70 pixels de maquette perdus, une largeur maximale traîne quelque part.
 
 ### Intégrité du fichier après édition
 

@@ -73,7 +73,31 @@
     }));
   }
 
+
+  // Une slide est une maquette de taille fixe (1310 × 700 px de dessin) : plutôt
+  // que d'ajuster chaque taille à la fenêtre, on met le bloc entier à l'échelle.
+  // Le facteur vient de la place réellement disponible dans la slide, bordures
+  // décoratives comprises, et il est plafonné pour ne pas devenir grotesque sur
+  // un très grand écran.
+  const FRAME = { width: 1310, height: 700 };
+  const FRAME_FALLBACK = 900;
+
+  function updateSlideScale() {
+    if (window.innerWidth <= FRAME_FALLBACK) {
+      document.documentElement.style.removeProperty('--slide-scale');
+      return;
+    }
+    const slide = slides[current] || slides[0];
+    const box = getComputedStyle(slide);
+    const width = slide.clientWidth - parseFloat(box.paddingLeft) - parseFloat(box.paddingRight);
+    const height = slide.clientHeight - parseFloat(box.paddingTop) - parseFloat(box.paddingBottom);
+    if (width <= 0 || height <= 0) return;
+    const scale = Math.min(2.4, Math.min(width / FRAME.width, height / FRAME.height));
+    document.documentElement.style.setProperty('--slide-scale', scale.toFixed(4));
+  }
+
   function goTo(index, { updateHash = true, reveal = 'start' } = {}) {
+    updateSlideScale();
     const next = Math.max(0, Math.min(slides.length - 1, index));
     const changed = next !== current;
     current = next;
@@ -104,12 +128,7 @@
   function updateFullscreenUi() {
     const active = Boolean(fullscreenElement());
     document.documentElement.classList.toggle('presentation-fullscreen', active);
-    if (active) {
-      const scale = Math.max(1, Math.min(2.2, Math.min(window.innerWidth / 1366, window.innerHeight / 768)));
-      document.documentElement.style.setProperty('--presentation-scale', scale.toFixed(3));
-    } else {
-      document.documentElement.style.removeProperty('--presentation-scale');
-    }
+    updateSlideScale();
     const icon = fullscreenButton.querySelector('i');
     icon.classList.toggle('fa-expand', !active);
     icon.classList.toggle('fa-compress', active);
@@ -160,7 +179,15 @@
 
   document.addEventListener('fullscreenchange', updateFullscreenUi);
   document.addEventListener('webkitfullscreenchange', updateFullscreenUi);
-  window.addEventListener('resize', () => { if (fullscreenElement()) updateFullscreenUi(); });
+  window.addEventListener('resize', () => {
+    updateSlideScale();
+    if (fullscreenElement()) updateFullscreenUi();
+  });
+  // La fenêtre n'est pas la seule à changer de taille : un panneau d'aperçu qui
+  // se rétrécit ne déclenche aucun resize, mais bien un ResizeObserver.
+  if (typeof ResizeObserver === 'function') {
+    new ResizeObserver(() => updateSlideScale()).observe(stage);
+  }
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape') { closeNotes(); closeShortcuts(); return; }
     const focused = document.activeElement;
@@ -190,3 +217,45 @@
   const initial = location.hash.match(/slide-(\d+)/);
   goTo(initial ? Number(initial[1]) - 1 : 0, { updateHash: false });
 })();
+
+/* ----------------------------------------------------------------------------
+   Utilitaires partagés par les figures. Ils vivent au niveau du fichier, pas
+   dans l'IIFE du moteur : chaque figure est une IIFE séparée et ne verrait rien
+   d'une constante déclarée ailleurs.
+   ------------------------------------------------------------------------- */
+
+/* Le facteur d'échelle du cadre de maquette. Tout calcul fait à partir d'un
+   getBoundingClientRect() rend des pixels d'écran, alors que style.left ou
+   style.top sont relus en pixels de maquette : sans cette division, un
+   positionnement dérive dès que la fenêtre n'est pas exactement à l'échelle 1. */
+function slideScale() {
+  const value = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--slide-scale'));
+  return Number.isFinite(value) && value > 0 ? value : 1;
+}
+
+/* Centre un pop-up sur sa cible sans le laisser sortir de sa scène. La marge est
+   prise sur sa demi-largeur réelle : une constante devinée finit toujours par
+   couper un pop-up plus large que prévu. */
+function placePop(pop, target, host) {
+  const scale = slideScale();
+  const hostBox = host.getBoundingClientRect();
+  const targetBox = target.getBoundingClientRect();
+  const hostWidth = hostBox.width / scale;
+  const centre = (targetBox.left - hostBox.left + targetBox.width / 2) / scale;
+  const half = pop.offsetWidth / 2 + 6;
+  pop.style.left = `${Math.min(Math.max(centre, half), Math.max(half, hostWidth - half))}px`;
+}
+
+/* Déclenche une animation à l'arrivée sur la slide et l'arrête en partant. Une
+   figure qui démarre au chargement a déjà tourné quand on arrive : le public ne
+   voit que la fin. */
+function onSlideVisit(element, enter, leave) {
+  const slide = element.closest('.slide');
+  let inside = false;
+  document.addEventListener('presentation:build', event => {
+    const now = event.detail.slide === slide;
+    if (now && !inside) { inside = true; enter(); }
+    else if (!now && inside) { inside = false; if (leave) leave(); }
+  });
+  if (slide.classList.contains('active')) { inside = true; enter(); }
+}

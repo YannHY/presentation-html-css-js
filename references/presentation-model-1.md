@@ -66,7 +66,7 @@ Utiliser ce modèle seulement lorsqu'il est demandé explicitement ou déjà pr�
 - Sur chaque slide contenant plusieurs unités de contenu, conserver le titre visible puis révéler obligatoirement une unité sémantique par action clavier ; vérifier chaque état, pas seulement le premier et le dernier.
 - Faire parcourir les builds avant le changement de slide avec `ArrowRight`, `PageDown` et `Space`, puis les masquer dans l'ordre inverse avec `ArrowLeft` et `PageUp`.
 - Conserver une position finale stable pour toutes les animations.
-- En plein écran, calculer l'échelle depuis une scène de référence `1366×768`, plafonnée à `2.2`.
+- L'échelle du cadre de maquette (`1310×700`, plafond `2.4`) se recalcule à chaque changement de slide, de taille de fenêtre et de plein écran ; elle est désactivée sous `900px`, où le contenu reprend le flux normal.
 - Tester le navigateur réellement utilisé. Pour Safari, éviter les trajectoires SVG fondées sur `transform-box`; animer directement `cx`, `cy`, `x`, `y` ou un autre attribut géométrique SVG.
 
 ## Invariants du modèle

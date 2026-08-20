@@ -234,6 +234,28 @@ def validate(path: Path, expected_slides: int | None = None) -> tuple[list[str],
     if "prefers-reduced-motion" not in css and "prefers-reduced-motion" not in js:
         errors.append("missing reduced motion support")
 
+    # Le cadre de maquette : une requête de média qui restructure au-dessus du
+    # seuil de repli change la grille alors que le cadre garde sa largeur.
+    if "--slide-scale" in css or "--slide-scale" in js:
+        for width in re.findall(r"@media[^{]*max-width:\s*(\d+)px", css):
+            if 900 < int(width) <= 1400:
+                warnings.append(
+                    f"media query at max-width {width}px restructures above the 900px fallback "
+                    "threshold, while the design frame keeps its width"
+                )
+        # Une unité de fenêtre dans une taille de police se réfère à la fenêtre
+        # réelle, pas au cadre mis à l'échelle : la typographie grandit deux fois.
+        for declaration in re.findall(r"font-size:[^;}]*?\d+(?:\.\d+)?v[wh][^;}]*", css):
+            warnings.append(f"viewport unit inside a scaled frame: {declaration.strip()}")
+
+    # Une boucle infinie qui ne dépend pas de la slide active a déjà tourné quand
+    # on arrive sur la slide.
+    for rule in re.findall(r"([^{}]+)\{[^{}]*animation[^{}]*infinite[^{}]*\}", css):
+        selector = rule.strip().splitlines()[-1].strip()
+        if selector.startswith("@") or "slide.active" in selector or "caret" in selector:
+            continue
+        warnings.append(f"infinite animation not gated on .slide.active: {selector[:60]}")
+
     counters = [
         element for element in parser.elements
         if element.identifier == "counter" or "counter" in element.classes

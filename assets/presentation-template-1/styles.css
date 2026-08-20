@@ -31,28 +31,30 @@ button:focus-visible, a:focus-visible { outline: 3px solid rgba(59,130,246,.55);
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
 .stage { position: fixed; inset: 0 0 52px; overflow: hidden; }
-.slide { position: absolute; inset: 0; display: grid; place-items: center; padding: clamp(28px, 4vw, 58px) clamp(34px, 6vw, 88px); visibility: hidden; opacity: 0; transform: translateY(8px); pointer-events: none; background: var(--bg); transition: opacity 240ms ease, transform 280ms var(--ease), visibility 0s 280ms; }
+.slide { position: absolute; inset: 0; display: grid; place-items: center; padding: 0; visibility: hidden; opacity: 0; transform: translateY(8px); pointer-events: none; background: var(--bg); transition: opacity 240ms ease, transform 280ms var(--ease), visibility 0s 280ms; }
 .slide::before { content: ""; position: absolute; inset: 6% 5%; pointer-events: none; background-image: linear-gradient(to right, rgba(148,163,184,.14) 1px, transparent 1px), linear-gradient(to bottom, rgba(148,163,184,.14) 1px, transparent 1px); background-size: 40px 40px; mask-image: radial-gradient(ellipse 72% 64% at 52% 48%, #000 18%, transparent 100%); }
 .slide.active { visibility: visible; opacity: 1; transform: none; pointer-events: auto; transition-delay: 0s; }
-.slide-inner { position: relative; z-index: 1; width: min(100%, 1160px); }
-.presentation-fullscreen .slide-inner { zoom: var(--presentation-scale, 1); }
+/* Une slide est une maquette de largeur fixe. On ne réajuste pas les tailles une
+   par une : le bloc entier est mis à l'échelle par --slide-scale, calculé en JS
+   depuis la place disponible. Les proportions ne bougent donc jamais. */
+.slide-inner { position: relative; z-index: 1; width: 1200px; zoom: var(--slide-scale, 1); }
 
 .build-step { visibility: hidden; opacity: 0; transform: translateY(4px); transition: opacity 180ms ease, transform 200ms var(--ease), visibility 0s 200ms; }
 .build-step.is-visible { visibility: visible; opacity: 1; transform: none; transition-delay: var(--build-delay, 0ms), var(--build-delay, 0ms), 0s; }
 
-.slide-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; margin-bottom: clamp(24px, 3vw, 38px); }
-.slide-head h2 { margin: 0; font-size: clamp(38px, 4vw, 56px); line-height: 1.02; letter-spacing: -.03em; }
+.slide-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; margin-bottom: 38px; }
+.slide-head h2 { margin: 0; font-size: 54px; line-height: 1.02; letter-spacing: -.03em; }
 .eyebrow { margin: 0 0 12px; color: var(--blue-dark); font-size: 14px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-.cover-content h1 { margin: 0; font-size: clamp(64px, 8vw, 112px); line-height: .92; letter-spacing: -.03em; }
+.cover-content h1 { margin: 0; font-size: 110px; line-height: .92; letter-spacing: -.03em; }
 .cover-byline { margin: 20px 0 0; color: var(--muted); font-size: 15px; font-weight: 650; }
 
 .card { min-height: 260px; padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
-.card h3 { margin: 0; font-size: clamp(22px, 2.1vw, 28px); line-height: 1.15; letter-spacing: -.012em; }
-.card p { margin: 10px 0 0; color: var(--muted); font-size: clamp(17px, 1.55vw, 21px); line-height: 1.45; }
+.card h3 { margin: 0; font-size: 28px; line-height: 1.15; letter-spacing: -.012em; }
+.card p { margin: 10px 0 0; color: var(--muted); font-size: 21px; line-height: 1.45; }
 .number { display: block; margin-bottom: 28px; color: var(--blue); font: 800 16px/1 var(--mono); }
 .example-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .thanks-content { text-align: center; }
-.thanks-content h2 { margin: 0; font-size: clamp(88px, 12vw, 152px); line-height: .9; letter-spacing: .04em; }
+.thanks-content h2 { margin: 0; font-size: 152px; line-height: .9; letter-spacing: .04em; }
 
 .controls { position: fixed; z-index: 20; inset: auto 0 0; height: 52px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 16px; border-top: 1px solid var(--line); background: rgba(255,255,255,.9); backdrop-filter: blur(14px); }
 .progress { position: absolute; inset: 0 auto auto 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--blue), var(--green)); transition: width 260ms var(--ease); }
@@ -81,7 +83,12 @@ button:focus-visible, a:focus-visible { outline: 3px solid rgba(59,130,246,.55);
 .shortcut-keys kbd { min-width: 28px; padding: 5px 7px; border: 1px solid #475569; border-radius: 7px; color: #fff; background: #1e293b; font: 700 11px/1 var(--mono); text-align: center; box-shadow: inset 0 -1px 0 #475569; }
 .shortcut-plus { color: #94a3b8; font: 700 11px/1 var(--mono); }
 
-@media (max-width: 980px) {
+/* Sous 900 px la maquette n'a plus de sens : on rend la main au flux normal,
+   à taille réelle. Tout ce qui restructure la mise en page vit ici, jamais
+   au-dessus de ce seuil — sinon la grille change alors que le cadre, lui, ne
+   change pas. */
+@media (max-width: 900px) {
+  .slide-inner { width: 100%; zoom: 1 !important; }
   .stage { inset-bottom: 56px; overflow: auto; }
   .slide { padding: 34px 18px; overflow-y: auto; place-items: start center; }
   .example-grid { grid-template-columns: 1fr; }

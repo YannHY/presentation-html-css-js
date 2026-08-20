@@ -20,6 +20,66 @@ const reserve = dispo - slide.querySelector('.slide-inner').getBoundingClientRec
 - Après toute correction de hauteur, remesurer la slide corrigée **et** les autres : un réglage global les touche toutes.
 - **Remesurer après chaque ajout de contenu, pas seulement après une correction.** Ajouter une consigne et une légende à un atelier coûte une centaine de pixels et fait déborder plusieurs slides d'un coup.
 
+## Mesurer dans le repère de la maquette, et non en pixels d'écran
+
+Le contenu d'une slide est mis à l'échelle d'un bloc (`zoom: var(--slide-scale)` sur `.slide-inner`). Une mesure brute varie donc avec la fenêtre et n'est comparable à rien. Diviser toute mesure par le facteur :
+
+```js
+const echelle = () => {
+  const v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--slide-scale'));
+  return v > 0 ? v : 1;
+};
+const reserve = Math.round((scene.height - contenu.height) / echelle());
+```
+
+Exprimée ainsi, **la réserve doit être identique à toutes les tailles de fenêtre**. C'est l'invariant à prouver :
+
+| fenêtre | facteur | pire réserve |
+| --- | --- | --- |
+| 1100 × 620 | 0,811 | 120 |
+| 1280 × 720 | 0,954 | 120 |
+| 1600 × 900 | 1,211 | 120 |
+| 1920 × 1080 | 1,466 | 122 |
+| 2560 × 1440 | 1,954 | 130 |
+
+Une réserve qui varie franchement d'une ligne à l'autre dénonce une taille encore accrochée à la fenêtre : un `clamp()` en `vw`, une largeur en pourcentage de la fenêtre, une requête de média qui restructure au-dessus du seuil de repli.
+
+Piège de sonde : après un redimensionnement, le facteur est mis à jour par un `ResizeObserver`, donc *après* l'événement. Une fonction de mesure qui lit `--slide-scale` à son entrée peut travailler avec l'ancienne valeur. Relancer la sonde une seconde fois, ou relire la propriété juste avant chaque calcul.
+
+## Vérifier un pop-up sur ses quatre bords
+
+Un pop-up est le premier élément à sortir du cadre, parce qu'il est positionné par calcul et non par le flux. La mesure utile compare ses quatre bords à ceux de sa scène, pour chaque cible, à plusieurs échelles :
+
+```js
+const d = {
+  gauche: (scene.left - pop.left) / echelle,
+  droite: (pop.right - scene.right) / echelle,
+  haut:   (scene.top - pop.top) / echelle,
+  bas:    (pop.bottom - scene.bottom) / echelle
+};
+// une valeur > 0 = ce bord dépasse
+```
+
+Deux signatures à savoir lire :
+
+- **tous les pop-ups dépassent du même côté, jamais de l'autre** : le positionnement n'a pas été appliqué du tout. Chercher une exception silencieuse dans le gestionnaire — une fonction utilitaire déclarée dans l'IIFE du moteur n'est pas visible depuis l'IIFE d'une figure, et le `ReferenceError` interrompt l'affichage juste après avoir démasqué le panneau ;
+- **le dépassement grandit avec la fenêtre** : un rectangle d'écran a été écrit dans une propriété lue en pixels de maquette, sans division par le facteur.
+
+## Détecter les coupes de texte inutiles
+
+« Le texte va à la ligne alors qu'il reste de la place » se mesure. Attention au piège : `Range.getClientRects()` rend **un rectangle par fragment en ligne** — un `<b>` au milieu d'un paragraphe en produit trois — et non un par ligne. Comparer le plus large de ces fragments à la largeur disponible produit des dizaines de faux positifs. Il faut d'abord regrouper par bande verticale :
+
+```js
+const lignes = [];
+rects.forEach(r => {
+  const l = lignes.find(x => Math.abs(x.top - r.top) < Math.max(3, r.height * 0.5));
+  if (l) { l.left = Math.min(l.left, r.left); l.right = Math.max(l.right, r.right); }
+  else lignes.push({ top: r.top, left: r.left, right: r.right });
+});
+const perdu = (dispo - Math.max(...lignes.map(l => l.right - l.left))) / echelle;
+// perdu > 70 px de maquette sur un texte de plusieurs lignes => une largeur maximale traîne
+```
+
 ## Ne pas rogner à l'aveugle : trouver le vrai moteur de la hauteur
 
 Une slide qui déborde de 12 px ne se corrige pas en réduisant le premier candidat venu. Mesurer bloc par bloc, et se méfier :

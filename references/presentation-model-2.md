@@ -85,8 +85,8 @@ Pour le reste — barre de `52px` à trois zones, boutons circulaires de `36px`,
 
 - `presentation.js` est **le même fichier que celui du modèle 1**, sans modification : il ne dépend que du contrat DOM (`.slide`, `data-chapter`, `data-chapter-label`, `data-notes`, `[data-build]`, identifiants des commandes). Corriger un comportement dans les deux copies.
 - Sur chaque slide comportant plusieurs unités de contenu, garder le titre visible et révéler une unité par action clavier ; vérifier chaque état intermédiaire.
-- En plein écran, l'échelle se calcule depuis une scène de référence `1366×768`, plafonnée à `2.2`.
-- Le `zoom` du plein écran ne peut pas pousser la colonne dans le cambré : le `100%` de `.slide-inner` se résout dans l'espace agrandi, donc la colonne reste bornée par sa boîte de contenu. Le vérifier néanmoins après toute modification du padding.
+- L'échelle du cadre de maquette (`1310×700`, plafond `2.4`) se calcule depuis la **boîte de contenu** de la slide, `--pad-left` déduit : le cambré garde donc sa place quelle que soit l'échelle, et la colonne ne peut pas glisser dessous. Le vérifier après toute modification du padding.
+- Le cambré est dimensionné en hauteur réelle de scène, hors du cadre mis à l'échelle : c'est voulu, un décor de bord doit suivre la fenêtre et non la maquette.
 
 ## Invariants du modèle
 
