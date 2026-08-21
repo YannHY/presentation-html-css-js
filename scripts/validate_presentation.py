@@ -252,7 +252,9 @@ def validate(path: Path, expected_slides: int | None = None) -> tuple[list[str],
     # on arrive sur la slide.
     for rule in re.findall(r"([^{}]+)\{[^{}]*animation[^{}]*infinite[^{}]*\}", css):
         selector = rule.strip().splitlines()[-1].strip()
-        if selector.startswith("@") or "slide.active" in selector or "caret" in selector:
+        # Le garde-fou peut porter sur .slide.active comme sur #slide-7.active :
+        # c'est la présence de .active dans le sélecteur qui compte.
+        if selector.startswith("@") or ".active" in selector or "caret" in selector:
             continue
         warnings.append(f"infinite animation not gated on .slide.active: {selector[:60]}")
 
