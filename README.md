@@ -65,6 +65,10 @@ Crée une nouvelle présentation avec le modèle visuel 1.
 Ajoute une slide présentant le calendrier de l’année, avec des vues mois et semaine.
 ```
 
+```text
+Ajoute un minuteur de cinq minutes sur les slides d’atelier, avec pause et remise à zéro.
+```
+
 ## Structure
 
 ```text
@@ -83,6 +87,7 @@ Ajoute une slide présentant le calendrier de l’année, avec des vues mois et 
 │   ├── verification-mesuree.md    mesurer plutôt que regarder
 │   ├── export-powerpoint.md       export .pptx : périmètre et limites
 │   ├── interactive-calendar.md    vues semaine, mois et année
+│   ├── slide-timers.md            minuteur optionnel par slide
 │   ├── presentation-model-1.md
 │   ├── presentation-model-2.md
 │   └── presentation-model-3.md
@@ -100,6 +105,14 @@ python3 scripts/validate_presentation.py chemin/vers/index.html --expected-slide
 ```
 
 La vérification visuelle dans un navigateur reste obligatoire, notamment pour les animations, les étapes d’apparition et le plein écran.
+
+## Minuteur par slide
+
+Le minuteur est une option activée uniquement sur les slides qui en ont besoin. L’intervenant choisit la durée depuis un panneau ouvert par le bouton horloge, en bas à droite, puis peut démarrer, mettre en pause ou remettre le décompte à zéro.
+
+Sur la slide, seul un cadre compact apparaît en haut à droite : le temps restant est centré au-dessus d’une barre de progression. Les réglages ne sont jamais projetés dans le contenu. Le minuteur ne démarre pas automatiquement et les durées modifiées dans l’interface restent limitées à la session.
+
+Le composant est fourni dans les trois modèles. Son intégration et les comportements à vérifier sont documentés dans `references/slide-timers.md`.
 
 ## Modèle 1
 
