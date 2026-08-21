@@ -77,7 +77,8 @@ Identiques au modèle 1, à trois différences près :
 
 - les états actifs emploient `--brand-soft` et `--brand-deep` au lieu du bleu générique ;
 - la progression est un dégradé `--brand-deep` → `--brand`, sans vert ;
-- les panneaux de notes et de raccourcis sont sur bleu nuit institutionnel `rgba(8, 34, 66, .97)`.
+- les panneaux de notes et de raccourcis sont sur bleu nuit institutionnel `rgba(8, 34, 66, .97)` ; la note est éditable en texte brut par un clic, avec focus visible et sauvegarde locale automatique par slide.
+- le minuteur optionnel reprend les variables institutionnelles et le contrat de `slide-timers.md` : décompte centré et barre de progression dans un cadre compact en haut à droite, réglages dans le panneau de la barre inférieure.
 
 Pour le reste — barre de `52px` à trois zones, boutons circulaires de `36px`, ordre des utilitaires, `ArrowLeft`, `ArrowRight`, `PageUp`, `PageDown`, `Space`, `Home`, `End`, `F`, `N`, `Escape`, `fn + ←` et `fn + →` sur Mac, geste tactile, panneaux mutuellement exclusifs — se reporter à [presentation-model-1.md](presentation-model-1.md).
 

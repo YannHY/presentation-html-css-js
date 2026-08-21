@@ -1,17 +1,16 @@
 # Create Interactive HTML Presentations
 
-Skill pour **Claude Code** et **Codex**, destinée à créer, adapter et vérifier des présentations HTML interactives, éditoriales et visuellement soignées.
+Skill Codex pour créer des présentations HTML interactives visuellement soignées avec une attention particulière portée à la mise en page du contenu et au rythme des apparitions.
 
-Les deux outils lisent le même `SKILL.md` et les mêmes références : le contenu de la skill est identique. Seuls diffèrent le dossier d'installation, et le fichier `agents/openai.yaml`, propre à Codex, que Claude Code ignore.
-
-Elle couvre aussi bien la création complète d’un diaporama que les retouches ciblées d’une présentation existante, avec une attention particulière portée au contenu, au rythme des apparitions, à l’accessibilité et aux régressions visuelles.
+Claude Code et Codex lisent le même `SKILL.md` et les mêmes références. Seuls diffèrent le dossier d’installation et le fichier `agents/openai.yaml`, propre à Codex, que Claude Code ignore.
 
 ## Fonctionnalités
 
 - transformation de notes ou d’un plan en présentation web ;
 - navigation au clavier, au clic et au toucher ;
 - apparitions successives et animations narratives ;
-- notes de l’intervenant et mode plein écran ;
+- notes de l’intervenant éditables d’un clic, sauvegardées localement par slide, et mode plein écran ;
+- minuteur optionnel par slide, avec durée réglable, pause et réinitialisation ;
 - retouches précises sans modifier les éléments non demandés ;
 - validation statique de la structure et des interactions ;
 - vérification visuelle à plusieurs résolutions, et mesure de la réserve verticale de chaque slide ;

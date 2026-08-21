@@ -44,6 +44,12 @@ button:focus-visible, a:focus-visible { outline: 3px solid rgba(59,130,246,.55);
 
 .slide-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; margin-bottom: 38px; }
 .slide-head h2 { margin: 0; font-size: 54px; line-height: 1.02; letter-spacing: -.03em; }
+.slide-timer { --timer-accent: var(--blue-dark); --timer-done: var(--green-dark); --timer-progress: 100%; flex: 0 0 auto; width: 142px; display: grid; gap: 7px; margin-top: 2px; padding: 8px 11px 9px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.9); box-shadow: 0 7px 20px rgba(15,23,42,.05); }
+.timer-display { min-width: 0; color: var(--ink); font: 800 20px/1 var(--mono); letter-spacing: -.045em; text-align: center; }
+.timer-bar { height: 4px; overflow: hidden; border-radius: 999px; background: var(--line); }
+.timer-bar-progress { display: block; width: var(--timer-progress); height: 100%; border-radius: inherit; background: var(--timer-accent); transition: width 200ms linear; }
+.slide-timer.is-finished .timer-display { color: var(--timer-done); }
+.slide-timer.is-finished .timer-bar-progress { background: var(--timer-done); }
 .eyebrow { margin: 0 0 12px; color: var(--blue-dark); font-size: 14px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .cover-content h1 { margin: 0; font-size: 110px; line-height: .92; letter-spacing: -.03em; }
 .cover-byline { margin: 20px 0 0; color: var(--muted); font-size: 15px; font-weight: 650; }
@@ -75,7 +81,19 @@ button:focus-visible, a:focus-visible { outline: 3px solid rgba(59,130,246,.55);
 .overlay-panel.open { visibility: visible; opacity: 1; transform: none; }
 .panel-label { margin: 0 0 12px; color: #93c5fd; font: 800 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
 .notes { max-height: 48vh; overflow: auto; }
-.notes p:last-child { margin: 0; color: #e2e8f0; font-size: 15px; line-height: 1.55; }
+.notes-content { min-height: 68px; margin: -8px -10px 0; padding: 8px 10px; border-radius: 10px; outline: 0; color: #e2e8f0; font-size: 15px; line-height: 1.55; white-space: pre-wrap; cursor: text; }
+.notes-content:hover { background: rgba(255,255,255,.055); }
+.notes-content:focus { background: rgba(255,255,255,.08); box-shadow: inset 0 0 0 2px rgba(147,197,253,.72); }
+.notes-content:empty::before { content: attr(data-placeholder); color: #94a3b8; pointer-events: none; }
+.notes-status { margin: 10px 0 0; color: #94a3b8; font: 700 10px/1.3 var(--mono); }
+.timer-settings { width: min(340px, calc(100vw - 32px)); }
+.timer-settings-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.timer-settings-fields, .timer-settings-actions { display: flex; align-items: center; gap: 8px; }
+.timer-field { display: flex; align-items: center; gap: 4px; color: #94a3b8; font: 700 11px/1 var(--mono); }
+.timer-field input { width: 54px; height: 36px; padding: 0 7px; border: 1px solid #475569; border-radius: 8px; outline: 0; color: #fff; background: #1e293b; font: 800 13px/1 var(--mono); text-align: center; }
+.timer-field input:focus { border-color: #93c5fd; box-shadow: 0 0 0 3px rgba(147,197,253,.2); }
+.timer-action-button { width: 36px; height: 36px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 999px; color: #cbd5e1; background: transparent; cursor: pointer; }
+.timer-action-button:hover, .timer-action-button:focus-visible { color: #fff; background: #1e293b; }
 .keyboard-shortcuts { width: min(380px, calc(100vw - 32px)); }
 .shortcut-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
 .shortcut-list li { display: flex; align-items: center; justify-content: space-between; gap: 18px; color: #e2e8f0; font-size: 14px; }
@@ -91,6 +109,8 @@ button:focus-visible, a:focus-visible { outline: 3px solid rgba(59,130,246,.55);
   .slide-inner { width: 100%; zoom: 1 !important; }
   .stage { inset-bottom: 56px; overflow: auto; }
   .slide { padding: 34px 18px; overflow-y: auto; place-items: start center; }
+  .slide-head { flex-wrap: wrap; }
+  .slide-timer { margin-left: auto; }
   .example-grid { grid-template-columns: 1fr; }
   .chapters { display: none; }
   .controls { height: 56px; grid-template-columns: 1fr auto; }

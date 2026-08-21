@@ -54,7 +54,8 @@ Toute retouche de palette impose de refaire ce calcul : éclaircir un fond de ca
 
 - `meta name="theme-color"` suit le fond : `#0b1220`.
 - Les métadonnées `data-institution` et `data-author` sont portées par `body::before` et `body::after`, et **s'effacent sur la couverture** — celle-ci intégrant déjà l'identité. Vérifier ce comportement en neutralisant la transition, sinon la lecture se fait en cours d'animation et renvoie une valeur transitoire.
-- Barre inférieure de `52px` à trois zones, boutons circulaires de `36px`, progression en dégradé bleu vers vert, raccourcis, notes, plein écran, geste tactile : identiques.
+- Barre inférieure de `52px` à trois zones, boutons circulaires de `36px`, progression en dégradé bleu vers vert, raccourcis, notes, plein écran, geste tactile : identiques. La note reste éditable en texte brut par un clic et sauvegardée localement par slide.
+- Le minuteur optionnel garde le même contrat fonctionnel : décompte centré et barre de progression dans un cadre compact en haut à droite, réglages dans le panneau inférieur avec les surfaces et accents sombres du modèle.
 - `presentation.js` est le **même fichier** que celui des modèles 1 et 2, sans modification. Corriger un comportement dans les trois copies.
 
 ## Invariants du modèle

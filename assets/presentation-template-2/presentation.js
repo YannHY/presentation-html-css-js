@@ -12,11 +12,24 @@
   const notesToggle = document.getElementById('notes-toggle');
   const notesPanel = document.getElementById('notes');
   const notesContent = document.getElementById('notes-content');
+  const notesStatus = document.getElementById('notes-status');
+  const timerSettingsToggle = document.getElementById('timer-settings-toggle');
+  const timerSettingsPanel = document.getElementById('timer-settings');
   const counter = document.getElementById('counter');
   const progress = document.getElementById('progress');
+  const notesStorageKey = `presentation-notes:${location.pathname || document.title}`;
+  let storedNotes = {};
+  let notesCanPersist = true;
   let current = 0;
   let currentBuild = 1;
   let touchStartX = null;
+
+  try {
+    storedNotes = JSON.parse(localStorage.getItem(notesStorageKey) || '{}');
+    if (!storedNotes || Array.isArray(storedNotes) || typeof storedNotes !== 'object') storedNotes = {};
+  } catch (_) {
+    notesCanPersist = false;
+  }
 
   chapters.forEach(chapter => {
     const button = document.createElement('button');
@@ -34,15 +47,55 @@
   }
 
   function closeNotes() {
+    if (document.activeElement === notesContent) notesContent.blur();
     notesPanel.classList.remove('open');
     notesToggle.setAttribute('aria-expanded', 'false');
     notesToggle.setAttribute('aria-label', 'Afficher les notes');
+  }
+
+  function noteKey(index = current) {
+    return slides[index].id || `slide-${index + 1}`;
+  }
+
+  function noteFor(index = current) {
+    const key = noteKey(index);
+    return Object.prototype.hasOwnProperty.call(storedNotes, key)
+      ? String(storedNotes[key])
+      : slides[index].dataset.notes || '';
+  }
+
+  function updateNotesStatus() {
+    if (!notesStatus) return;
+    notesStatus.textContent = notesCanPersist
+      ? 'Modifications enregistrées dans ce navigateur'
+      : 'Modifications conservées pour cette session';
+  }
+
+  function saveCurrentNote() {
+    const value = notesContent.innerText.replace(/\r\n?/g, '\n');
+    slides[current].dataset.notes = value;
+    storedNotes[noteKey()] = value;
+    if (notesCanPersist) {
+      try {
+        localStorage.setItem(notesStorageKey, JSON.stringify(storedNotes));
+      } catch (_) {
+        notesCanPersist = false;
+      }
+    }
+    updateNotesStatus();
   }
 
   function closeShortcuts() {
     shortcutsPanel.classList.remove('open');
     shortcutsToggle.setAttribute('aria-expanded', 'false');
     shortcutsToggle.setAttribute('aria-label', 'Afficher les raccourcis clavier');
+  }
+
+  function closeTimerSettings() {
+    if (timerSettingsPanel.contains(document.activeElement)) document.activeElement.blur();
+    timerSettingsPanel.classList.remove('open');
+    timerSettingsToggle.setAttribute('aria-expanded', 'false');
+    timerSettingsToggle.setAttribute('aria-label', 'Régler le minuteur');
   }
 
   // Les apparitions ne servent qu'en projection : hors plein écran la slide se
@@ -115,9 +168,12 @@
     });
     counter.textContent = `${String(current + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
     progress.style.width = `${((current + 1) / slides.length) * 100}%`;
-    notesContent.textContent = slides[current].dataset.notes || '';
+    const note = noteFor(current);
+    notesContent.textContent = note;
+    slides[current].dataset.notes = note;
+    updateNotesStatus();
     updateBuildState();
-    if (changed) { closeNotes(); closeShortcuts(); }
+    if (changed) { closeNotes(); closeShortcuts(); closeTimerSettings(); }
     if (updateHash) history.replaceState(null, '', `#slide-${current + 1}`);
   }
 
@@ -154,17 +210,29 @@
 
   previousButton.addEventListener('click', retreat);
   nextButton.addEventListener('click', advance);
+  notesContent.addEventListener('input', saveCurrentNote);
+  notesContent.addEventListener('blur', () => {
+    const value = notesContent.innerText.replace(/\r\n?/g, '\n');
+    notesContent.textContent = value;
+    saveCurrentNote();
+  });
   notesToggle.addEventListener('click', () => {
     const open = notesPanel.classList.toggle('open');
-    if (open) closeShortcuts();
+    if (open) { closeShortcuts(); closeTimerSettings(); }
     notesToggle.setAttribute('aria-expanded', String(open));
     notesToggle.setAttribute('aria-label', open ? 'Masquer les notes' : 'Afficher les notes');
   });
   shortcutsToggle.addEventListener('click', () => {
     const open = shortcutsPanel.classList.toggle('open');
-    if (open) closeNotes();
+    if (open) { closeNotes(); closeTimerSettings(); }
     shortcutsToggle.setAttribute('aria-expanded', String(open));
     shortcutsToggle.setAttribute('aria-label', open ? 'Masquer les raccourcis clavier' : 'Afficher les raccourcis clavier');
+  });
+  timerSettingsToggle.addEventListener('click', () => {
+    const open = timerSettingsPanel.classList.toggle('open');
+    if (open) { closeNotes(); closeShortcuts(); }
+    timerSettingsToggle.setAttribute('aria-expanded', String(open));
+    timerSettingsToggle.setAttribute('aria-label', open ? 'Masquer les réglages du minuteur' : 'Régler le minuteur');
   });
   fullscreenButton.addEventListener('click', async () => {
     if (fullscreenElement()) {
@@ -189,7 +257,7 @@
     new ResizeObserver(() => updateSlideScale()).observe(stage);
   }
   document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') { closeNotes(); closeShortcuts(); return; }
+    if (event.key === 'Escape') { closeNotes(); closeShortcuts(); closeTimerSettings(); return; }
     const focused = document.activeElement;
     if (['INPUT', 'TEXTAREA', 'SELECT'].includes(focused?.tagName) || focused?.isContentEditable) return;
     // Un bouton de slide gardé au focus ne doit pas confisquer les flèches du
@@ -259,3 +327,181 @@ function onSlideVisit(element, enter, leave) {
   });
   if (slide.classList.contains('active')) { inside = true; enter(); }
 }
+
+/* Minuteur optionnel par slide. La slide ne porte que le décompte et sa barre ;
+   durée, lecture-pause et remise à zéro vivent dans le panneau de la barre. */
+(() => {
+  const timers = [...document.querySelectorAll('[data-slide-timer]')];
+  const settingsToggle = document.getElementById('timer-settings-toggle');
+  const settingsPanel = document.getElementById('timer-settings');
+  const minutesInput = document.getElementById('timer-minutes');
+  const secondsInput = document.getElementById('timer-seconds');
+  const controlToggle = document.getElementById('timer-control-toggle');
+  const controlReset = document.getElementById('timer-control-reset');
+  if (!settingsToggle || !settingsPanel || !minutesInput || !secondsInput || !controlToggle || !controlReset) return;
+
+  let activeState = null;
+
+  function formatTime(milliseconds) {
+    const totalSeconds = Math.max(0, Math.ceil(milliseconds / 1000));
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  }
+
+  function closeSettings() {
+    if (settingsPanel.contains(document.activeElement)) document.activeElement.blur();
+    settingsPanel.classList.remove('open');
+    settingsToggle.setAttribute('aria-expanded', 'false');
+    settingsToggle.setAttribute('aria-label', 'Régler le minuteur');
+  }
+
+  function updateControlButton(state) {
+    const running = Boolean(state?.running);
+    const icon = controlToggle.querySelector('i');
+    icon?.classList.toggle('fa-play', !running);
+    icon?.classList.toggle('fa-pause', running);
+    controlToggle.setAttribute('aria-label', running ? 'Mettre le minuteur en pause' : 'Démarrer le minuteur');
+    controlToggle.title = running ? 'Pause' : 'Démarrer';
+  }
+
+  function syncPanel(state) {
+    if (!state) return;
+    const totalSeconds = Math.round(state.configuredMs / 1000);
+    minutesInput.value = String(Math.floor(totalSeconds / 60));
+    secondsInput.value = String(totalSeconds % 60);
+    updateControlButton(state);
+  }
+
+  function makeTimerState(timer) {
+    const display = timer.querySelector('[data-timer-display]');
+    const progress = timer.querySelector('[data-timer-progress]');
+    const status = timer.querySelector('[data-timer-status]');
+    if (!display || !progress) return null;
+
+    const initialSeconds = Math.max(1, Math.round(Number(timer.dataset.duration) || 300));
+    let configuredMs = initialSeconds * 1000;
+    let remainingMs = configuredMs;
+    let deadline = 0;
+    let intervalId = null;
+    let running = false;
+
+    function render() {
+      const ratio = configuredMs > 0 ? remainingMs / configuredMs : 0;
+      timer.style.setProperty('--timer-progress', `${(100 * ratio).toFixed(2)}%`);
+      display.textContent = formatTime(remainingMs);
+    }
+
+    function setRunning(next) {
+      running = next;
+      timer.classList.toggle('is-running', running);
+      if (activeState === state) updateControlButton(state);
+    }
+
+    function stopInterval() {
+      if (intervalId !== null) window.clearInterval(intervalId);
+      intervalId = null;
+      setRunning(false);
+    }
+
+    function tick() {
+      remainingMs = Math.max(0, deadline - performance.now());
+      render();
+      if (remainingMs > 0) return;
+      stopInterval();
+      timer.classList.add('is-finished');
+      if (status) status.textContent = 'Temps écoulé.';
+    }
+
+    function pause({ announce = true } = {}) {
+      if (!running) return;
+      remainingMs = Math.max(0, deadline - performance.now());
+      stopInterval();
+      render();
+      if (announce && status) status.textContent = 'Minuteur en pause.';
+    }
+
+    function start() {
+      if (running) { pause(); return; }
+      if (remainingMs <= 0) remainingMs = configuredMs;
+      timer.classList.remove('is-finished');
+      if (status) status.textContent = '';
+      deadline = performance.now() + remainingMs;
+      setRunning(true);
+      intervalId = window.setInterval(tick, 200);
+      tick();
+    }
+
+    function reset() {
+      pause({ announce: false });
+      remainingMs = configuredMs;
+      timer.classList.remove('is-finished');
+      render();
+      if (status) status.textContent = `Minuteur réinitialisé à ${formatTime(configuredMs)}.`;
+    }
+
+    function setDuration(totalSeconds) {
+      pause({ announce: false });
+      configuredMs = Math.max(1, totalSeconds) * 1000;
+      remainingMs = configuredMs;
+      timer.dataset.duration = String(Math.max(1, totalSeconds));
+      timer.classList.remove('is-finished');
+      render();
+      if (status) status.textContent = `Durée réglée sur ${formatTime(configuredMs)}.`;
+    }
+
+    const state = {
+      timer,
+      get configuredMs() { return configuredMs; },
+      get running() { return running; },
+      start,
+      pause,
+      reset,
+      setDuration
+    };
+    render();
+    return state;
+  }
+
+  const states = new Map(timers.map(timer => [timer, makeTimerState(timer)]).filter(([, state]) => state));
+
+  function setActiveTimer(slide) {
+    const nextState = states.get(slide?.querySelector('[data-slide-timer]')) || null;
+    if (activeState && activeState !== nextState) activeState.pause();
+    if (activeState !== nextState) closeSettings();
+    activeState = nextState;
+    settingsToggle.hidden = !activeState;
+    if (activeState) syncPanel(activeState);
+  }
+
+  function applyDuration({ normalise = false } = {}) {
+    if (!activeState) return;
+    const minutes = Math.min(180, Math.max(0, Number.parseInt(minutesInput.value, 10) || 0));
+    const seconds = Math.min(59, Math.max(0, Number.parseInt(secondsInput.value, 10) || 0));
+    const totalSeconds = Math.max(1, minutes * 60 + seconds);
+    activeState.setDuration(totalSeconds);
+    if (normalise) syncPanel(activeState);
+  }
+
+  function bindButton(button, action) {
+    let pointerActivation = false;
+    button.addEventListener('pointerdown', () => { pointerActivation = true; });
+    button.addEventListener('keydown', () => { pointerActivation = false; });
+    button.addEventListener('click', () => {
+      action();
+      if (pointerActivation) button.blur();
+      pointerActivation = false;
+    });
+  }
+
+  minutesInput.addEventListener('input', applyDuration);
+  secondsInput.addEventListener('input', applyDuration);
+  minutesInput.addEventListener('change', () => applyDuration({ normalise: true }));
+  secondsInput.addEventListener('change', () => applyDuration({ normalise: true }));
+  minutesInput.addEventListener('blur', () => applyDuration({ normalise: true }));
+  secondsInput.addEventListener('blur', () => applyDuration({ normalise: true }));
+  bindButton(controlToggle, () => activeState?.start());
+  bindButton(controlReset, () => activeState?.reset());
+  document.addEventListener('presentation:build', event => setActiveTimer(event.detail.slide));
+  setActiveTimer(document.querySelector('.slide.active'));
+})();

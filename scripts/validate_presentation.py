@@ -361,7 +361,11 @@ def validate(path: Path, expected_slides: int | None = None) -> tuple[list[str],
     for element in parser.elements:
         if element.tag in {"div", "span", "i"} and not is_interactive(element):
             if any(FAKE_CONTROL_CLASS.search(cls) for cls in element.classes):
-                if not element.attrs.get("onclick") and not element.attrs.get("role"):
+                if (
+                    not element.attrs.get("onclick")
+                    and not element.attrs.get("role")
+                    and not any(is_interactive(item) for item in element.ancestors())
+                ):
                     warnings.append(
                         f"possible non-functional control styling at {element_label(element, parser.slides)}"
                     )

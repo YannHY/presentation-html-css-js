@@ -52,8 +52,9 @@ Utiliser ce modèle seulement lorsqu'il est demandé explicitement ou déjà pr�
 - Fixer une barre blanche translucide de `52px` avec flou, bordure supérieure et trois zones : chapitres à gauche, transport au centre, utilitaires à droite.
 - Placer une progression de `2px` sur son bord supérieur, en dégradé bleu vers vert.
 - Utiliser des boutons circulaires de `36px`, sans fond au repos, avec un fond bleu pâle pour l'état actif.
-- Ordonner les utilitaires : raccourcis clavier, notes, plein écran.
-- Afficher les panneaux de notes et de raccourcis au-dessus de la barre, alignés à droite, sur fond bleu nuit.
+- Ordonner les utilitaires : raccourcis clavier, notes, réglages du minuteur lorsque la slide en possède un, plein écran.
+- Afficher les panneaux de notes et de raccourcis au-dessus de la barre, alignés à droite, sur fond bleu nuit. La note est éditable en texte brut par un clic, avec focus visible et sauvegarde locale automatique par slide.
+- Lorsqu'une slide doit être chronométrée, reprendre le composant `.slide-timer` sobre de la slide d'exemple et suivre `slide-timers.md`. Les réglages restent dans le panneau ouvert depuis la barre inférieure ; ne pas ajouter de contrôles dans la slide.
 
 ## Raccourcis et plateforme
 

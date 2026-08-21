@@ -21,6 +21,11 @@
       <div class="slide-inner">
         <header class="slide-head">
           <div><p class="eyebrow">Un angle complémentaire</p><h2>Un message principal</h2></div>
+          <div class="slide-timer" data-slide-timer data-duration="300" aria-label="Minuteur de la slide">
+            <output class="timer-display" data-timer-display role="timer" aria-label="Temps restant">05:00</output>
+            <span class="timer-bar" aria-hidden="true"><i class="timer-bar-progress" data-timer-progress></i></span>
+            <span class="sr-only" data-timer-status aria-live="polite"></span>
+          </div>
         </header>
         <div class="example-grid">
           <article class="card"><span class="number">01</span><h3>Première idée</h3><p>Une formulation courte et utile.</p></article>
@@ -57,13 +62,30 @@
     <div class="utilities">
       <button class="control-button" id="shortcuts-toggle" type="button" aria-label="Afficher les raccourcis clavier" aria-expanded="false" aria-controls="keyboard-shortcuts" title="Raccourcis clavier"><i class="fa-regular fa-keyboard" aria-hidden="true"></i><span class="sr-only">Raccourcis clavier</span></button>
       <button class="control-button" id="notes-toggle" type="button" aria-label="Afficher les notes" aria-expanded="false" aria-controls="notes" title="Notes (N)"><i class="fa-regular fa-note-sticky" aria-hidden="true"></i><span class="sr-only">Notes</span></button>
+      <button class="control-button" id="timer-settings-toggle" type="button" aria-label="Régler le minuteur" aria-expanded="false" aria-controls="timer-settings" title="Minuteur" hidden><i class="fa-regular fa-clock" aria-hidden="true"></i><span class="sr-only">Minuteur</span></button>
       <button class="control-button" id="fullscreen" type="button" aria-label="Passer en plein écran" title="Plein écran (F)"><i class="fa-solid fa-expand" aria-hidden="true"></i><span class="sr-only">Plein écran</span></button>
     </div>
     <i class="progress" id="progress" aria-hidden="true"></i>
   </footer>
 
   <aside class="overlay-panel notes" id="notes" aria-label="Notes de l’intervenant">
-    <p class="panel-label">Notes intervenant · touche N</p><p id="notes-content"></p>
+    <p class="panel-label">Notes intervenant · touche N</p>
+    <p class="notes-content" id="notes-content" contenteditable="plaintext-only" role="textbox" aria-multiline="true" aria-label="Notes de l’intervenant pour la slide active" aria-describedby="notes-status" data-placeholder="Cliquer pour ajouter une note"></p>
+    <p class="notes-status" id="notes-status" aria-live="polite"></p>
+  </aside>
+
+  <aside class="overlay-panel timer-settings" id="timer-settings" aria-label="Réglages du minuteur">
+    <p class="panel-label">Minuteur</p>
+    <div class="timer-settings-row">
+      <div class="timer-settings-fields" role="group" aria-label="Durée du minuteur">
+        <label class="timer-field"><input id="timer-minutes" type="number" min="0" max="180" inputmode="numeric" aria-label="Minutes"><span>min</span></label>
+        <label class="timer-field"><input id="timer-seconds" type="number" min="0" max="59" inputmode="numeric" aria-label="Secondes"><span>s</span></label>
+      </div>
+      <div class="timer-settings-actions">
+        <button class="timer-action-button" id="timer-control-toggle" type="button" aria-label="Démarrer le minuteur" title="Démarrer"><i class="fa-solid fa-play" aria-hidden="true"></i></button>
+        <button class="timer-action-button" id="timer-control-reset" type="button" aria-label="Réinitialiser le minuteur à la durée choisie" title="Réinitialiser"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i></button>
+      </div>
+    </div>
   </aside>
 
   <aside class="overlay-panel keyboard-shortcuts" id="keyboard-shortcuts" aria-label="Raccourcis clavier">

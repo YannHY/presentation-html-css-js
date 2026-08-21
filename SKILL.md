@@ -25,6 +25,7 @@ Ne jamais laisser une préférence générique de la skill remplacer une instruc
 - **Modification mêlant contenu et mise en scène** : appliquer les trois références.
 - **Export PowerPoint** : le livrable par défaut de cette skill est une **page web**. Ne produire un `.pptx` que sur demande explicite, et lire alors [references/export-powerpoint.md](references/export-powerpoint.md). Employer le mode `images`, fidèle, qui capture chaque état ; ne proposer le mode `natif` que pour un deck purement textuel, car il ne porte que du texte et vide une présentation visuelle.
 - **Calendrier ou programme daté** : lire [references/interactive-calendar.md](references/interactive-calendar.md) avant de composer une vue calendaire, un agenda ou une frise de rendez-vous.
+- **Minuteur sur une ou plusieurs slides** : lire [references/slide-timers.md](references/slide-timers.md). Utiliser le composant optionnel des modèles seulement sur les slides demandées.
 - **Insertion ou suppression de slide** : lire la section correspondante de [references/verification-mesuree.md](references/verification-mesuree.md). Les identifiants doivent rester contigus et des sélecteurs CSS visent des slides par leur numéro.
 - **Modèle 1** : lorsque l'utilisateur demande ce modèle ou qu'une présentation existante emploie déjà son fond cadrillé, sa palette bleu-vert et sa barre inférieure, lire [references/presentation-model-1.md](references/presentation-model-1.md). Pour une nouvelle présentation, copier `assets/presentation-template-1/` puis remplacer le contenu d'exemple. Ne jamais appliquer ce modèle par défaut à un autre projet.
 - **Modèle 2** : lorsque l'utilisateur demande ce modèle, ou qu'une présentation existante emploie déjà son cambré institutionnel en pleine hauteur sur le bord gauche et ses deux bleus `#0b4295` et `#006eb7`, lire [references/presentation-model-2.md](references/presentation-model-2.md). Pour une nouvelle présentation, copier `assets/presentation-template-2/` puis remplacer le contenu d'exemple et le logo. Ne jamais appliquer ce modèle par défaut à un autre projet.
@@ -63,11 +64,14 @@ Pour une création ou une refonte complète, inclure :
 - le chapitre actif et les chapitres déjà visités ;
 - un compteur et une progression discrets ;
 - des commandes précédent, suivant, notes et plein écran ;
+- un panneau de notes dont le texte devient éditable par un clic et se sauvegarde automatiquement, slide par slide, dans le stockage local du navigateur ;
 - les raccourcis `ArrowLeft`, `ArrowRight`, `PageUp`, `PageDown`, `Home`, `End`, `Space`, `F` et `Escape` ;
 - un geste horizontal sur écran tactile ;
 - un focus visible, des noms accessibles et une URL ou un hash stable.
 
 Ne jamais afficher un contrôle factice. Tout bouton, menu, sélecteur, bouton de lecture, filtre ou chevron doit fonctionner réellement ; sinon le supprimer ou le traiter comme un élément statique sans affordance interactive. Utiliser Font Awesome 6 ou des SVG cohérents pour les commandes compactes, avec `aria-label` et infobulle.
+
+L'édition manuelle des notes porte sur la copie locale du navigateur : elle doit mettre à jour `data-notes` dans le DOM pour la session et persister une surcharge par identifiant de slide dans `localStorage`, sans prétendre réécrire le fichier HTML source. Le champ reste en texte brut, accepte les retours à la ligne, possède un focus visible et neutralise les raccourcis de navigation tant qu'il est actif. Signaler discrètement si le stockage local est indisponible et que la modification ne durera que le temps de la session.
 
 Lors d'une retouche, préserver le contrat d'interface existant sauf demande explicite.
 
@@ -109,8 +113,9 @@ Une slide n'est pas une page web qui s'adapte : c'est une **maquette de taille f
 - **Rien ne doit avoir commencé avant l'arrivée sur la slide.** C'est le reproche qui revient le plus : « l'animation a déjà tourné ». Trois formes à traiter, pas seulement la première :
   - une **boucle infinie** en CSS doit dépendre de `.slide.active`, sinon elle démarre au chargement de la page et le cycle est déjà entamé quand on arrive. Accrochée à la slide active, elle repart de zéro à chaque visite, gratuitement ;
   - une **animation CSS finie** posée sans condition est terminée avant qu'on arrive : elle ne se verra jamais ;
-  - un **enchaînement piloté en JavaScript** — minuteurs, balayage progressif, machine à écrire — se lance dans `onSlideVisit` et se réinitialise en quittant, jamais à la construction de la figure.
+  - un **enchaînement piloté en JavaScript** — balayage progressif, machine à écrire — se lance dans `onSlideVisit` et se réinitialise en quittant, jamais à la construction de la figure.
   Vérifier ce point pour chaque figure animée : arriver sur la slide et constater que le mouvement part de son début.
+- **Un minuteur contrôlé par l'intervenant n'est pas une animation automatique.** Il ne démarre jamais à l'arrivée sur la slide et ne se réinitialise pas en la quittant : il se met en pause en conservant le temps restant. Suivre [references/slide-timers.md](references/slide-timers.md).
 - **Ne pas laisser une figure interactive vide à l'arrivée.** Une zone qui attend un clic se lit comme un défaut d'affichage, pas comme une invitation. Afficher un exemple déjà traité, que l'action de l'utilisateur remplace.
 - **Cadrer chaque photographie explicitement.** Un `object-fit: cover` par défaut recadre sur le centre : sur un portrait pris en pied, la tête sort du cadre. Poser un `object-position` par image, et basculer en `contain` sur un fond clair pour les captures d'écran et les schémas, qui se lisent en entier ou pas du tout. Vérifier chaque vignette à l'écran, une par une.
 - **Donner à chaque atelier une consigne et une légende.** Une phrase qui dit ce qu'on regarde et ce qu'il faut faire, et une légende qui nomme chaque repère du visuel : couleur, forme, trait, zone. Un atelier sans ces deux éléments est joli et incompréhensible.
@@ -142,7 +147,8 @@ Une slide n'est pas une page web qui s'adapte : c'est une **maquette de taille f
 - Capturer le départ, le milieu et l'état final des démonstrations longues.
 - Vérifier que les animations internes commencent seulement lorsque leur bloc apparaît et finissent dans un état stable.
 - Vérifier `prefers-reduced-motion` sans supprimer le séquençage ni le contenu.
-- Tester clavier, tactile, hash, chapitres, compteur, notes, plein écran, focus et console.
+- Tester clavier, tactile, hash, chapitres, compteur, notes, plein écran, focus et console. Dans les notes, vérifier le clic d'édition, les retours à la ligne, l'absence de navigation pendant la saisie, la persistance après rechargement et le repli en mémoire de session lorsque `localStorage` est indisponible.
+- Pour chaque minuteur présent, tester réglage de la durée dans le panneau inférieur, démarrage, pause, reprise, terme, réinitialisation et changement de slide. Sur la slide, seuls le décompte, son cadre compact et sa barre de progression restent visibles. Aucun intervalle ne doit continuer après la pause ou à `00:00`.
 - Pour tout contrôle ajouté, piloter réellement chaque état et vérifier qu'il ne bloque pas la navigation clavier du deck : le focus doit être relâché après un clic souris, conservé après une activation clavier.
 - Vérifier que les décomptes d'une légende correspondent au nombre de repères réellement peints, catégorie par catégorie.
 - **Éprouver tout pop-up partagé sur quatre gestes**, parce qu'un seul panneau sert plusieurs cibles :
@@ -177,6 +183,7 @@ Une slide n'est pas une page web qui s'adapte : c'est une **maquette de taille f
 - [references/presentation-model-3.md](references/presentation-model-3.md) : variante sombre du modèle 1, inversion de la hiérarchie des teintes et ratios de contraste mesurés.
 - `assets/presentation-template-3/` : socle réutilisable du modèle 3.
 - [references/interactive-calendar.md](references/interactive-calendar.md) : vues semaine, mois et année réellement navigables, séries récurrentes, légende et décomptes.
+- [references/slide-timers.md](references/slide-timers.md) : minuteur optionnel par slide, durée réglable, pause, réinitialisation, accessibilité et arrêt hors slide.
 - [references/verification-mesuree.md](references/verification-mesuree.md) : mesure de la réserve, pièges de spécificité et d'animation, renumérotation des slides, limites de l'aperçu.
 - `scripts/validate_presentation.py` : contrôle statique, avec nombre de slides attendu en option.
 - [references/export-powerpoint.md](references/export-powerpoint.md) : export `.pptx`, choix du mode, crochet de capture, durée et vérification.
