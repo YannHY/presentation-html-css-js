@@ -116,38 +116,30 @@ Le composant est fourni dans les trois modèles. Son intégration et les comport
 
 ## Modèle 1
 
-Le modèle optionnel documente notamment :
+- fond clair cadrillé ;
+- palette bleu–vert ;
+- métadonnées en haut ;
+- navigation, notes, minuteur et plein écran dans la barre inférieure.
 
-- la palette bleu–vert ;
-- le fond blanc cadrillé ;
-- les métadonnées d’en-tête ;
-- la barre de progression et les commandes inférieures ;
-- les raccourcis, les notes et le plein écran ;
-- les précautions nécessaires pour Safari.
-
-Un modèle HTML, CSS et JavaScript prêt à adapter est fourni dans `assets/presentation-template-1/`.
+Fichiers : `assets/presentation-template-1/`.
 
 ## Modèle 2
 
-Second modèle optionnel, dérivé d'un gabarit institutionnel :
+- fond clair uni ;
+- cambré SVG bleu sur le bord gauche ;
+- palette à deux bleus ;
+- logo, établissement et date configurables.
 
-- un cambré en SVG pleine hauteur sur le bord gauche, dont la géométrie commande le décalage du contenu ;
-- deux bleus de marque et un fond uni, sans cadrillage ;
-- une barre d'en-tête portée par `body`, qui échappe au zoom du plein écran.
-
-Le socle est dans `assets/presentation-template-2/`. Il partage le `presentation.js` du modèle 1 sans modification. **Le logo livré n'est qu'un repère géométrique neutre** : remplacer `logo.svg` par celui de l'établissement, et renseigner `data-institution` dans `index.html`.
+Fichiers : `assets/presentation-template-2/`. Le fichier `logo.svg` est un logo générique à remplacer.
 
 ## Modèle 3
 
-Variante **sombre** du modèle 1 : mêmes classes, mêmes slides, même `presentation.js`. Seules changent la palette et les surfaces.
+- fond sombre cadrillé ;
+- cartes et panneaux sombres ;
+- accents bleu clair et vert ;
+- même structure et mêmes interactions que le modèle 1.
 
-- fond `#0b1220`, cartes `#141c2e`, cadrillage clair à faible opacité ;
-- hiérarchie des teintes inversée — sur fond sombre, c'est la teinte la plus claire qui ressort ;
-- fonds d'accent en voiles translucides plutôt qu'en aplats pâles ;
-- panneaux de notes plus clairs que le fond d'un cran, jamais blancs, pour ne pas éblouir en salle obscurcie ;
-- ratios de contraste mesurés et documentés, le plus faible à 4,30 pour un seuil de 3,0.
-
-Le socle est dans `assets/presentation-template-3/`.
+Fichiers : `assets/presentation-template-3/`.
 
 ## Export PowerPoint
 
