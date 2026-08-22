@@ -8,6 +8,19 @@ Composant pour projeter un programme daté — année scolaire, saison, cycle de
 - **Ne pas proposer de vue Jour** sans heures de début. Un quadrillage horaire vide est un décor. Plus largement, ne proposer que les vues que les données peuvent remplir.
 - La vue par défaut est celle qui porte le message : Année pour « voici le rythme de l'année », Mois pour « voici le détail du mois ».
 
+## Établir la couverture avant de dessiner
+
+Un calendrier rétrospectif peut être techniquement correct et néanmoins paraître vide. Avant la mise en page, construire une matrice **période × catégorie** et compter :
+
+- le nombre total d'évènements ;
+- le nombre de dates actives distinctes ;
+- les évènements par mois et par catégorie ;
+- les mois ou catégories sans entrée.
+
+Une demande comme « principaux évènements » n'autorise pas à choisir arbitrairement quelques annonces célèbres. Définir les familles attendues à partir du sujet — par exemple recherche, modèles, logiciels, usages, matériel, infrastructure et régulation — puis vérifier que chacune est réellement représentée. Pour une actualité historique, conserver dans les données la date, un résumé, la catégorie et une URL source ; distinguer clairement date précise, mois connu et période approximative.
+
+Ne pas fixer un quota universel. La densité acceptable dépend du sujet, mais le titre, la légende et le jeu de données doivent annoncer le même total. Une couverture inégale peut être juste ; elle doit résulter des sources, pas d'un oubli de collecte.
+
 ## Contrôles réels, jamais décoratifs
 
 La skill interdit les contrôles factices. Un sélecteur de vue dessiné mais inerte en est un : soit il fonctionne, soit il n'existe pas.
@@ -40,6 +53,30 @@ Trois rendus de hauteurs différentes font sauter tout ce qui les suit. Mesurer 
 
 Vérifier ensuite qu'un repère situé sous le calendrier — la légende — occupe la **même** ordonnée dans les trois vues.
 
+## Une surface principale, pas une collection de cartes
+
+Pour une esthétique de calendrier d'application sobre et raffinée :
+
+- employer une surface principale claire, éventuellement légèrement translucide, avec un rayon généreux et une ombre diffuse ;
+- structurer l'intérieur par des séparateurs fins plutôt que par une carte arrondie et ombrée pour chaque mois ou chaque jour ;
+- traiter le sélecteur Semaine/Mois/Année comme un contrôle segmenté : fond gris très léger, état actif blanc et ombre courte ;
+- réserver les couleurs fortes à l'identification des catégories, pas aux grandes surfaces ;
+- conserver des espacements généreux autour du composant, sans réduire la grille pour créer artificiellement du vide.
+
+L'effet translucide reste un enrichissement : prévoir un fond opaque lisible si `backdrop-filter` n'est pas disponible.
+
+## Vue annuelle : rendre les dates actives lisibles
+
+Une vue annuelle compacte ne doit pas coller de simples points aux chiffres : l'association entre le repère et le jour devient ambiguë. Préférer une **cellule de date légèrement teintée** avec un filet ou une courte barre de catégorie sur son bord inférieur.
+
+- Garder le chiffre au centre et le code couleur à la périphérie.
+- Pour plusieurs évènements le même jour, partager la barre entre les catégories et ajouter un petit badge numérique séparé du chiffre.
+- Employer un badge clair à texte sombre ; une pastille noire minuscule attire trop l'œil et ressemble à une annotation parasite.
+- Limiter l'agrandissement au survol : un facteur proche de `1.1` suffit. Un zoom important masque les dates voisines.
+- Sur une grille de douze mois, supprimer les cadres individuels et utiliser des séparateurs internes continus afin que l'année se lise comme un seul objet.
+
+La vue annuelle donne la distribution ; le détail appartient au pop-up ou aux vues Mois et Semaine. Ne pas y faire tenir les titres des évènements.
+
 ## Pastilles d'évènement sur une seule ligne
 
 C'est le piège de hauteur le plus coûteux. Une série récurrente ajoute une pastille à presque chaque rangée ; si son libellé se replie sur deux lignes, **toutes** les rangées grandissent et la vue Mois déborde.
@@ -51,6 +88,10 @@ C'est le piège de hauteur le plus coûteux. Une série récurrente ajoute une p
 - Mettre le libellé complet dans `title` pour que la troncature ne perde rien.
 - Raccourcir l'intitulé de l'évènement plutôt que d'élargir la cellule : « Key users » au lieu de « Réunion Key users », la catégorie portant déjà le mot.
 - Contrôler le mois qui compte **six** rangées, pas seulement le premier venu ; c'est lui qui dimensionne la vue.
+
+Pour éviter l'effet « étiquette criarde », une pastille peut employer un fond teinté clair, un texte dérivé de la couleur de catégorie et un filet coloré à gauche. Réserver l'aplat saturé aux états qui exigent une forte insistance.
+
+Quand une cellule mensuelle contient plus d'évènements qu'elle ne peut en montrer, afficher les premiers puis un vrai bouton `+ N autres` ouvrant la liste complète. En semaine, afficher tous les évènements du jour tant que la hauteur commune reste stable.
 
 ## Séries récurrentes
 
@@ -72,6 +113,16 @@ Une légende qui compte autre chose que ce que l'œil voit est un défaut. Crois
 - Des colonnes en `1fr` prennent toutes la largeur du plus long item du tableau. Une colonne de libellés courts laisse alors un grand vide avant la suivante. **Aligner les décomptes à droite** (`margin-left: auto`) rend l'écart perçu constant par construction ; des colonnes en `max-content` ne le font pas.
 - Aligner libellé et décompte sur la **ligne de base**, pas sur le centre : au centre, un libellé replié décale son décompte de plusieurs pixels et l'alignement devient irrégulier d'une ligne à l'autre.
 - Une grille de N colonnes laisse des cellules libres quand les items ne sont pas un multiple de N : y placer une mention utile — la légende de l'astérisque — coûte zéro hauteur.
+- Laisser un espace perceptible entre le bord inférieur du calendrier et la légende. Dans une maquette de 1200 px de large, une marge de l'ordre de **12 à 16 px** constitue un bon point de départ ; la mesurer avec la réserve verticale plutôt que de coller la légende pour gagner quelques pixels.
+
+## Fiches de détail
+
+Une même fiche peut servir les vues Année, Mois et Semaine. Elle doit afficher au minimum la date, le titre, un résumé et la source ; pour une date cumulant plusieurs évènements, remplacer le détail unique par une liste complète.
+
+- Borner les quatre côtés de la fiche à la surface du calendrier, pas seulement à la fenêtre.
+- Autoriser fermeture par second clic, `Échap`, bouton dédié et clic extérieur.
+- Employer une surface claire ou sombre cohérente avec le calendrier ; sur une interface claire et raffinée, un panneau blanc translucide avec ombre diffuse évite une rupture brutale.
+- Garder les liens réellement cliquables et indiquer visuellement la source sans afficher une URL longue.
 
 ## Chiffres dans un repère circulaire
 
@@ -105,3 +156,6 @@ Un tableau d'objets suffit, les plages étant développées en jours :
 - Vérifier les deux bornes de navigation et l'état `disabled` qui leur correspond.
 - Vérifier qu'aucune pastille ne se replie et que le libellé complet reste accessible.
 - Croiser décomptes de légende et repères peints, par catégorie.
+- Produire un rapport automatique contenant au moins : mois rendus, semaines parcourues, dates actives, total d'évènements, état des filtres et erreurs de console.
+- Capturer les trois vues au même viewport, puis la vue annuelle aux formats `1280×720`, `1366×768`, `1600×900` et `2560×1440` ; vérifier que la légende reste dégagée et que la réserve verticale demeure positive.
+- Ouvrir une date simple, une date cumulant plusieurs évènements et des dates proches des quatre bords pour éprouver la fiche partagée.

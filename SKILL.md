@@ -184,7 +184,7 @@ Une slide n'est pas une page web qui s'adapte : c'est une **maquette de taille f
 - `assets/presentation-template-2/` : socle réutilisable du modèle 2. Même `presentation.js` que le modèle 1, plus `logo.png` à remplacer.
 - [references/presentation-model-3.md](references/presentation-model-3.md) : variante sombre du modèle 1, inversion de la hiérarchie des teintes et ratios de contraste mesurés.
 - `assets/presentation-template-3/` : socle réutilisable du modèle 3.
-- [references/interactive-calendar.md](references/interactive-calendar.md) : vues semaine, mois et année réellement navigables, séries récurrentes, légende et décomptes.
+- [references/interactive-calendar.md](references/interactive-calendar.md) : couverture éditoriale, vues semaine, mois et année réellement navigables, lisibilité annuelle, fiches de détail, légende et décomptes.
 - [references/slide-timers.md](references/slide-timers.md) : minuteur optionnel par slide, durée réglable, pause, réinitialisation, accessibilité et arrêt hors slide.
 - [references/verification-mesuree.md](references/verification-mesuree.md) : mesure de la réserve, pièges de spécificité et d'animation, renumérotation des slides, limites de l'aperçu.
 - `scripts/validate_presentation.py` : contrôle statique, avec nombre de slides attendu en option.
