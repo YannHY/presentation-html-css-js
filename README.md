@@ -2,7 +2,7 @@
 
 Skill pour Codex et Claude Code permettant de créer des présentations HTML interactives visuellement soignées, avec une attention particulière portée à la mise en page du contenu et au rythme des apparitions.
 
-Claude Code et Codex lisent le même `SKILL.md` et les mêmes références. Seuls diffèrent le dossier d’installation et le fichier `agents/openai.yaml`, propre à Codex, que Claude Code ignore.
+Claude Code et Codex utilisent la même skill. Seuls diffèrent le dossier d’installation et le fichier `agents/openai.yaml`, propre à Codex, que Claude Code ignore.
 
 ## Fonctionnalités
 
