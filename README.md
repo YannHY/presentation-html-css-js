@@ -160,7 +160,7 @@ Fichiers : `assets/presentation-template-2/`. Le fichier `logo.svg` est un logo 
 
 ## Modèle 3
 
-- fond sombre cadrillé ;
+- fond sombre avec un semis de points ;
 - cartes et panneaux sombres ;
 - accents bleu clair et vert ;
 - même structure et mêmes interactions que le modèle 1.
