@@ -19,37 +19,23 @@ Le livrable par défaut est une **page web**. Des exports **PowerPoint** et **vi
 
 ## Fonctionnement
 
-La skill part d’un contenu rédigé en texte simple. Il n’est pas nécessaire d’écrire du HTML ni de décrire chaque détail de mise en page.
-
-1. Rédiger la présentation dans un éditeur comme **Obsidian**, de préférence en Markdown : un plan, des titres de slides, les idées à faire apparaître, les visuels souhaités et, si nécessaire, les notes de l’intervenant.
-2. Donner ce texte ou le fichier Markdown à **Codex** ou à **Claude Code**.
-3. Indiquer le modèle graphique souhaité et les éventuelles contraintes : nombre de slides, public, durée, animations, interactions ou export.
-4. L’agent transforme le contenu en présentation HTML, organise la progression, crée les visuels et les interactions, puis vérifie le rendu à plusieurs résolutions.
-
-Par exemple, le contenu source d’une slide de la présentation sur l’intelligence artificielle peut être écrit ainsi dans Obsidian :
+Dans Obsidian, rédiger la totalité de la présentation ou seulement une partie, puis séparer les slides par `---` :
 
 ```markdown
-## Un agent = un modèle + un harnais
+# Slide 1
 
-Un harnais fournit au modèle :
-- des instructions ;
-- des outils ;
-- de la mémoire ;
-- des contrôles.
+Exemple de texte
 
-Visuel : le modèle au centre, entouré de ces quatre fonctions.
+---
+
+# Slide 2
+
+Exemple de texte
+
+---
 ```
 
-On peut ensuite demander :
-
-```text
-À partir de ce document Markdown, crée une présentation HTML interactive
-avec la skill create-interactive-html-presentations. Utilise le modèle 3,
-fais apparaître progressivement les éléments importants et ajoute des
-notes d’intervenant lorsque le texte source en fournit.
-```
-
-Le document source reste centré sur les idées. La skill se charge de les transformer en slides lisibles, de choisir les composants adaptés et d’appliquer le design system du modèle demandé.
+Donner ensuite la note à Codex ou Claude Code et lui demander de générer la présentation selon le template souhaité.
 
 ## Exemple en vidéo
 
