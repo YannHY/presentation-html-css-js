@@ -62,7 +62,9 @@ Le document source reste centré sur les idées. La skill se charge de les trans
 
 Une démonstration complète de la présentation générée sera ajoutée ici.
 
-<!-- Glisser ici la vidéo depuis l’éditeur Markdown de GitHub. -->
+
+https://github.com/user-attachments/assets/dabf192b-055d-4ef2-8a0a-556a17273855
+
 
 ## Installation
 
