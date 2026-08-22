@@ -1,6 +1,6 @@
-# Create Interactive HTML Presentations
+# Create Interactive HTML Presentations — pour Codex et Claude Code
 
-Skill Codex pour créer des présentations HTML interactives visuellement soignées avec une attention particulière portée à la mise en page du contenu et au rythme des apparitions.
+Skill pour Codex et Claude Code permettant de créer des présentations HTML interactives visuellement soignées, avec une attention particulière portée à la mise en page du contenu et au rythme des apparitions.
 
 Claude Code et Codex lisent le même `SKILL.md` et les mêmes références. Seuls diffèrent le dossier d’installation et le fichier `agents/openai.yaml`, propre à Codex, que Claude Code ignore.
 
@@ -11,14 +11,58 @@ Claude Code et Codex lisent le même `SKILL.md` et les mêmes références. Seul
 - apparitions successives et animations narratives ;
 - notes de l’intervenant éditables d’un clic, sauvegardées localement par slide, et mode plein écran ;
 - minuteur optionnel par slide, avec durée réglable, pause et réinitialisation ;
-- export vidéo MP4 conservant les animations réelles de chaque slide ;
-- retouches précises sans modifier les éléments non demandés ;
-- validation statique de la structure et des interactions ;
-- vérification visuelle à plusieurs résolutions, et mesure de la réserve verticale de chaque slide ;
 - calendriers interactifs à vues semaine, mois et année réellement navigables ;
-- trois modèles graphiques optionnels et réutilisables, dont une variante sombre.
+- trois modèles graphiques optionnels et réutilisables, dont une variante sombre ;
+- export vidéo MP4 conservant les animations réelles de chaque slide.
 
 Le livrable par défaut est une **page web**. Des exports **PowerPoint** et **vidéo MP4 animée** sont disponibles en option.
+
+## Fonctionnement
+
+La skill part d’un contenu rédigé en texte simple. Il n’est pas nécessaire d’écrire du HTML ni de décrire chaque détail de mise en page.
+
+1. Rédiger la présentation dans un éditeur comme **Obsidian**, de préférence en Markdown : un plan, des titres de slides, les idées à faire apparaître, les visuels souhaités et, si nécessaire, les notes de l’intervenant.
+2. Donner ce texte ou le fichier Markdown à **Codex** ou à **Claude Code**.
+3. Indiquer le modèle graphique souhaité et les éventuelles contraintes : nombre de slides, public, durée, animations, interactions ou export.
+4. L’agent transforme le contenu en présentation HTML, organise la progression, crée les visuels et les interactions, puis vérifie le rendu à plusieurs résolutions.
+
+Par exemple, le contenu source d’une slide de la présentation sur l’intelligence artificielle peut être écrit ainsi dans Obsidian :
+
+```markdown
+## Un agent = un modèle + un harnais
+
+Sur-titre : Ce qu’on ne voit pas toujours
+
+Un harnais est l’ensemble logiciel qui transforme un modèle en agent :
+il prépare le contexte, exécute les outils, conserve l’état et applique
+les contrôles.
+
+Visuel : placer le modèle au centre et l’entourer de quatre blocs :
+- instructions et contexte ;
+- outils et environnement ;
+- mémoire et compétences ;
+- contrôle et vérification.
+
+Conclusion : le même modèle peut se comporter très différemment
+selon le harnais construit autour de lui.
+```
+
+On peut ensuite demander :
+
+```text
+À partir de ce document Markdown, crée une présentation HTML interactive
+avec la skill create-interactive-html-presentations. Utilise le modèle 3,
+fais apparaître progressivement les éléments importants et ajoute des
+notes d’intervenant lorsque le texte source en fournit.
+```
+
+Le document source reste centré sur les idées. La skill se charge de les transformer en slides lisibles, de choisir les composants adaptés et d’appliquer le design system du modèle demandé.
+
+## Exemple en vidéo
+
+Une démonstration complète de la présentation générée sera ajoutée ici.
+
+<!-- Glisser ici la vidéo depuis l’éditeur Markdown de GitHub. -->
 
 ## Installation
 
