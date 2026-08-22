@@ -31,20 +31,13 @@ Par exemple, le contenu source d’une slide de la présentation sur l’intelli
 ```markdown
 ## Un agent = un modèle + un harnais
 
-Sur-titre : Ce qu’on ne voit pas toujours
+Un harnais fournit au modèle :
+- des instructions ;
+- des outils ;
+- de la mémoire ;
+- des contrôles.
 
-Un harnais est l’ensemble logiciel qui transforme un modèle en agent :
-il prépare le contexte, exécute les outils, conserve l’état et applique
-les contrôles.
-
-Visuel : placer le modèle au centre et l’entourer de quatre blocs :
-- instructions et contexte ;
-- outils et environnement ;
-- mémoire et compétences ;
-- contrôle et vérification.
-
-Conclusion : le même modèle peut se comporter très différemment
-selon le harnais construit autour de lui.
+Visuel : le modèle au centre, entouré de ces quatre fonctions.
 ```
 
 On peut ensuite demander :
@@ -59,8 +52,6 @@ notes d’intervenant lorsque le texte source en fournit.
 Le document source reste centré sur les idées. La skill se charge de les transformer en slides lisibles, de choisir les composants adaptés et d’appliquer le design system du modèle demandé.
 
 ## Exemple en vidéo
-
-Une démonstration complète de la présentation générée sera ajoutée ici.
 
 
 https://github.com/user-attachments/assets/dabf192b-055d-4ef2-8a0a-556a17273855
