@@ -101,7 +101,7 @@
   // Les apparitions ne servent qu'en projection : hors plein écran la slide se
   // montre entière, pour relire et retoucher sans dérouler les étapes.
   function buildsActifs() {
-    return Boolean(fullscreenElement()) && !reducedMotion.matches;
+    return (Boolean(fullscreenElement()) || Boolean(window.__presentationVideoExport)) && !reducedMotion.matches;
   }
 
   function updateBuildState() {

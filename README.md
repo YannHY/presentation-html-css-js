@@ -11,13 +11,14 @@ Claude Code et Codex lisent le même `SKILL.md` et les mêmes références. Seul
 - apparitions successives et animations narratives ;
 - notes de l’intervenant éditables d’un clic, sauvegardées localement par slide, et mode plein écran ;
 - minuteur optionnel par slide, avec durée réglable, pause et réinitialisation ;
+- export vidéo MP4 conservant les animations réelles de chaque slide ;
 - retouches précises sans modifier les éléments non demandés ;
 - validation statique de la structure et des interactions ;
 - vérification visuelle à plusieurs résolutions, et mesure de la réserve verticale de chaque slide ;
 - calendriers interactifs à vues semaine, mois et année réellement navigables ;
 - trois modèles graphiques optionnels et réutilisables, dont une variante sombre.
 
-Le livrable par défaut est une **page web**. Un export **PowerPoint** est disponible en option : par captures fidèles de chaque état, ou en formes natives éditables pour un deck purement textuel.
+Le livrable par défaut est une **page web**. Des exports **PowerPoint** et **vidéo MP4 animée** sont disponibles en option.
 
 ## Installation
 
@@ -86,6 +87,7 @@ Ajoute un minuteur de cinq minutes sur les slides d’atelier, avec pause et rem
 │   ├── targeted-edits.md          retouches sans effets collatéraux
 │   ├── verification-mesuree.md    mesurer plutôt que regarder
 │   ├── export-powerpoint.md       export .pptx : périmètre et limites
+│   ├── export-video.md            export MP4 avec animations réelles
 │   ├── interactive-calendar.md    vues semaine, mois et année
 │   ├── slide-timers.md            minuteur optionnel par slide
 │   ├── presentation-model-1.md
@@ -93,7 +95,8 @@ Ajoute un minuteur de cinq minutes sur les slides d’atelier, avec pause et rem
 │   └── presentation-model-3.md
 └── scripts/
     ├── validate_presentation.py   contrôle statique
-    └── export_pptx.py             export PowerPoint, optionnel
+    ├── export_pptx.py             export PowerPoint, optionnel
+    └── export_video.py            export vidéo animé, optionnel
 ```
 
 ## Validation
@@ -155,6 +158,18 @@ Le mode par défaut, `images`, capture chaque état avec Chrome et le pose en pl
 Le mode `--mode natif` produit de vraies formes PowerPoint éditables, mais ne porte que du texte : sur une présentation visuelle il ne rend qu'un squelette. À réserver à un deck purement textuel.
 
 Compter environ 2,5 s par état — près de deux minutes et demie pour un deck de 17 slides à 39 états. À lancer en arrière-plan. Aucun serveur n'est nécessaire : la capture se fait en `file://`.
+
+## Export vidéo
+
+L'export vidéo enregistre la présentation exécutée dans Chromium : animations CSS, SVG et JavaScript, apparitions successives et changements de slide. Il ne fabrique pas une vidéo à partir de captures fixes.
+
+```bash
+pip install playwright
+playwright install chromium
+python3 scripts/export_video.py chemin/vers/index.html -o sortie.mp4
+```
+
+Le MP4 est encodé par FFmpeg. Les attributs `data-video-duration` et `data-video-build-times` règlent le minutage de chaque slide. Utiliser `--plan` pour contrôler la chronologie avant l'enregistrement.
 
 ## Auteur
 

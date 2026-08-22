@@ -24,6 +24,7 @@ Ne jamais laisser une préférence générique de la skill remplacer une instruc
 - **Retouche ciblée** : lire [references/targeted-edits.md](references/targeted-edits.md). Lire aussi `design-language.md` seulement si la demande redessine ou ajoute un composant.
 - **Modification mêlant contenu et mise en scène** : appliquer les trois références.
 - **Export PowerPoint** : le livrable par défaut de cette skill est une **page web**. Ne produire un `.pptx` que sur demande explicite, et lire alors [references/export-powerpoint.md](references/export-powerpoint.md). Employer le mode `images`, fidèle, qui capture chaque état ; ne proposer le mode `natif` que pour un deck purement textuel, car il ne porte que du texte et vide une présentation visuelle.
+- **Export vidéo** : ne produire une vidéo que sur demande explicite et lire [references/export-video.md](references/export-video.md). Enregistrer la présentation exécutée dans Chromium avec Playwright, puis encoder en MP4 avec FFmpeg. Ne jamais substituer des captures fixes aux animations réelles.
 - **Calendrier ou programme daté** : lire [references/interactive-calendar.md](references/interactive-calendar.md) avant de composer une vue calendaire, un agenda ou une frise de rendez-vous.
 - **Minuteur sur une ou plusieurs slides** : lire [references/slide-timers.md](references/slide-timers.md). Utiliser le composant optionnel des modèles seulement sur les slides demandées.
 - **Insertion ou suppression de slide** : lire la section correspondante de [references/verification-mesuree.md](references/verification-mesuree.md). Les identifiants doivent rester contigus et des sélecteurs CSS visent des slides par leur numéro.
@@ -146,6 +147,7 @@ Une slide n'est pas une page web qui s'adapte : c'est une **maquette de taille f
 - Vérifier que la navigation arrière masque les builds dans l'ordre inverse avant de changer de slide.
 - Capturer le départ, le milieu et l'état final des démonstrations longues.
 - Vérifier que les animations internes commencent seulement lorsque leur bloc apparaît et finissent dans un état stable.
+- Pour un export vidéo, vérifier le minutage de chaque slide, le redémarrage des animations, toutes les apparitions et le fichier MP4 final. Une animation JavaScript interactive doit déclarer son scénario ou sa durée d'export ; ne pas prétendre détecter automatiquement sa fin narrative.
 - Vérifier `prefers-reduced-motion` sans supprimer le séquençage ni le contenu.
 - Tester clavier, tactile, hash, chapitres, compteur, notes, plein écran, focus et console. Dans les notes, vérifier le clic d'édition, les retours à la ligne, l'absence de navigation pendant la saisie, la persistance après rechargement et le repli en mémoire de session lorsque `localStorage` est indisponible.
 - Pour chaque minuteur présent, tester réglage de la durée dans le panneau inférieur, démarrage, pause, reprise, terme, réinitialisation et changement de slide. Sur la slide, seuls le décompte, son cadre compact et sa barre de progression restent visibles. Aucun intervalle ne doit continuer après la pause ou à `00:00`.
@@ -188,3 +190,5 @@ Une slide n'est pas une page web qui s'adapte : c'est une **maquette de taille f
 - `scripts/validate_presentation.py` : contrôle statique, avec nombre de slides attendu en option.
 - [references/export-powerpoint.md](references/export-powerpoint.md) : export `.pptx`, choix du mode, crochet de capture, durée et vérification.
 - `scripts/export_pptx.py` : exportateur PowerPoint. Dépend de `python-pptx` et, en mode images, de Chrome. Long : lancer en arrière-plan.
+- [references/export-video.md](references/export-video.md) : enregistrement continu des animations, minutage des slides et vérification du MP4.
+- `scripts/export_video.py` : exportateur vidéo animé. Dépend de Playwright, Chromium et FFmpeg.
