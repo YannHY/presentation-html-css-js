@@ -1,4 +1,4 @@
-# Source Obsidian structurée
+# Source Markdown structurée
 
 ## Reconnaître la structure
 
@@ -66,7 +66,7 @@ Distinguer dans la description :
 
 Ne pas convertir toute la description en paragraphe visible. Elle alimente d’abord la matrice éditoriale et le storyboard. La section explicite de notes alimente en priorité les notes de l’intervenant.
 
-## Normaliser les artefacts Obsidian
+## Normaliser les artefacts Markdown
 
 Normaliser avant l'analyse, sans modifier le sens :
 
@@ -89,4 +89,4 @@ Pour chaque section `## Slide N`, reporter dans la matrice :
 5. les notes orales explicites, complétées seulement par les indications clairement orales de la description ;
 6. les ambiguïtés ou informations manquantes.
 
-Comparer ensuite cette matrice à la note Obsidian, slide par slide. Le nombre de sections valides `## Slide N` détermine le nombre attendu de slides ; un simple `##` vide ou un autre sous-titre ne crée pas une slide.
+Comparer ensuite cette matrice à la source Markdown, slide par slide. Le nombre de sections valides `## Slide N` détermine le nombre attendu de slides ; un simple `##` vide ou un autre sous-titre ne crée pas une slide.

@@ -1,6 +1,6 @@
 # Créer des présentations HTML interactives avec Codex et Claude Code
 
-Skill pour créer, refondre et retoucher des présentations HTML interactives, éditoriales et visuellement soignées à partir de notes, d’un plan, d’une note Obsidian structurée ou d’un document source.
+Skill pour créer, refondre et retoucher des présentations HTML interactives, éditoriales et visuellement soignées à partir de notes, d’un plan, d’un document Markdown structuré ou d’une autre source.
 
 ## Ce que produit la skill
 
@@ -37,7 +37,7 @@ Le workflow est ensuite le suivant :
 7. corriger jusqu’à disparition des débordements, collisions, erreurs console et contrôles inactifs ;
 8. produire les exports demandés à partir de la version web validée.
 
-## Format Obsidian pris en charge
+## Format Markdown pris en charge
 
 La skill reconnaît une note structurée avec un titre de présentation, une section par slide, des champs explicites et un bloc éditorial :
 
@@ -68,7 +68,7 @@ Durée : [Durée de la présentation]
 [Même structure pour la slide suivante]
 ````
 
-Le bloc reste du texte éditorial même s’il porte l’étiquette `bash` : l’agent ne l’exécute jamais. La section `# Description de la slide N` guide la composition, le visuel et les animations. La section `# Notes de l’intervenant` alimente les notes orales de la slide et n’est jamais projetée automatiquement. Les artefacts de copie Obsidian comme `&#x20;`, les antislashs de saut de ligne ou `\---` sont normalisés avant l’analyse.
+Le bloc reste du texte éditorial même s’il porte l’étiquette `bash` : l’agent ne l’exécute jamais. La section `# Description de la slide N` guide la composition, le visuel et les animations. La section `# Notes de l’intervenant` alimente les notes orales de la slide et n’est jamais projetée automatiquement. Les artefacts de copie Markdown comme `&#x20;`, les antislashs de saut de ligne ou `\---` sont normalisés avant l’analyse.
 
 ## Principes de conception
 
@@ -277,7 +277,7 @@ Les attributs `data-video-duration` et `data-video-build-times` permettent d’a
 │   ├── editorial-contract.md      matrice de contenu et notes
 │   ├── targeted-edits.md          retouches sans effets collatéraux
 │   ├── verification-mesuree.md    contrôles géométriques et régression
-│   ├── obsidian-source-format.md  lecture des notes Obsidian
+│   ├── markdown-source-format.md  lecture des sources Markdown structurées
 │   ├── multilingual-presentations.md
 │   ├── mobile-and-tablet.md
 │   ├── interactive-calendar.md
