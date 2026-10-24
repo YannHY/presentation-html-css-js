@@ -44,7 +44,7 @@ Le workflow est ensuite le suivant :
 
 ## Format Obsidian pris en charge
 
-La skill reconnaît une note structurée avec un titre de présentation, une section par slide, des champs explicites et un bloc descriptif :
+La skill reconnaît une note structurée avec un titre de présentation, une section par slide, des champs explicites et un bloc éditorial :
 
 ````markdown
 # Présentation
@@ -60,6 +60,10 @@ Durée : [Durée de la présentation]
 # Description de la slide 1
 
 [Description éditoriale, visuelle et narrative de la slide]
+
+# Notes de l’intervenant
+
+[Notes orales associées à la slide]
 ```
 
 ---
@@ -69,7 +73,7 @@ Durée : [Durée de la présentation]
 [Même structure pour la slide suivante]
 ````
 
-Le bloc descriptif reste du texte éditorial même s’il porte l’étiquette `bash` : l’agent ne l’exécute jamais. Les artefacts de copie Obsidian comme `&#x20;`, les antislashs de saut de ligne ou `\---` sont normalisés avant l’analyse.
+Le bloc reste du texte éditorial même s’il porte l’étiquette `bash` : l’agent ne l’exécute jamais. La section `# Description de la slide N` guide la composition, le visuel et les animations. La section `# Notes de l’intervenant` alimente les notes orales de la slide et n’est jamais projetée automatiquement. Les artefacts de copie Obsidian comme `&#x20;`, les antislashs de saut de ligne ou `\---` sont normalisés avant l’analyse.
 
 ## Principes de conception
 
