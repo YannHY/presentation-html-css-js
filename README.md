@@ -193,6 +193,8 @@ Le minuteur est activé uniquement sur les slides qui en ont besoin. L’interve
 
 Sur la slide, seul un cadre compact apparaît : temps restant et barre de progression. Le minuteur ne démarre jamais automatiquement et se met en pause lorsque l’on quitte la slide, sans perdre le temps restant. Les durées modifiées dans l’interface restent limitées à la session.
 
+Voir un [exemple d’implémentation du minuteur](https://starters-grammaire.netlify.app/).
+
 ## Export PowerPoint
 
 L’export `.pptx` est optionnel et intervient après validation de la présentation web.
