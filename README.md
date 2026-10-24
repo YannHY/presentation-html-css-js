@@ -39,6 +39,15 @@ Exemple de texte
 
 Donner ensuite la note à Codex ou Claude Code et lui demander de générer la présentation selon le template souhaité.
 
+Avant une création ou une refonte, la skill regroupe dans un seul message les informations encore manquantes :
+
+1. modèle 1, 2, 3 ou direction personnalisée ;
+2. présentation monolingue ou langues à proposer ;
+3. export PowerPoint, vidéo, les deux ou aucun export supplémentaire ;
+4. contenu de la présentation au format texte, sous forme de plan, de notes ou de slides déjà découpées.
+
+Une information déjà fournie n'est pas redemandée. Les retouches ciblées ne déclenchent pas ce questionnaire complet.
+
 ## Exemple en vidéo
 
 

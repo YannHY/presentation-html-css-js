@@ -34,9 +34,20 @@ Ne jamais laisser une préférence générique de la skill remplacer une instruc
 - **Modèle 2** : lorsque l'utilisateur demande ce modèle, ou qu'une présentation existante emploie déjà son cambré institutionnel en pleine hauteur sur le bord gauche et ses deux bleus `#0b4295` et `#006eb7`, lire [references/presentation-model-2.md](references/presentation-model-2.md). Pour une nouvelle présentation, copier `assets/presentation-template-2/` puis remplacer le contenu d'exemple et le logo. Ne jamais appliquer ce modèle par défaut à un autre projet.
 - **Modèle 3** : lorsque l'utilisateur demande un mode sombre, ce modèle, ou qu'une présentation existante emploie déjà son fond `#0b1220` et ses surfaces sombres, lire [references/presentation-model-3.md](references/presentation-model-3.md). Pour une nouvelle présentation, copier `assets/presentation-template-3/`. C'est le modèle 1 en sombre : mêmes classes et même JavaScript. Ne jamais appliquer ce modèle par défaut à un autre projet.
 
+## Questionnaire obligatoire avant création ou refonte
+
+Avant de concevoir ou de refondre une présentation, poser les questions suivantes dans **un seul message**, puis attendre les réponses avant de coder :
+
+1. **Quel modèle utiliser ?** Proposer le modèle 1 (clair cadrillé bleu–vert), le modèle 2 (clair institutionnel à cambré bleu), le modèle 3 (sombre) ou une direction personnalisée fondée sur une référence fournie.
+2. **Faut-il proposer plusieurs langues ?** Si oui, demander lesquelles et quelle langue doit s'afficher par défaut. Sinon, conserver uniquement la langue du contenu source.
+3. **Quels exports faut-il produire en plus de la version web ?** Aucun, PowerPoint, vidéo ou les deux. Ne pas commencer un export avant que la présentation web soit validée.
+4. **Pouvez-vous fournir la présentation au format texte ?** Demander le plan, les notes ou le contenu slide par slide, collé dans la conversation ou joint dans un fichier lisible.
+
+Ne pas reposer une question à laquelle la demande, une pièce jointe ou le projet répond déjà sans ambiguïté. Regrouper uniquement les questions encore ouvertes et reformuler brièvement les réponses acquises. Ce questionnaire ne s'applique pas à une retouche ciblée d'une présentation existante ; dans ce cas, demander seulement l'information indispensable au delta demandé.
+
 ## Workflow de création ou de refonte
 
-1. Inspecter entièrement les fichiers source, les notes, la présentation existante et les conventions du projet.
+1. Recueillir les réponses au questionnaire, puis inspecter entièrement les fichiers source, les notes, la présentation existante et les conventions du projet.
 2. Établir le contrat éditorial slide par slide avant toute mise en page. Verrouiller le nombre de slides demandé et séparer texte projeté, notes orales, visuel et étapes d'apparition.
 3. Examiner réellement chaque site, vidéo, timestamp ou capture de référence. En extraire palette, typographie, densité, espacements, rayons, compositions et rythme des animations.
 4. Construire le storyboard. Affecter une idée principale et une preuve visuelle à chaque slide. Ne pas transformer automatiquement les notes de l'intervenant en texte visible.
