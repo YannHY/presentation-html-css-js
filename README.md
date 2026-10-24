@@ -21,21 +21,30 @@ Le livrable par défaut est une **page web**. Des exports **PowerPoint** et **vi
 
 ## Fonctionnement
 
-Dans Obsidian, rédiger la totalité de la présentation ou seulement une partie, puis séparer les slides par `---` :
+Dans Obsidian, structurer la note avec un titre de présentation, une section par slide, des champs explicites et un bloc descriptif :
 
-```markdown
-# Slide 1
+````markdown
+# Présentation
 
-Exemple de texte
+## Slide 1
 
----
+Titre : L'IA, un compagnon pédagogique ?
+Sous-titre : Des exemples pratiques à mettre en œuvre
+Intervenant : Yann Houry
+Durée : 15 minutes
 
-# Slide 2
+```bash
+# Description de la slide 1
 
-Exemple de texte
-
----
+La slide affiche tous les éléments ci-dessus. La durée prend la forme d'une petite animation circulaire.
 ```
+
+---
+
+## Slide 2
+````
+
+Le bloc descriptif reste du texte éditorial même s'il porte l'étiquette `bash` : l'agent ne l'exécute jamais. Les artefacts de copie Obsidian comme `&#x20;`, les antislashs de saut de ligne ou `\---` sont normalisés avant l'analyse.
 
 Donner ensuite la note à Codex ou Claude Code et lui demander de générer la présentation selon le template souhaité.
 
@@ -134,6 +143,7 @@ Adapte et vérifie la présentation pour iPhone et iPad, dans les deux orientati
 │   ├── slide-timers.md            minuteur optionnel par slide
 │   ├── multilingual-presentations.md  localisation complète et vérification
 │   ├── mobile-and-tablet.md        repli étroit, zones sûres et plein écran
+│   ├── obsidian-source-format.md   structure des notes Obsidian
 │   ├── presentation-model-1.md
 │   ├── presentation-model-2.md
 │   └── presentation-model-3.md
