@@ -28,15 +28,15 @@ Dans Obsidian, structurer la note avec un titre de présentation, une section pa
 
 ## Slide 1
 
-Titre : L'IA, un compagnon pédagogique ?
-Sous-titre : Des exemples pratiques à mettre en œuvre
-Intervenant : Yann Houry
-Durée : 15 minutes
+Titre : [Titre de la slide]
+Sous-titre : [Sous-titre éventuel]
+Intervenant : [Nom de l'intervenant]
+Durée : [Durée de la présentation]
 
 ```bash
 # Description de la slide 1
 
-La slide affiche tous les éléments ci-dessus. La durée prend la forme d'une petite animation circulaire.
+[Description éditoriale, visuelle et narrative de la slide]
 ```
 
 ---
