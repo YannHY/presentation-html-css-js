@@ -2,8 +2,6 @@
 
 Skill pour créer, refondre et retoucher des présentations HTML interactives, éditoriales et visuellement soignées à partir de notes, d’un plan, d’une note Obsidian structurée ou d’un document source.
 
-Codex et Claude Code utilisent la même skill. Seuls diffèrent le dossier d’installation et le fichier `agents/openai.yaml`, propre à Codex et ignoré par Claude Code.
-
 ## Ce que produit la skill
 
 Le livrable principal est une **présentation web**. Elle peut inclure :
