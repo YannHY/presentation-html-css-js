@@ -1,6 +1,6 @@
 # Créer des présentations HTML interactives avec Codex et Claude Code
 
-Skill pour créer, refondre et retoucher des présentations HTML interactives, éditoriales et visuellement soignées à partir de notes, d’un plan, d’un document Markdown structuré ou d’une autre source.
+Skill pour créer et retoucher des présentations HTML interactives visuellement soignées à partir d’un document Markdown structuré.
 
 ## Ce que produit la skill
 
