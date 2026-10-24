@@ -49,7 +49,6 @@ La skill reconnaît une note structurée avec un titre de présentation, une sec
 Titre : [Titre de la slide]
 Sous-titre : [Sous-titre éventuel]
 Intervenant : [Nom de l’intervenant]
-Durée : [Durée de la présentation]
 
 ```bash
 # Description de la slide 1
