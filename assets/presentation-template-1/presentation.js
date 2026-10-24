@@ -1,5 +1,4 @@
 (() => {
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const slides = [...document.querySelectorAll('.slide')];
   const chapters = [...new Set(slides.map(slide => slide.dataset.chapter))];
   const chapterLabels = Object.fromEntries(slides.map(slide => [slide.dataset.chapter, slide.dataset.chapterLabel || slide.dataset.chapter]));
@@ -7,6 +6,7 @@
   const previousButton = document.getElementById('previous');
   const nextButton = document.getElementById('next');
   const fullscreenButton = document.getElementById('fullscreen');
+  const stage = document.getElementById('stage');
   const shortcutsToggle = document.getElementById('shortcuts-toggle');
   const shortcutsPanel = document.getElementById('keyboard-shortcuts');
   const notesToggle = document.getElementById('notes-toggle');
@@ -23,6 +23,7 @@
   let current = 0;
   let currentBuild = 1;
   let touchStartX = null;
+  let presentationModeFallback = false;
 
   try {
     storedNotes = JSON.parse(localStorage.getItem(notesStorageKey) || '{}');
@@ -101,7 +102,7 @@
   // Les apparitions ne servent qu'en projection : hors plein écran la slide se
   // montre entière, pour relire et retoucher sans dérouler les étapes.
   function buildsActifs() {
-    return (Boolean(fullscreenElement()) || Boolean(window.__presentationVideoExport)) && !reducedMotion.matches;
+    return Boolean(fullscreenElement()) || presentationModeFallback || Boolean(window.__presentationVideoExport);
   }
 
   function updateBuildState() {
@@ -181,14 +182,23 @@
     return document.fullscreenElement || document.webkitFullscreenElement || null;
   }
 
+  function fullscreenSupported() {
+    return Boolean(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen);
+  }
+
   function updateFullscreenUi() {
-    const active = Boolean(fullscreenElement());
+    const nativeActive = Boolean(fullscreenElement());
+    const active = nativeActive || presentationModeFallback;
     document.documentElement.classList.toggle('presentation-fullscreen', active);
     updateSlideScale();
     const icon = fullscreenButton.querySelector('i');
     icon.classList.toggle('fa-expand', !active);
     icon.classList.toggle('fa-compress', active);
-    fullscreenButton.setAttribute('aria-label', active ? 'Quitter le plein écran' : 'Passer en plein écran');
+    const label = active
+      ? (nativeActive ? 'Quitter le plein écran' : 'Quitter le mode présentation')
+      : (fullscreenSupported() ? 'Passer en plein écran' : 'Activer le mode présentation');
+    fullscreenButton.setAttribute('aria-label', label);
+    fullscreenButton.title = fullscreenSupported() ? 'Plein écran (F)' : 'Mode présentation (F)';
     currentBuild = 1;
     updateBuildState();
   }
@@ -238,10 +248,22 @@
     if (fullscreenElement()) {
       if (document.exitFullscreen) await document.exitFullscreen();
       else document.webkitExitFullscreen?.();
-    } else if (document.documentElement.requestFullscreen) {
-      await document.documentElement.requestFullscreen();
+    } else if (presentationModeFallback) {
+      presentationModeFallback = false;
+      updateFullscreenUi();
     } else {
-      document.documentElement.webkitRequestFullscreen?.();
+      const request = document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen;
+      if (!request) {
+        presentationModeFallback = true;
+        updateFullscreenUi();
+        return;
+      }
+      try {
+        await request.call(document.documentElement);
+      } catch (_) {
+        presentationModeFallback = true;
+        updateFullscreenUi();
+      }
     }
   });
 
@@ -257,7 +279,11 @@
     new ResizeObserver(() => updateSlideScale()).observe(stage);
   }
   document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') { closeNotes(); closeShortcuts(); closeTimerSettings(); return; }
+    if (event.key === 'Escape') {
+      closeNotes(); closeShortcuts(); closeTimerSettings();
+      if (presentationModeFallback) { presentationModeFallback = false; updateFullscreenUi(); }
+      return;
+    }
     const focused = document.activeElement;
     if (['INPUT', 'TEXTAREA', 'SELECT'].includes(focused?.tagName) || focused?.isContentEditable) return;
     // Un bouton de slide gardé au focus ne doit pas confisquer les flèches du
@@ -284,6 +310,7 @@
 
   const initial = location.hash.match(/slide-(\d+)/);
   goTo(initial ? Number(initial[1]) - 1 : 0, { updateHash: false });
+  updateFullscreenUi();
 })();
 
 /* ----------------------------------------------------------------------------

@@ -10,6 +10,8 @@ Claude Code et Codex utilisent la même skill. Seuls diffèrent le dossier d’i
 - navigation au clavier, au clic et au toucher ;
 - apparitions successives et animations narratives ;
 - notes de l’intervenant éditables d’un clic, sauvegardées localement par slide, et mode plein écran ;
+- repli mobile/tablette avec zones sûres et mode présentation lorsque le navigateur ne fournit pas le vrai plein écran ;
+- présentations multilingues fondées sur des clés stables, avec contrôle de chaque langue ;
 - minuteur optionnel par slide, avec durée réglable, pause et réinitialisation ;
 - calendriers interactifs à vues semaine, mois et année réellement navigables ;
 - trois modèles graphiques optionnels et réutilisables, dont une variante sombre ;
@@ -93,6 +95,14 @@ Ajoute une slide présentant le calendrier de l’année, avec des vues mois et 
 Ajoute un minuteur de cinq minutes sur les slides d’atelier, avec pause et remise à zéro.
 ```
 
+```text
+Traduis toute la présentation en anglais et en allemand, interface et notes comprises.
+```
+
+```text
+Adapte et vérifie la présentation pour iPhone et iPad, dans les deux orientations.
+```
+
 ## Structure
 
 ```text
@@ -113,6 +123,8 @@ Ajoute un minuteur de cinq minutes sur les slides d’atelier, avec pause et rem
 │   ├── export-video.md            export MP4 avec animations réelles
 │   ├── interactive-calendar.md    vues semaine, mois et année
 │   ├── slide-timers.md            minuteur optionnel par slide
+│   ├── multilingual-presentations.md  localisation complète et vérification
+│   ├── mobile-and-tablet.md        repli étroit, zones sûres et plein écran
 │   ├── presentation-model-1.md
 │   ├── presentation-model-2.md
 │   └── presentation-model-3.md

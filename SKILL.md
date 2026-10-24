@@ -27,6 +27,8 @@ Ne jamais laisser une préférence générique de la skill remplacer une instruc
 - **Export vidéo** : ne produire une vidéo que sur demande explicite et lire [references/export-video.md](references/export-video.md). Enregistrer la présentation exécutée dans Chromium avec Playwright, puis encoder en MP4 avec FFmpeg. Ne jamais substituer des captures fixes aux animations réelles.
 - **Calendrier ou programme daté** : lire [references/interactive-calendar.md](references/interactive-calendar.md) avant de composer une vue calendaire, un agenda ou une frise de rendez-vous.
 - **Minuteur sur une ou plusieurs slides** : lire [references/slide-timers.md](references/slide-timers.md). Utiliser le composant optionnel des modèles seulement sur les slides demandées.
+- **Présentation multilingue ou ajout d'une langue** : lire [references/multilingual-presentations.md](references/multilingual-presentations.md). Traduire depuis des clés stables, jamais par remplacements successifs dans le texte déjà rendu, puis vérifier chaque langue séparément.
+- **Téléphone, tablette ou problème de plein écran** : lire [references/mobile-and-tablet.md](references/mobile-and-tablet.md). Le repli étroit est une composition à part entière ; tester les collisions, le défilement, les zones sûres et les capacités réelles du navigateur.
 - **Insertion ou suppression de slide** : lire la section correspondante de [references/verification-mesuree.md](references/verification-mesuree.md). Les identifiants doivent rester contigus et des sélecteurs CSS visent des slides par leur numéro.
 - **Modèle 1** : lorsque l'utilisateur demande ce modèle ou qu'une présentation existante emploie déjà son fond cadrillé, sa palette bleu-vert et sa barre inférieure, lire [references/presentation-model-1.md](references/presentation-model-1.md). Pour une nouvelle présentation, copier `assets/presentation-template-1/` puis remplacer le contenu d'exemple. Ne jamais appliquer ce modèle par défaut à un autre projet.
 - **Modèle 2** : lorsque l'utilisateur demande ce modèle, ou qu'une présentation existante emploie déjà son cambré institutionnel en pleine hauteur sur le bord gauche et ses deux bleus `#0b4295` et `#006eb7`, lire [references/presentation-model-2.md](references/presentation-model-2.md). Pour une nouvelle présentation, copier `assets/presentation-template-2/` puis remplacer le contenu d'exemple et le logo. Ne jamais appliquer ce modèle par défaut à un autre projet.
@@ -64,13 +66,13 @@ Pour une création ou une refonte complète, inclure :
 - une navigation de chapitres adaptée à la direction visuelle ;
 - le chapitre actif et les chapitres déjà visités ;
 - un compteur et une progression discrets ;
-- des commandes précédent, suivant, notes et plein écran ;
+- des commandes précédent, suivant et notes, ainsi qu'un plein écran réel lorsqu'il est disponible ou un mode présentation explicitement nommé dans le cas contraire ;
 - un panneau de notes dont le texte devient éditable par un clic et se sauvegarde automatiquement, slide par slide, dans le stockage local du navigateur ;
 - les raccourcis `ArrowLeft`, `ArrowRight`, `PageUp`, `PageDown`, `Home`, `End`, `Space`, `F` et `Escape` ;
 - un geste horizontal sur écran tactile ;
 - un focus visible, des noms accessibles et une URL ou un hash stable.
 
-Ne jamais afficher un contrôle factice. Tout bouton, menu, sélecteur, bouton de lecture, filtre ou chevron doit fonctionner réellement ; sinon le supprimer ou le traiter comme un élément statique sans affordance interactive. Utiliser Font Awesome 6 ou des SVG cohérents pour les commandes compactes, avec `aria-label` et infobulle.
+Ne jamais afficher un contrôle factice. Tout bouton, menu, sélecteur, bouton de lecture, filtre ou chevron doit fonctionner réellement ; sinon le supprimer ou le traiter comme un élément statique sans affordance interactive. Un navigateur qui ne permet pas de masquer son chrome ne doit pas annoncer un faux « plein écran » : proposer un **mode présentation** dans le viewport et nommer honnêtement sa limite. Utiliser Font Awesome 6 ou des SVG cohérents pour les commandes compactes, avec `aria-label` et infobulle.
 
 L'édition manuelle des notes porte sur la copie locale du navigateur : elle doit mettre à jour `data-notes` dans le DOM pour la session et persister une surcharge par identifiant de slide dans `localStorage`, sans prétendre réécrire le fichier HTML source. Le champ reste en texte brut, accepte les retours à la ligne, possède un focus visible et neutralise les raccourcis de navigation tant qu'il est actif. Signaler discrètement si le stockage local est indisponible et que la modification ne durera que le temps de la session.
 
@@ -108,7 +110,7 @@ Une slide n'est pas une page web qui s'adapte : c'est une **maquette de taille f
 - Conserver le séquençage sous `prefers-reduced-motion` ; rendre seulement les transitions instantanées.
 - Ne laisser une slide entièrement statique que si elle ne contient qu'une seule unité de contenu en plus de son titre.
 - **Réserver au plein écran le séquençage, pas le mouvement.** Distinguer deux choses que l'on confond facilement :
-  - les **apparitions** — l'ordre dans lequel les unités se révèlent — restent liées au plein écran. Hors projection, tout est visible d'emblée : on relit et on retouche sans dérouler les étapes. Piloter cela par une fonction unique, `buildsActifs()`, qui exige le plein écran et l'absence de `prefers-reduced-motion`, et rejouer l'état des apparitions à l'entrée comme à la sortie du plein écran ;
+  - les **apparitions** — l'ordre dans lequel les unités se révèlent — restent liées au plein écran ou au mode présentation de repli. Hors projection, tout est visible d'emblée : on relit et on retouche sans dérouler les étapes. Piloter cela par une fonction unique, `buildsActifs()`, et rejouer l'état des apparitions à l'entrée comme à la sortie du mode. `prefers-reduced-motion` rend les transitions instantanées mais ne supprime pas les étapes ;
   - les **animations sémantiques** — un tracé qui se dessine, un flux qui circule, une simulation qui tourne — s'exécutent dès que leur slide est active, plein écran ou non. Une slide immobile quand on ouvre le fichier passe pour inachevée, et c'est l'un des reproches les plus immédiats qu'on essuie.
 - Conséquence à ne pas oublier : tout élément dont l'état initial est masqué par sa règle d'animation doit être rétabli sous `prefers-reduced-motion`, sinon il reste invisible.
 - **Rien ne doit avoir commencé avant l'arrivée sur la slide.** C'est le reproche qui revient le plus : « l'animation a déjà tourné ». Trois formes à traiter, pas seulement la première :
@@ -137,6 +139,7 @@ Une slide n'est pas une page web qui s'adapte : c'est une **maquette de taille f
 - Contrôler la précision interne des visuels et l'absence de collisions, coupes ou compressions.
 - **Mesurer la réserve verticale de chaque slide** — place disponible moins hauteur du contenu — et non `scrollHeight`, qui ne détecte pas le débordement d'un contenu centré verticalement et renvoie de faux « aucun débordement ». Procédure dans [references/verification-mesuree.md](references/verification-mesuree.md).
 - Balayer toutes les slides avec tous les builds révélés, à chaque format : `1366×768`, `1600×900`, un format bas comme `1280×720`, un très grand comme `2560×1440`, puis au moins un format étroit pertinent.
+- Si le deck doit fonctionner sur téléphone ou tablette, appliquer en plus la matrice de [references/mobile-and-tablet.md](references/mobile-and-tablet.md), dans les deux orientations pertinentes et avec le plus grand contenu réel.
 - **Exprimer la réserve en pixels de maquette** — la mesure divisée par le facteur d'échelle. Elle doit alors rester la même à toutes les tailles : une réserve qui varie d'un format à l'autre signale qu'une taille dépend encore de la fenêtre. C'est le contrôle qui prouve que le cadre tient.
 - Viser une réserve confortable et non nulle : quelques pixels de marge débordent au format immédiatement inférieur.
 
@@ -149,6 +152,7 @@ Une slide n'est pas une page web qui s'adapte : c'est une **maquette de taille f
 - Vérifier que les animations internes commencent seulement lorsque leur bloc apparaît et finissent dans un état stable.
 - Pour un export vidéo, vérifier le minutage de chaque slide, le redémarrage des animations, toutes les apparitions et le fichier MP4 final. Une animation JavaScript interactive doit déclarer son scénario ou sa durée d'export ; ne pas prétendre détecter automatiquement sa fin narrative.
 - Vérifier `prefers-reduced-motion` sans supprimer le séquençage ni le contenu.
+- Pour une présentation multilingue, refaire les contrôles de contenu, de composition et d'accessibilité dans **chaque** langue ; une validation de la langue source ne couvre pas les autres.
 - Tester clavier, tactile, hash, chapitres, compteur, notes, plein écran, focus et console. Dans les notes, vérifier le clic d'édition, les retours à la ligne, l'absence de navigation pendant la saisie, la persistance après rechargement et le repli en mémoire de session lorsque `localStorage` est indisponible.
 - Pour chaque minuteur présent, tester réglage de la durée dans le panneau inférieur, démarrage, pause, reprise, terme, réinitialisation et changement de slide. Sur la slide, seuls le décompte, son cadre compact et sa barre de progression restent visibles. Aucun intervalle ne doit continuer après la pause ou à `00:00`.
 - Pour tout contrôle ajouté, piloter réellement chaque état et vérifier qu'il ne bloque pas la navigation clavier du deck : le focus doit être relâché après un clic souris, conservé après une activation clavier.
@@ -186,6 +190,8 @@ Une slide n'est pas une page web qui s'adapte : c'est une **maquette de taille f
 - `assets/presentation-template-3/` : socle réutilisable du modèle 3.
 - [references/interactive-calendar.md](references/interactive-calendar.md) : couverture éditoriale, vues semaine, mois et année réellement navigables, lisibilité annuelle, fiches de détail, légende et décomptes.
 - [references/slide-timers.md](references/slide-timers.md) : minuteur optionnel par slide, durée réglable, pause, réinitialisation, accessibilité et arrêt hors slide.
+- [references/multilingual-presentations.md](references/multilingual-presentations.md) : dictionnaires à clés stables, couverture de l'interface et vérification de chaque langue.
+- [references/mobile-and-tablet.md](references/mobile-and-tablet.md) : repli étroit, zones sûres, plein écran mobile et matrice de vérification.
 - [references/verification-mesuree.md](references/verification-mesuree.md) : mesure de la réserve, pièges de spécificité et d'animation, renumérotation des slides, limites de l'aperçu.
 - `scripts/validate_presentation.py` : contrôle statique, avec nombre de slides attendu en option.
 - [references/export-powerpoint.md](references/export-powerpoint.md) : export `.pptx`, choix du mode, crochet de capture, durée et vérification.
