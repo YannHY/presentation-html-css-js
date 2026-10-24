@@ -12,7 +12,7 @@ Une note peut décrire la présentation sous cette forme :
 Titre : Titre projeté
 Sous-titre : Sous-titre projeté
 Intervenant : Nom de l'intervenant
-Durée : 15 minutes
+Durée : [Durée de la présentation]
 
 ```bash
 # Description de la slide 1
