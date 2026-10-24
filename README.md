@@ -6,16 +6,13 @@ Skill pour créer, refondre et retoucher des présentations HTML interactives, �
 
 Le livrable principal est une **présentation web**. Elle peut inclure :
 
-- une navigation par chapitres, clavier, clic, toucher et URL stable ;
-- des apparitions successives sans déplacement de la mise en page ;
-- des animations narratives qui commencent à l’arrivée sur leur slide ;
-- un compteur, une progression, des notes d’intervenant éditables et sauvegardées localement ;
-- un plein écran réel lorsqu’il est disponible, ou un mode présentation clairement nommé dans le cas contraire ;
-- un repli mobile et tablette avec défilement, zones sûres et commandes tactiles accessibles ;
-- plusieurs langues fondées sur des clés stables, interface et notes comprises ;
-- un minuteur optionnel par slide, avec durée réglable, pause et réinitialisation ;
-- des composants interactifs, notamment des calendriers à vues semaine, mois et année ;
-- l’un des trois modèles fournis ou une direction visuelle personnalisée ;
+- une navigation intuitive au clavier, à la souris ou au toucher ;
+- des apparitions progressives et des animations ;
+- des notes pour l’intervenant et un mode présentation ;
+- un affichage adapté aux ordinateurs, mobiles et tablettes ;
+- des présentations en plusieurs langues ;
+- des outils comme un minuteur ou un calendrier interactif ;
+- trois modèles graphiques ou une direction visuelle personnalisée ;
 - sur demande, un export **PowerPoint** et/ou une **vidéo MP4 animée**.
 
 ## Déroulement d’une création
