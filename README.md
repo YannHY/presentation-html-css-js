@@ -187,19 +187,6 @@ Adapte et vérifie la présentation pour téléphone et tablette, dans les deux 
 Exporte la présentation validée en PowerPoint et en vidéo MP4.
 ```
 
-## Validation
-
-Le validateur contrôle notamment la structure, les références internes, les conteneurs vides et, si demandé, le nombre de slides fixé par le contrat éditorial :
-
-```bash
-python3 scripts/validate_presentation.py chemin/vers/index.html \
-  --expected-slides 14
-```
-
-Ce contrôle statique ne remplace pas l’inspection dans un navigateur. Une création ou une refonte doit aussi être parcourue avec tous les builds révélés aux formats `1366 × 768`, `1600 × 900`, `1280 × 720`, `2560 × 1440` et dans les formats étroits pertinents. Il faut également vérifier le clavier, le tactile, les langues, les notes, le plein écran ou mode présentation, le focus et la console.
-
-Pour une retouche ciblée, la skill compare la slide avant et après au même viewport, contrôle les slides voisines et confirme que seuls les éléments demandés ont changé.
-
 ## Minuteur par slide
 
 Le minuteur est activé uniquement sur les slides qui en ont besoin. L’intervenant choisit la durée depuis un panneau ouvert par le bouton horloge, puis peut démarrer, mettre en pause, reprendre ou réinitialiser le décompte.
