@@ -1,4 +1,4 @@
-# Create Interactive HTML Presentations — pour Codex et Claude Code
+# Créer des présentations HTML interactives avec Codex et Claude Code
 
 Skill pour créer, refondre et retoucher des présentations HTML interactives, éditoriales et visuellement soignées à partir de notes, d’un plan, d’une note Obsidian structurée ou d’un document source.
 
