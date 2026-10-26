@@ -23,7 +23,7 @@ Ne jamais laisser une préférence générique de la skill remplacer une instruc
 - **Création ou refonte** : lire [references/editorial-contract.md](references/editorial-contract.md) et [references/design-language.md](references/design-language.md) avant de coder.
 - **Retouche ciblée** : lire [references/targeted-edits.md](references/targeted-edits.md). Lire aussi `design-language.md` seulement si la demande redessine ou ajoute un composant.
 - **Modification mêlant contenu et mise en scène** : appliquer les trois références.
-- **Export PowerPoint** : le livrable par défaut de cette skill est une **page web**. Ne produire un `.pptx` que sur demande explicite, et lire alors [references/export-powerpoint.md](references/export-powerpoint.md). Employer le mode `images`, fidèle, qui capture chaque état ; ne proposer le mode `natif` que pour un deck purement textuel, car il ne porte que du texte et vide une présentation visuelle.
+- **Export PowerPoint** : le livrable par défaut de cette skill est une **page web**. Ne produire un `.pptx` que sur demande explicite, et lire alors [references/export-powerpoint.md](references/export-powerpoint.md). Employer le mode `images`, fidèle, qui produit par défaut **une slide PowerPoint par slide web** dans un état statique final lisible. Ne développer les builds en plusieurs slides qu'à la demande explicite de l'utilisateur. Ne proposer le mode `natif` que pour un deck purement textuel, car il ne porte que du texte et vide une présentation visuelle.
 - **Export vidéo** : ne produire une vidéo que sur demande explicite et lire [references/export-video.md](references/export-video.md). Enregistrer la présentation exécutée dans Chromium avec Playwright, puis encoder en MP4 avec FFmpeg. Ne jamais substituer des captures fixes aux animations réelles.
 - **Calendrier ou programme daté** : lire [references/interactive-calendar.md](references/interactive-calendar.md) avant de composer une vue calendaire, un agenda ou une frise de rendez-vous.
 - **Minuteur sur une ou plusieurs slides** : lire [references/slide-timers.md](references/slide-timers.md). Utiliser le composant optionnel des modèles seulement sur les slides demandées.
@@ -97,6 +97,7 @@ Lors d'une retouche, préserver le contrat d'interface existant sauf demande exp
 - Suspendre les animations hors de la slide active.
 - Maintenir une géométrie fixe pendant les apparitions afin d'éviter les sauts de mise en page.
 - Ne pas introduire de dépendance distante indispensable à une présentation locale sans fallback.
+- **Arrêter les connecteurs au bord des nœuds.** Une ligne reliant des cartes, cercles ou pastilles ne doit pas traverser leur surface en comptant seulement sur le `z-index` pour être masquée. Calculer ou raccourcir ses extrémités jusqu'au contour visible, puis vérifier le résultat aplati.
 - **Plafonner la largeur de tout SVG en ligne placé dans une colonne.** Un `viewBox` dont le rapport diffère de celui de sa colonne se dilate : 400×360 dans une colonne de 660 px donne 594 px de haut et fait déborder la slide. Poser un `max-width` en même temps que la figure, pas après la mesure.
 - **N'écrire aucun sélecteur visant un numéro de slide.** Ni `#slide-7` en CSS, ni `'#slide-7'` en JavaScript : passer par des classes et des identifiants porteurs de sens. C'est ce qui rend une insertion ou un réordonnancement de slides sans danger, alors que la renumérotation la plus soigneuse finit par casser une règle oubliée.
 - **Appliquer la typographie française au texte projeté** : espace fine insécable avant `?`, `!` et `;`, espace insécable avant `:`, et à l'intérieur des guillemets français. Attention en revanche à ne pas passer un remplacement global sur le JavaScript : `a ? b : c` y survivrait mal. Traiter le balisage en bloc, les chaînes du script une par une.
@@ -185,6 +186,9 @@ Une slide n'est pas une page web qui s'adapte : c'est une **maquette de taille f
 ### Régression
 
 - Capturer toutes les slides lors d'une création ou refonte.
+- Pour un export PowerPoint, inspecter visuellement **chaque slide exportée**, et pas seulement la plus riche. Vérifier séparément les slides avec builds, SVG transformés, Canvas, WebGL, conversations temporisées et connecteurs superposés.
+- Déterminer l'état final d'une slide à partir de tous ses `data-build`, y compris ceux des conteneurs visuels. Pour une conversation temporisée, exporter une composition fixe montrant les messages utiles, sans indicateur de saisie.
+- En mode export, ramener durées et délais d'animation à un état quasi instantané, sans supprimer globalement `transform`, `translate`, `scale` ou `rotate` : ces propriétés peuvent porter la mise en page du SVG ou du diagramme.
 - Pour une retouche, capturer la slide avant/après au même viewport et contrôler les slides voisines.
 - Confirmer que seuls les éléments autorisés ont changé.
 - Ne jamais déclarer un résultat « vérifié » sans l'avoir effectivement ouvert et inspecté dans un navigateur.

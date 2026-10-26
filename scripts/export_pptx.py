@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
-"""Exporte une présentation HTML de cette skill vers un PowerPoint natif éditable.
+"""Exporte une présentation HTML de cette skill vers PowerPoint.
 
 Le mode par défaut de la skill reste la page web. Cet export est une option,
 à n'utiliser que sur demande explicite.
 
-Le .pptx produit contient de vraies formes PowerPoint — titres, surtitres,
-cartes, listes, notes — modifiables par le destinataire. La contrepartie est
-assumée : ce qui relève du rendu web (SVG, trames, calendrier interactif,
-animations, icônes de police) ne peut pas être reproduit nativement. Ces
-éléments sont signalés dans le rapport d'export, jamais supprimés en silence.
+Le mode images produit par défaut une slide PowerPoint par slide web, dans un
+état statique final. Le mode natif contient de vraies formes PowerPoint —
+titres, surtitres, cartes, listes, notes — modifiables par le destinataire. Sa
+contrepartie est assumée : ce qui relève du rendu web (SVG, trames, calendrier
+interactif, animations, icônes de police) ne peut pas être reproduit nativement.
+Ces éléments sont signalés dans le rapport d'export, jamais supprimés en silence.
 
-Une slide est émise par étape d'apparition, afin de préserver le déroulé.
+Les étapes d'apparition ne deviennent des slides distinctes qu'avec
+--expand-builds.
 
 Usage :
     python3 scripts/export_pptx.py chemin/vers/index.html -o sortie.pptx
@@ -269,6 +271,7 @@ def parse_deck(path):
         scope = Node("#scope")
         scope.children = [c for c in inner.children if c is not head]
         units = collect_units(scope, skipped)
+        build_orders = [build_of(n) for n in sec.find_all(lambda n: build_of(n) is not None)]
         slides.append({
             "id": sec.attrs.get("id", ""),
             "cover": sec.has("cover-slide"),
@@ -279,6 +282,10 @@ def parse_deck(path):
             "heading": heading.inner_text() if heading else "",
             "notes": html.unescape(sec.attrs.get("data-notes", "")),
             "units": units,
+            # Le plan de capture doit suivre le DOM complet, pas seulement les
+            # unités textuelles retenues par le mode natif. Un build porté par
+            # un SVG, un canvas ou un conteneur visuel serait sinon ignoré.
+            "build_max": max(build_orders or [1]),
             "skipped": skipped,
         })
     return slides, read_palette(css)
@@ -341,7 +348,7 @@ def card(slide, left, top, width, height, unit, pal):
             unit["body"], 12, pal["muted"], spacing=1.25)
 
 
-def render(slides, pal, out, expand_builds=True, report=None):
+def render(slides, pal, out, expand_builds=False, report=None):
     report = report if report is not None else []
     prs = Presentation()
     prs.slide_width, prs.slide_height = W, H
@@ -442,11 +449,21 @@ CROCHET = """
   .stage { inset: 0 !important; }
   :root { --swash-w: calc(100vh * 830 / 3508) !important; }
   .slide, .build-step { transition: none !important; }
+  .powerpoint-export .slide.active *,
+  .powerpoint-export .slide.active *::before,
+  .powerpoint-export .slide.active *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0ms !important;
+    transition-delay: 0ms !important;
+  }
 </style>
 <script>
   addEventListener('load', () => {
     const p = new URLSearchParams(location.search);
     const s = Number(p.get('s') || 1), b = Number(p.get('b') || 1);
+    document.documentElement.classList.add('powerpoint-export');
     const slides = [...document.querySelectorAll('.slide')];
     slides.forEach(x => x.classList.remove('active'));
     const cur = slides[s - 1];
@@ -455,6 +472,17 @@ CROCHET = """
     cur.querySelectorAll('[data-build]').forEach(el => {
       el.classList.toggle('is-visible', Number(el.dataset.build) <= b);
     });
+    // Les conversations temporisées ont besoin d'une représentation fixe :
+    // afficher tous les messages utiles et supprimer les indicateurs de saisie.
+    cur.querySelectorAll('[data-chat-step]').forEach(el => {
+      const typing = el.classList.contains('chat-typing') || el.hasAttribute('data-chat-typing');
+      el.classList.toggle('is-shown', !typing);
+      el.setAttribute('aria-hidden', String(typing));
+    });
+    cur.dispatchEvent(new CustomEvent('presentation:export', {
+      bubbles: true,
+      detail: { slide: cur, index: s, build: b, format: 'pptx' }
+    }));
   });
 </script>
 """
@@ -477,14 +505,14 @@ def etats(slides, raw, expand):
     """Liste (index de slide, étape) à capturer, dans l'ordre de la présentation."""
     out = []
     for i, s in enumerate(slides, 1):
-        ordres = sorted({u["order"] for u in s["units"]})
-        etapes = [1] + [o for o in ordres if o > 1] if expand else [max(ordres or [1])]
+        maximum = s.get("build_max", 1)
+        etapes = list(range(1, maximum + 1)) if expand else [maximum]
         for e in dict.fromkeys(etapes):
             out.append((i, e))
     return out
 
 
-def render_images(source, slides, out, expand=True, largeur=1600, echelle=2, garder=False):
+def render_images(source, slides, out, expand=False, largeur=1600, echelle=2, garder=False):
     import subprocess
     import tempfile
     chrome = trouver_chrome()
@@ -505,7 +533,10 @@ def render_images(source, slides, out, expand=True, largeur=1600, echelle=2, gar
         blank = prs.slide_layouts[6]
         for n, (idx, etape) in enumerate(plan, 1):
             png = dossier / f"{n:03d}.png"
-            subprocess.run([chrome, "--headless", "--disable-gpu", "--hide-scrollbars",
+            subprocess.run([chrome, "--headless", "--hide-scrollbars",
+                            "--use-angle=swiftshader-webgl",
+                            "--enable-unsafe-swiftshader",
+                            "--ignore-gpu-blocklist",
                             f"--force-device-scale-factor={echelle}",
                             f"--window-size={largeur},{hauteur}",
                             "--virtual-time-budget=3000", f"--screenshot={png}",
@@ -533,13 +564,15 @@ def render_images(source, slides, out, expand=True, largeur=1600, echelle=2, gar
 # -------------------------------------------------------------------- main
 
 def main():
-    ap = argparse.ArgumentParser(description="Exporte une présentation HTML vers un .pptx natif éditable.")
+    ap = argparse.ArgumentParser(description="Exporte une présentation HTML vers un .pptx.")
     ap.add_argument("source", type=Path)
     ap.add_argument("-o", "--output", type=Path)
-    ap.add_argument("--final-only", action="store_true",
-                    help="une slide par slide web, apparitions aplaties")
+    builds = ap.add_mutually_exclusive_group()
+    builds.add_argument("--expand-builds", action="store_true",
+                        help="une slide PowerPoint par étape d'apparition")
+    builds.add_argument("--final-only", action="store_true", help=argparse.SUPPRESS)
     ap.add_argument("--mode", choices=("images", "natif"), default="images",
-                    help="images : capture fidèle de chaque état (défaut). "
+                    help="images : capture fidèle de l'état final de chaque slide (défaut). "
                          "natif : formes PowerPoint éditables, mais les visuels "
                          "construits en CSS ou SVG sont perdus.")
     ap.add_argument("--largeur", type=int, default=1600, help="largeur de capture, mode images")
@@ -555,15 +588,16 @@ def main():
         sys.exit("aucune slide trouvée : ce fichier vient-il de cette skill ?")
 
     if args.mode == "images":
-        made = render_images(args.source, slides, out, expand=not args.final_only,
+        made = render_images(args.source, slides, out, expand=args.expand_builds,
                              largeur=args.largeur, echelle=args.echelle)
         print(f"{out}")
-        print(f"  {len(slides)} slides web  ->  {made} slides PowerPoint, une image par état")
+        unite = "état" if args.expand_builds else "slide"
+        print(f"  {len(slides)} slides web  ->  {made} slides PowerPoint, une image par {unite}")
         print(f"  capture {args.largeur}x{round(args.largeur * 9 / 16)} au facteur {args.echelle}")
         print("  rendu fidèle ; les textes ne sont pas éditables dans PowerPoint")
         return
 
-    made, report = render(slides, pal, out, expand_builds=not args.final_only)
+    made, report = render(slides, pal, out, expand_builds=args.expand_builds)
 
     print(f"{out}")
     print(f"  {len(slides)} slides web  ->  {made} slides PowerPoint")

@@ -201,14 +201,14 @@ L’export `.pptx` est optionnel et intervient après validation de la présenta
 
 ### Mode images, recommandé
 
-Chaque état d’apparition est capturé par Chrome, Chromium ou Edge et placé en pleine page. Le rendu reste fidèle au web — SVG, calendriers, trames, dégradés et icônes — et les notes sont conservées. En contrepartie, les textes ne sont pas éditables et le fichier est plus lourd.
+Chaque slide web est capturée par Chrome, Chromium ou Edge dans un état statique final et placée en pleine page. Le rendu reste fidèle au web — SVG, calendriers, trames, dégradés, Canvas, WebGL et icônes — et les notes sont conservées. En contrepartie, les textes ne sont pas éditables.
 
 ```bash
 pip install --user python-pptx
 python3 scripts/export_pptx.py chemin/vers/index.html -o sortie.pptx
 ```
 
-Une slide PowerPoint est produite par étape d’apparition. L’option `--final-only` conserve uniquement l’état final de chaque slide. `--largeur` et `--echelle` règlent la capture.
+Une slide PowerPoint est produite par slide web. L’option `--expand-builds` développe explicitement les étapes d’apparition en slides distinctes. `--largeur` et `--echelle` règlent la capture.
 
 ### Mode natif, pour les decks textuels
 
