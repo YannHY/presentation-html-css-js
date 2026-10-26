@@ -203,9 +203,17 @@ L’export `.pptx` est optionnel et intervient après validation de la présenta
 
 Chaque slide web est capturée par Chrome, Chromium ou Edge dans un état statique final et placée en pleine page. Le rendu reste fidèle au web — SVG, calendriers, trames, dégradés, Canvas, WebGL et icônes — et les notes sont conservées. En contrepartie, les textes ne sont pas éditables.
 
+Prérequis : `python-pptx`, et Chrome, Chromium ou Edge installé sur le poste. Le script cherche le navigateur aux emplacements système habituels ; le Chromium téléchargé par Playwright pour l’export vidéo ne convient pas.
+
 ```bash
 pip install --user python-pptx
 python3 scripts/export_pptx.py chemin/vers/index.html -o sortie.pptx
+```
+
+Si `pip` refuse l’installation avec `externally-managed-environment` — le cas d’un Python installé par Homebrew ou par la distribution — ajouter `--break-system-packages`. Combiné à `--user`, le paquet va dans le dossier personnel et le `site-packages` du système reste intact :
+
+```bash
+pip install --user --break-system-packages python-pptx
 ```
 
 Une slide PowerPoint est produite par slide web. L’option `--expand-builds` développe explicitement les étapes d’apparition en slides distinctes. `--largeur` et `--echelle` règlent la capture.
@@ -224,13 +232,15 @@ Ce mode produit des formes et textes PowerPoint éditables, mais ne reproduit pa
 
 L’export vidéo enregistre la présentation réellement exécutée dans Chromium. Il conserve les animations CSS, SVG et JavaScript, les apparitions successives et les changements de slide ; ce n’est pas un assemblage de captures fixes.
 
-Prérequis : Playwright, Chromium et FFmpeg.
+Prérequis : Playwright, Chromium et FFmpeg. La remarque ci-dessus sur `externally-managed-environment` vaut aussi pour Playwright.
 
 ```bash
-pip install playwright
-playwright install chromium
+pip install --user playwright
+python3 -m playwright install chromium
 ffmpeg -version
 ```
+
+Installé avec `--user`, l’exécutable `playwright` atterrit dans un dossier absent du `PATH` : passer par `python3 -m playwright` évite un `command not found`.
 
 Contrôler d’abord la chronologie :
 
